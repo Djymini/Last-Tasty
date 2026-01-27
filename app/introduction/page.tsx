@@ -1,4 +1,5 @@
 import {Button} from "@/components/ui/8bit/button";
+import styles from "./page.module.css";
 
 
 
@@ -33,11 +34,11 @@ export default function Home() {
 
                         ce manoir ne te laissera pas sortir sans la combinaison.`;
     return (
-        <div className="page">
-            <div className="background">
-                <div className="overlay"/>
+        <div className={styles.page}>
+            <div className={styles.background}>
+                <div className={styles.overlay}/>
             </div>
-            <div className="content">
+            <div className={styles.content}>
                 <h1>Introduction ...</h1>
                 <p style={{whiteSpace: "pre-line"}}>
                     {texte}
