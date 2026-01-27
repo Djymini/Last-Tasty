@@ -1,7 +1,8 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {InfoBubble} from "../../components/ui/InfoBubble";
+import Image from "next/image";
+import { InfoBubble } from "../../components/ui/InfoBubble";
 
 export default function LivingRoomPage() {
     const router = useRouter();
@@ -98,6 +99,7 @@ export default function LivingRoomPage() {
             </div>
 
             <div
+                className="bottom-nav"
                 onClick={() => router.push("/hall")}
                 style={{
                     position: "absolute",
@@ -106,8 +108,29 @@ export default function LivingRoomPage() {
                     width: "100%",
                     height: "25%",
                     cursor: "pointer",
+                    display: "flex",
+                    alignItems: "flex-end",
+                    justifyContent: "center",
+                    paddingBottom: "24px",
+                    zIndex: 15,
                 }}
-            />
+            >
+                <Image
+                    src="/arrow-down.png"
+                    width={60}
+                    height={60}
+                    alt="Descendre"
+                    className="arrow"
+                />
+
+
+
+
+            </div>
         </main>
+
+
     );
+
 }
+
