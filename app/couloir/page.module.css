@@ -1,1 +1,14 @@
-.
+.page {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+
+    background-image: url("../../public/couloirIMG.png");
+    background-size: cover;
+    background-position: center;
+}
