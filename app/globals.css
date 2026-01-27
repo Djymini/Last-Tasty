@@ -128,4 +128,12 @@ html {
   }
 }
 
+body {
+    font-family: var(--font-pressStart), sans-serif;
+}
+
+h1{
+    font-size: 40px;
+    color: white;
+}
 
