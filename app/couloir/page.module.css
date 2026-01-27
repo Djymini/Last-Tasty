@@ -1,0 +1,99 @@
+/*image de fond*/
+
+
+.page {
+    height: 100vh;
+    overflow: hidden;
+}
+
+.background {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+
+    background-image: url("../../public/couloirIMG.png");
+    background-size: cover;
+    background-position: center;
+}
+
+
+/*conteneur div porte */
+
+
+.doors {
+    top: 5vh;
+    position: absolute;
+    width: 100vw;
+    height: 80vh;
+}
+
+
+/*door:hover*/
+
+
+.door1:hover {
+    cursor: pointer;
+
+}
+
+.door2:hover {
+    cursor: pointer;
+}
+
+.door3:hover {
+    cursor: pointer;
+}
+
+.door4:hover {
+    cursor: pointer;
+}
+
+.door5:hover {
+    cursor: pointer;
+}
+
+
+/*door*/
+
+
+.door1 {
+    position: absolute;
+    top: 7vh;
+    left: 12vw;
+    width: 9vw;
+    height: 75vh;
+}
+
+.door2 {
+    position: absolute;
+    top: 18vh;
+    left: 28vw;
+    width: 6vw;
+    height: 51vh;
+}
+
+.door3 {
+    position: absolute;
+    top: 24vh;
+    left:43vw;
+    width: 14vw;
+    height: 37vh;
+}
+
+.door4 {
+    position: absolute;
+    top: 18vh;
+    right: 28vw;
+    width: 6vw;
+    height: 51vh;
+}
+
+.door5 {
+    position: absolute;
+    top: 7vh;
+    right: 12vw;
+    width: 9vw;
+    height: 75vh;
+}
+
+
