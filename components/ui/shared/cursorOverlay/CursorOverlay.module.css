@@ -32,3 +32,30 @@
     height: 46px;
     transform-origin: center;
 }
+
+@keyframes bounce-vertical {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes bounce-horizontal {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-6px);
+    }
+}
+
+.bounceVertical {
+    animation: bounce-vertical 1s ease-in-out infinite;
+}
+
+.bounceHorizontal {
+    animation: bounce-horizontal 1s ease-in-out infinite;
+}
+

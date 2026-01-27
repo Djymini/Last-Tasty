@@ -14,6 +14,7 @@ type Props = {
 };
 
 export default function CursorOverlay({ visible, x, y, dir, label }: Props) {
+    const isVertical = dir === "up" || dir === "down";
     const rotation =
         dir === "down"
             ? "rotate(0deg)"
@@ -33,7 +34,11 @@ export default function CursorOverlay({ visible, x, y, dir, label }: Props) {
         >
             <div className={styles.wrapper}>
                 <p className={styles.label}>{label}</p>
-                <div className={styles.arrow} style={{ transform: rotation }}>
+                <div
+                    className={`${styles.arrow} ${
+                        isVertical ? styles.bounceVertical : styles.bounceHorizontal
+                    }`}
+                >
                     <Image
                         src="/arrow-down.png"
                         alt=""
@@ -41,6 +46,7 @@ export default function CursorOverlay({ visible, x, y, dir, label }: Props) {
                         height={46}
                         draggable={false}
                         unoptimized
+                        style={{ transform: rotation, transformOrigin: "center" }}
                     />
                 </div>
             </div>
