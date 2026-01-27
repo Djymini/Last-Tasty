@@ -2,6 +2,7 @@ import {Button} from "@/components/ui/8bit/button";
 
 
 
+
 export default function Home() {
     const texte = `Une commande arrive sur ton téléphone.
 
@@ -34,14 +35,15 @@ export default function Home() {
     return (
         <div className="page">
             <div className="background">
-                <div className="overlay" />
+                <div className="overlay"/>
             </div>
-
             <div className="content">
                 <h1>Introduction ...</h1>
-                    <p style={{ whiteSpace: "pre-line" }}>
-                        {texte}
-                    </p>
+                <p style={{whiteSpace: "pre-line"}}>
+                    {texte}
+                </p>
+
+                <Button variant={"outline"}>Commencer</Button>
             </div>
         </div>
     );
