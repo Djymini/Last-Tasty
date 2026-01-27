@@ -1,3 +1,6 @@
+/*image de fond*/
+
+
 .page {
     height: 100vh;
     overflow: hidden;
@@ -12,6 +15,10 @@
     background-size: cover;
     background-position: center;
 }
+
+
+/*conteneur div porte */
+
 
 .doors {
     top: 5vh;
@@ -57,9 +64,11 @@
 }
 
 .door2 {
-
-    width: 15vw;
-    height: 60vh;
+    position: absolute;
+    top: 18vh;
+    left: 28vw;
+    width: 6vw;
+    height: 51vh;
 }
 
 .door3 {
@@ -71,8 +80,11 @@
 }
 
 .door4 {
-    width: 15vw;
-    height: 60vh;
+    position: absolute;
+    top: 18vh;
+    right: 28vw;
+    width: 6vw;
+    height: 51vh;
 }
 
 .door5 {
