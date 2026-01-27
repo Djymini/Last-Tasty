@@ -115,10 +115,6 @@
   --sidebar-ring: oklch(0.556 0 0);
 }
 
-html {
-  font-size: 16px;
-}
-
 @layer base {
   * {
     @apply border-border outline-ring/50;
@@ -128,8 +124,12 @@ html {
   }
 }
 
+body {
+    font-family: var(--font-pressStart), sans-serif;
+}
 
-
-
-
+h1{
+    font-size: 40px;
+    color: white;
+}
 
