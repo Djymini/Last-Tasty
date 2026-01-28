@@ -1,3 +1,6 @@
+html {
+    font-size: 1.5rem;
+}
 .page {
     height: 100vh;
     overflow: hidden;
@@ -8,7 +11,7 @@
     inset: 0;
     z-index: 0;
 
-    background-image: url("../../public/rooms/introductionIMG.png");
+    background-image: url("../../public/introduction.png");
     background-size: cover;
     background-position: center;
 }
@@ -22,21 +25,32 @@
 .content {
     position: relative;
     z-index: 1;
-
     height: 100vh;
     overflow-y: auto;
 
     text-align: center;
 
     padding: 4rem;
-    color: white;
+
+}
+
+.content h1 {
+    color: #D6D6D6;
+
 }
 
 .content p {
+    margin-top: 2rem;
     margin-bottom: 1rem;
+    color: #D6D6D6;
 }
 
 .content Button {
-    margin-bottom: 40vh;
+    margin-bottom: 8vh;
     padding: 1em;
+}
+
+.content Button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer;
 }

@@ -1,0 +1,29 @@
+.main {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../../public/rooms/master-room.png");
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.painting {
+    position: absolute;
+    top: 2vh;
+    left: 38vw;
+    width: 24vw;
+    height: 20vh;
+    z-index: 10;
+
+}
+
+.bookmark {
+    position: absolute;
+    top: 40vh;
+    right: 19vw;
+    width: 6vw;
+    height: 10vh;
+    z-index: 10;
+    cursor: pointer;
+}
