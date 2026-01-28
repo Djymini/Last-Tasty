@@ -15,7 +15,6 @@
     width: 45%;
     height: 45%;
     z-index: 10;
-    background-color: red;
 }
 
 .book {
@@ -26,5 +25,4 @@
     height: 19%;
     z-index: 10;
     cursor: pointer;
-    background-color: red;
 }
