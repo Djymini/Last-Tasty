@@ -8,7 +8,7 @@ export default function EastCorridorPage() {
         <main style={{
                  position: "relative",
                  height: "100vh",
-                 backgroundImage: `url("/couloir.png")`,
+                 backgroundImage: `url("/rooms/couloir.png")`,
                  backgroundSize: "cover",
                  backgroundPosition: "center",
                  overflow: "hidden",
