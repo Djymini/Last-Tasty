@@ -34,8 +34,15 @@ export function InfoBubble({
             }}
         >
             <Alert className="w-full">
-                <AlertTitle>{title}</AlertTitle>
-                <AlertDescription>{description}</AlertDescription>
+                <AlertTitle
+                    className="!block !whitespace-normal !overflow-visible !text-clip !break-words !leading-[1.3] !mb-2"
+                >
+                    {title}
+                </AlertTitle>
+
+                <AlertDescription className="!block !whitespace-normal !break-words !leading-[1.35]">
+                    {description}
+                </AlertDescription>
             </Alert>
         </div>
     );
