@@ -58,13 +58,15 @@ export default function GardenPage() {
             className: styles.zone2,
             bubble: (
                 <InfoBubble
-                    title="Une lanterne allumée"
-                    description="Elle éclaire encore le jardin, malgré la nuit."
-                    top="120%"
-                    left="50%"
+                    title="Un vieux papier"
+                    description="Malheureusement le texte est illisible."
+                    top="-100%"
+                    left="-150%"
+                    width="320px"
                 />
             ),
         },
+
         {
             id: 5,
             className: styles.zone3,
@@ -115,19 +117,18 @@ export default function GardenPage() {
                 <div
                     key={z.id}
                     className={`${styles.zone} ${z.className}`}
-                    onMouseEnter={() => setOpen(z.id)}
-                    onMouseLeave={() => setOpen(null)}
+                    onClick={() => show(z.id)}
+                    role="button"
                 >
                     {open === z.id && z.bubble}
                 </div>
             ))}
 
-
             <InteractiveZone
-                top= "75%"
-                left= "30%"
-                width= "40%"
-                height= "25%"
+                top= "65%"
+                left= "33%"
+                width= "35%"
+                height= "35%"
                 label="Vers le hall"
                 dir="down"
                 onEnter={showCursor}
