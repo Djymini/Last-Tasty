@@ -5,6 +5,7 @@ import { useState } from "react";
 import styles from "./page.module.css";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
+import {InfoBubble} from "@/components/ui/shared/InfoBubble";
 
 type CursorDir = "up" | "left" | "right" | "down";
 
@@ -25,6 +26,8 @@ export default function HallPage() {
         label: "",
     });
 
+    const [showLockedInfo, setShowLockedInfo] = useState(false);
+
     const show = (dir: CursorDir, label: string) =>
         setCursor((c) => ({ ...c, visible: true, dir, label }));
 
@@ -33,6 +36,24 @@ export default function HallPage() {
 
     const hide = () =>
         setCursor((c) => ({ ...c, visible: false, label: "" }));
+
+    const openLockedDoor = (hasKey: boolean, path: string) => {
+        if (!hasKey) {
+            setShowLockedInfo(true);
+
+            window.setTimeout(() => {
+                setShowLockedInfo(false);
+            }, 2500);
+
+            return;
+        }
+
+        setShowLockedInfo(false);
+        router.push(path);
+    };
+
+    // TODO: à lier avec l'inventaire
+    const hasLibraryKey = false;
 
     return (
         <main className={styles.main}>
@@ -43,6 +64,17 @@ export default function HallPage() {
                 dir={cursor.dir}
                 label={cursor.label}
             />
+
+            {showLockedInfo && (
+                <InfoBubble
+                    top="40%"
+                    left="65%"
+                    width="280px"
+                    title="Porte verrouillée"
+                    description="La porte est verouillée."
+                    style={{ transform: "translateX(-50%)" }}
+                />
+            )}
 
             <InteractiveZone
                 top="0%"
@@ -106,7 +138,7 @@ export default function HallPage() {
                 onEnter={show}
                 onMove={move}
                 onLeave={hide}
-                onClick={() => router.push("/library")}
+                onClick={() => openLockedDoor(hasLibraryKey, "/library")}
             />
 
             <InteractiveZone
