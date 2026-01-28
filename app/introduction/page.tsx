@@ -1,10 +1,12 @@
+"use client";
+
+import { useRouter } from "next/navigation";
 import {Button} from "@/components/ui/8bit/button";
 import styles from "./page.module.css";
 
-
-
-
 export default function Home() {
+    const router = useRouter();
+
     const texte = `Une commande arrive sur ton téléphone.
 
                         Un Tasty Crousty encore chaud à livrer.
@@ -24,9 +26,12 @@ export default function Home() {
 
                         BOUM.
 
-                        . . .
-
                         La porte se referme brutalement derrière toi.
+                        
+                        
+                        . . .
+                        
+                        
                         Tu te retournes.
 
                         La poignée ne bouge pas, un boîtier est fixé au centre de la porte.
@@ -44,7 +49,7 @@ export default function Home() {
                     {texte}
                 </p>
 
-                <Button variant={"outline"}>Commencer</Button>
+                <Button variant={"outline"} onClick={() => router.push("/entrance")}>Commencer</Button>
             </div>
         </div>
     );
