@@ -34,7 +34,7 @@ export default function Home() {
         <main className={styles.bg}>
             <h1 className={styles.title}>Last Tasty</h1>
             <div className={styles.container}>
-                <Button className="bg-opacity-0">Nouvelle partie</Button>
+                <Button className="bg-opacity-0" onClick={() => router.push("/introduction")}>Nouvelle partie</Button>
                 <Dialog>
                     <DialogTrigger asChild>
                         <Button className="bg-opacity-0">Charger une partie</Button>
