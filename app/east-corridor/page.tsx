@@ -83,7 +83,7 @@ export default function EastCorridorPage() {
                 onEnter={show}
                 onMove={move}
                 onLeave={hide}
-                onClick={() => router.push("/maid-room")}
+                onClick={() => router.push("/master-room")}
             />
 
             <div className={`group ${styles.door4}`}>
