@@ -1,5 +1,5 @@
 import styles from "./page.module.css";
-export default function WestCorridorPage() {
+export default function EastCorridorPage() {
     return (
         <div className={styles.page}>
             <div className={styles.background}>
