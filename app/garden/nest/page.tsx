@@ -9,28 +9,25 @@ import { Button } from "@/components/ui/button";
 export default function NestPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [keyTaken, setKeyTaken] = useState(false);
-
     const hasLadder = searchParams.get("ladder") === "1";
 
-    // TODO: à remplacer
-    const addKeyToInventory = async () => {
+    const [open, setOpen] = useState<number | null>(null);
 
-    };
-
-    const onConfirmKey = async () => {
-        await addKeyToInventory();
-
+    const onConfirmKey = () => {
         router.push(`/garden?ladder=${hasLadder ? "1" : "0"}&key=1`);
     };
 
     return (
         <main className={styles.main}>
-            {!keyTaken && (
-                <div className={`${styles.zone} ${styles.keyZone}`} onClick={() => setKeyTaken(true)} role="button" />
+            {open !== 1 && (
+                <div
+                    className={`${styles.zone} ${styles.keyZone}`}
+                    onClick={() => setOpen(1)}
+                    role="button"
+                />
             )}
 
-            {keyTaken && (
+            {open === 1 && (
                 <InfoBubble
                     title="Objet obtenu"
                     description="Tu as obtenu une clé. Elle est ajoutée à ton inventaire."

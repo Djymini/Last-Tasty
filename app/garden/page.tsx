@@ -1,10 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import styles from "@/app/garden/page.module.css";
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import { Button } from "@/components/ui/button";
+import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
+import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
+import {useTimedOpen} from "@/app/hooks/useTimedOpen";
+import {useCursorOverlay} from "@/app/hooks/useCursorOverlay";
+
+
 
 type InventoryItem = "ladder" | "key";
 
@@ -12,7 +17,6 @@ export default function GardenPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
-    // TODO: remplacer ça
     const getInventory = (): InventoryItem[] => {
         const inv: InventoryItem[] = [];
         if (searchParams.get("ladder") === "1") inv.push("ladder");
@@ -24,52 +28,65 @@ export default function GardenPage() {
     const hasLadder = inventory.includes("ladder");
     const hasKey = inventory.includes("key");
 
-    const [open, setOpen] = useState<number | null>(null);
-    const timeoutRef = useRef<number | null>(null);
-
-    const showBubble = (id: number) => {
-        if (timeoutRef.current) {
-            window.clearTimeout(timeoutRef.current);
-            timeoutRef.current = null;
-        }
-
-        setOpen(id);
-
-        timeoutRef.current = window.setTimeout(() => {
-            setOpen(null);
-            timeoutRef.current = null;
-        }, 2500);
-    };
-
-    useEffect(() => {
-        return () => {
-            if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-        };
-    }, []);
+    const { open, setOpen, show } = useTimedOpen(2500);
+    const { cursor, show: showCursor, move, hide } = useCursorOverlay();
 
     const onNestClick = () => {
-        if (!hasLadder) {
-            showBubble(1); // trop haut
-            return;
-        }
-        setOpen(2); // échelle
+        if (!hasLadder) return show(1);
+        setOpen(2);
     };
 
     const onClimbToNest = () => {
         router.push(`/garden/nest?ladder=${hasLadder ? "1" : "0"}&key=${hasKey ? "1" : "0"}`);
     };
 
+    const zones = [
+        {
+            id: 3,
+            className: styles.zone1,
+            bubble: (
+                <InfoBubble
+                    title="Un vieux pot de fleurs"
+                    description="La terre est fraîche… quelqu’un s’en est servi récemment."
+                    top="-10%"
+                    left="-50%"
+                />
+            ),
+        },
+        {
+            id: 4,
+            className: styles.zone2,
+            bubble: (
+                <InfoBubble
+                    title="Une lanterne allumée"
+                    description="Elle éclaire encore le jardin, malgré la nuit."
+                    top="120%"
+                    left="50%"
+                />
+            ),
+        },
+        {
+            id: 5,
+            className: styles.zone3,
+            bubble: (
+                <InfoBubble
+                    title="La pleine lune"
+                    description="Sa lumière rend le jardin étrangement silencieux."
+                    top="120%"
+                    left="50%"
+                />
+            ),
+        },
+    ];
+
     return (
         <main className={styles.main}>
+            <CursorOverlay {...cursor} />
+
             {!hasKey && (
                 <div className={`${styles.zone} ${styles.nestZone}`} onClick={onNestClick} role="button">
                     {open === 1 && (
-                        <InfoBubble
-                            title="Trop haut"
-                            description="Je ne peux pas atteindre le nid."
-                            top="50%"
-                            left="100%"
-                        />
+                        <InfoBubble title="Trop haut" description="Je ne peux pas atteindre le nid." top="50%" left="100%" />
                     )}
 
                     {open === 2 && (
@@ -94,52 +111,29 @@ export default function GardenPage() {
                 </div>
             )}
 
-            <div
-                className={`${styles.zone} ${styles.zone1}`}
-                onClick={() => showBubble(3)}
-                role="button"
-            >
-                {open === 3 && (
-                    <InfoBubble
-                        title="Un vieux pot de fleurs"
-                        description="La terre est fraîche… quelqu’un s’en est servi récemment."
-                        top="-10%"
-                        left="50%"
-                    />
-                )}
-            </div>
+            {zones.map((z) => (
+                <div
+                    key={z.id}
+                    className={`${styles.zone} ${z.className}`}
+                    onClick={() => show(z.id)}
+                    role="button"
+                >
+                    {open === z.id && z.bubble}
+                </div>
+            ))}
 
-            <div
-                className={`${styles.zone} ${styles.zone2}`}
-                onClick={() => showBubble(4)}
-                role="button"
-            >
-                {open === 4 && (
-                    <InfoBubble
-                        title="Une lanterne allumée"
-                        description="Elle éclaire encore le jardin, malgré la nuit."
-                        top="120%"
-                        left="50%"
-                    />
-                )}
-            </div>
-
-            <div
-                className={`${styles.zone} ${styles.zone3}`}
-                onClick={() => showBubble(5)}
-                role="button"
-            >
-                {open === 5 && (
-                    <InfoBubble
-                        title="La pleine lune"
-                        description="Sa lumière rend le jardin étrangement silencieux."
-                        top="120%"
-                        left="50%"
-                    />
-                )}
-            </div>
-
-
+            <InteractiveZone
+                top= "75%"
+                left= "30%"
+                width= "40%"
+                height= "25%"
+                label="Vers le hall"
+                dir="down"
+                onEnter={showCursor}
+                onMove={move}
+                onLeave={hide}
+                onClick={() => router.push("/hall")}
+            />
         </main>
     );
 }
