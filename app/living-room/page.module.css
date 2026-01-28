@@ -15,7 +15,7 @@
     width: 34%;
     height: 34%;
     z-index: 10;
-    cursor: pointer;
+
 }
 
 .blueprint {
@@ -35,5 +35,5 @@
     width: 24%;
     height: 20%;
     z-index: 10;
-    cursor: pointer;
+
 }
