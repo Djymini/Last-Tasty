@@ -3,11 +3,11 @@ import {Party} from "@/domain/entities/Party";
 import {Item} from "@/domain/entities/Item";
 
 export class PartyRepository {
-    async create(sessionNumber: number, locationId?: number): Promise<Party> {
+    async create(sessionNumber: number): Promise<Party> {
         return prisma.party.create({
             data: {
                 session_number: sessionNumber,
-                id_location: locationId,
+                id_location: "hall",
             },
         });
     }
