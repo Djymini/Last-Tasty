@@ -1,6 +1,6 @@
 "use client";
 
-import {InfoBubble} from "../../components/ui/InfoBubble";
+import { InfoBubble } from "../../components/ui/InfoBubble";
 
 export default function couloir() {
     return (
@@ -12,9 +12,8 @@ export default function couloir() {
                  backgroundPosition: "center",
                  overflow: "hidden",
              }}>
-            <div>
 
-            <div className="door1"
+            <div className="group door1"
                  style={{
                      position: "absolute",
                      cursor: "pointer",
@@ -27,34 +26,8 @@ export default function couloir() {
                  }}>
                 <InfoBubble
                     title="Porte"
-                    description="Cette porte est fermée"
-                    className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
-                    style={{
-                        position: "absolute",
-
-                        top: "40%",
-
-                        width: "15vw",
-                        pointerEvents: "none",
-                    }}
-                />
-            </div>
-            </div>
-            <div className="door1"
-                 style={{
-                     position: "absolute",
-                     cursor: "pointer",
-                     top: "13vh",
-                     left: "12vw",
-                     width: "9vw",
-                     height: "75vh",
-                     zIndex: "10",
-
-                 }}>
-                <InfoBubble
-                    title="Porte"
-                    description="Cette porte est fermée"
-                    className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
+                    description="Cette porte est condamnée"
+                    className="opacity-0 transition-all duration-150 group-hover:opacity-100"
                     style={{
                         position: "absolute",
 
@@ -66,11 +39,11 @@ export default function couloir() {
                 />
             </div>
 
-            <div className="door2"
+            <div className="group door2"
                  style={{
                      position: "absolute",
                      cursor: "pointer",
-                     top: "16vh",
+                     top: "24vh",
                      left: "28vw",
                      width: "6vw",
                      height: "51vh",
@@ -92,11 +65,11 @@ export default function couloir() {
                 />
             </div>
 
-            <div className="door3"
+            <div className="group door3"
                  style={{
                      position: "absolute",
                      cursor: "pointer",
-                     top: "22vh",
+                     top: "28vh",
                      left: "43vw",
                      width: "14vw",
                      height: "37vh",
@@ -105,7 +78,7 @@ export default function couloir() {
                  }}>
                 <InfoBubble
                     title="Porte"
-                    description="Cette porte doit menée au bureau"
+                    description="Cette porte doit menée à la chambre principal"
                     className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
                     style={{
                         position: "absolute",
@@ -118,11 +91,11 @@ export default function couloir() {
                 />
             </div>
 
-            <div className="door4"
+            <div className="group door4"
                  style={{
                      position: "absolute",
                      cursor: "pointer",
-                     top: "16vh",
+                     top: "24vh",
                      right: "28vw",
                      width: "6vw",
                      height: "51vh",
@@ -131,7 +104,7 @@ export default function couloir() {
                  }}>
                 <InfoBubble
                     title="Porte"
-                    description="Cette porte doit menée au rez de chaussé"
+                    description="Cette porte est condamnée"
                     className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
                     style={{
                         position: "absolute",
@@ -143,11 +116,11 @@ export default function couloir() {
                     }}
                 />
             </div>
-            <div className="door5"
+            <div className="group door5"
                  style={{
                      position: "absolute",
                      cursor: "pointer",
-                     top: "5vh",
+                     top: "13vh",
                      right: "12vw",
                      width: "9vw",
                      height: "75vh",
@@ -156,7 +129,7 @@ export default function couloir() {
                  }}>
                 <InfoBubble
                     title="Porte"
-                    description="Cette porte doit menée à la chambre principal"
+                    description="Cette porte est condamnée"
                     className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
                     style={{
                         position: "absolute",
