@@ -1,35 +1,21 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import styles from "@/app/garden/page.module.css";
+import styles from "@/app/kitchen/page.module.css";
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
-import { Button } from "@/components/ui/button";
-
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
+import { useRouter } from "next/navigation";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
+import ScreamerOverlay from "@/components/ui/screamerOverlay/ScreamerOverlay";
 
-type InventoryItem = "ladder" | "key";
 type CursorDir = "up" | "left" | "right" | "down";
 
-export default function GardenPage() {
+export default function KitchenPage() {
     const router = useRouter();
-    const searchParams = useSearchParams();
-
-    // TODO: remplacer ça
-    const getInventory = (): InventoryItem[] => {
-        const inv: InventoryItem[] = [];
-        if (searchParams.get("ladder") === "1") inv.push("ladder");
-        if (searchParams.get("key") === "1") inv.push("key");
-        return inv;
-    };
-
-    const inventory = getInventory();
-    const hasLadder = inventory.includes("ladder");
-    const hasKey = inventory.includes("key");
-
     const [open, setOpen] = useState<number | null>(null);
     const timeoutRef = useRef<number | null>(null);
+
+    const [screamerOpen, setScreamerOpen] = useState(false);
 
     const [cursor, setCursor] = useState<{
         visible: boolean;
@@ -65,18 +51,6 @@ export default function GardenPage() {
         };
     }, []);
 
-    const onNestClick = () => {
-        if (!hasLadder) {
-            showBubble(1); // trop haut
-            return;
-        }
-        setOpen(2); // échelle
-    };
-
-    const onClimbToNest = () => {
-        router.push(`/garden/nest?ladder=${hasLadder ? "1" : "0"}&key=${hasKey ? "1" : "0"}`);
-    };
-
     const show = (dir: CursorDir, label: string) =>
         setCursor((c) => ({ ...c, visible: true, dir, label }));
 
@@ -87,6 +61,13 @@ export default function GardenPage() {
 
     return (
         <main className={styles.main}>
+            <ScreamerOverlay
+                open={screamerOpen}
+                src="screamer.png"
+                alt="Screamer"
+                onClose={() => setScreamerOpen(false)}
+            />
+
             <CursorOverlay
                 visible={cursor.visible}
                 x={cursor.x}
@@ -95,68 +76,25 @@ export default function GardenPage() {
                 label={cursor.label}
             />
 
-            {!hasKey && (
-                <div className={`${styles.zone} ${styles.nestZone}`} onClick={onNestClick} role="button">
-                    {open === 1 && (
-                        <InfoBubble
-                            title="Trop haut"
-                            description="Je ne peux pas atteindre le nid."
-                            top="50%"
-                            left="100%"
-                        />
-                    )}
+            <div
+                className={`${styles.zone} ${styles.zone1}`}
+                onClick={() => setScreamerOpen(true)}
+                role="button"
+            />
 
-                    {open === 2 && (
-                        <InfoBubble
-                            title="Échelle"
-                            description="Vous posez l'échelle. Vous pouvez atteindre le nid."
-                            top="50%"
-                            left="100%"
-                            width="340px"
-                        >
-                            <div style={{ marginTop: 12, textAlign: "right" }}>
-                                <Button
-                                    variant="outline"
-                                    className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
-                                    onClick={onClimbToNest}
-                                >
-                                    Monter au nid
-                                </Button>
-                            </div>
-                        </InfoBubble>
-                    )}
-                </div>
-            )}
+            <div className={`${styles.zone} ${styles.zone2}`} onClick={() => showBubble(2)} role="button">
+                {open === 2 && (
+                    <InfoBubble title="Un étrange document" description="Il me sera sûrement utile." top="13%" left="-180%" />
+                )}
+            </div>
 
-            <div className={`${styles.zone} ${styles.zone1}`} onClick={() => showBubble(3)} role="button">
+            <div className={`${styles.zone} ${styles.zone3}`} onClick={() => showBubble(3)} role="button">
                 {open === 3 && (
                     <InfoBubble
-                        title="Un vieux pot de fleurs"
-                        description="La terre est fraîche… quelqu’un s’en est servi récemment."
-                        top="-10%"
-                        left="-50%"
-                    />
-                )}
-            </div>
-
-            <div className={`${styles.zone} ${styles.zone2}`} onClick={() => showBubble(4)} role="button">
-                {open === 4 && (
-                    <InfoBubble
-                        title="Une lanterne allumée"
-                        description="Elle éclaire encore le jardin, malgré la nuit."
-                        top="120%"
-                        left="50%"
-                    />
-                )}
-            </div>
-
-            <div className={`${styles.zone} ${styles.zone3}`} onClick={() => showBubble(5)} role="button">
-                {open === 5 && (
-                    <InfoBubble
-                        title="La pleine lune"
-                        description="Sa lumière rend le jardin étrangement silencieux."
-                        top="120%"
-                        left="50%"
+                        title="Plusieurs rangées de bocaux"
+                        description="Je n'ose pas imaginer ce qu'il y a à l'intérieur"
+                        top="150px"
+                        left="250px"
                     />
                 )}
             </div>
@@ -166,7 +104,7 @@ export default function GardenPage() {
                 left="0%"
                 width="100%"
                 height="25%"
-                label="Retour"
+                label="Retour vers le hall"
                 dir="down"
                 onEnter={show}
                 onMove={move}

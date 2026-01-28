@@ -115,12 +115,13 @@ export default function GardenPage() {
                 <div
                     key={z.id}
                     className={`${styles.zone} ${z.className}`}
-                    onClick={() => show(z.id)}
-                    role="button"
+                    onMouseEnter={() => setOpen(z.id)}
+                    onMouseLeave={() => setOpen(null)}
                 >
                     {open === z.id && z.bubble}
                 </div>
             ))}
+
 
             <InteractiveZone
                 top= "75%"
