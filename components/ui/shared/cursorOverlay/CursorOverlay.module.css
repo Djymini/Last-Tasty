@@ -1,0 +1,61 @@
+.cursor {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 1px;
+    z-index: 9999;
+    pointer-events: none;
+}
+
+.wrapper {
+    position: absolute;
+    left: 0;
+    top: 0;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.label {
+    margin: 0 0 6px 0;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.8);
+    white-space: nowrap;
+}
+
+.arrow {
+    width: 46px;
+    height: 46px;
+    transform-origin: center;
+}
+
+@keyframes bounce-vertical {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+@keyframes bounce-horizontal {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(-6px);
+    }
+}
+
+.bounceVertical {
+    animation: bounce-vertical 1s ease-in-out infinite;
+}
+
+.bounceHorizontal {
+    animation: bounce-horizontal 1s ease-in-out infinite;
+}
+

@@ -1,0 +1,51 @@
+.backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(0, 0, 0, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.image {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}
+
+
+.closeButton {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10001;
+
+    width: 48px;
+    height: 48px;
+
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid white;
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.closeButton svg {
+    stroke: white;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+}
+
+
+.image {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    pointer-events: none;
+}

@@ -1,0 +1,28 @@
+.main {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../../public/rooms/maid-room.png");
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.bed {
+    position: absolute;
+    top: 22%;
+    left: 30%;
+    width: 40%;
+    height: 40%;
+    z-index: 10;
+}
+
+.book {
+    position: absolute;
+    bottom: 10%;
+    right: 12%;
+    width: 30%;
+    height: 18%;
+    z-index: 10;
+    cursor: pointer;
+}
