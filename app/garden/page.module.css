@@ -1,0 +1,21 @@
+.main {
+    display: flex;
+
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    background-image: url("../../public/rooms/garden/garden.png");
+    background-position: center;
+}
+
+.zone {
+    position: absolute;
+    cursor: pointer;
+}
+
+.nestZone {
+    top: 0%;
+    left: 56%;
+    width: 18%;
+    height: 18%;
+}
