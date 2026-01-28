@@ -1,0 +1,21 @@
+.zone {
+    position: absolute;
+    z-index: 10;
+    cursor: none;
+}
+
+.icon {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+}
+
+.zone:hover .icon {
+    opacity: 1;
+}
+
+.zone[style*="pointer-events: none"] {
+    cursor: default;
+}
