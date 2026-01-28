@@ -1,8 +1,9 @@
 "use client";
 
-import { InfoBubble } from "../../components/ui/InfoBubble";
 
-export default function couloir() {
+import {InfoBubble} from "../../components/ui/shared/InfoBubble";
+
+export default function EastCorridorPage() {
     return (
         <main style={{
                  position: "relative",
