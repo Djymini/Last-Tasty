@@ -86,7 +86,7 @@ export default function HallPage() {
                 onEnter={show}
                 onMove={move}
                 onLeave={hide}
-                onClick={() => router.push("/east-corridor")}
+                onClick={() => router.push("/west-corridor")}
             />
 
             <InteractiveZone
