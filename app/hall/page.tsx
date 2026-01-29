@@ -13,6 +13,8 @@ type CursorDir = "up" | "left" | "right" | "down";
 
 export default function HallPage() {
     const router = useRouter();
+    const context = usePlayerContext();
+
 
     const [cursor, setCursor] = useState<{
         visible: boolean;
