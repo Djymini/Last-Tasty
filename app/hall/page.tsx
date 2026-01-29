@@ -86,7 +86,7 @@ export default function HallPage() {
                 onEnter={show}
                 onMove={move}
                 onLeave={hide}
-                onClick={() => router.push("/west-corridor")}
+                onClick={() => router.push("/east-corridor")}
             />
 
             <InteractiveZone
@@ -166,6 +166,22 @@ export default function HallPage() {
                 onLeave={hide}
                 onClick={() => router.push("/kitchen")}
             />
+
+
+
+            <InteractiveZone
+                top="78%"
+                left="38%"
+                width="24%"
+                height="22%"
+                label="Vers l'entrée"
+                dir="down"
+                onEnter={show}
+                onMove={move}
+                onLeave={hide}
+                onClick={() => router.push("/entrance")}
+            />
+
         </main>
     );
 }

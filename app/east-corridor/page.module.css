@@ -10,29 +10,32 @@
 .door1 {
     position: absolute;
 
-    top: 13vh;
+    top: 5vh;
     left: 12vw;
     width: 9vw;
-    height: 75vh;
+    height: 88vh;
     z-index: 10;
+    cursor: pointer;
 }
 
-.door4 {
+.door2 {
     position: absolute;
 
-    top: 24vh;
+    top: 22vh;
     right: 28vw;
     width: 6vw;
-    height: 51vh;
+    height: 53vh;
     z-index: 10;
+    cursor: pointer;
 }
 
-.door5 {
+.door3 {
     position: absolute;
 
-    top: 13vh;
+    top: 5vh;
     right: 12vw;
     width: 9vw;
-    height: 75vh;
+    height: 88vh;
     z-index: 10;
+    cursor: pointer;
 }

@@ -1,63 +1,49 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import styles from "@/app/kitchen/page.module.css";
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
-import { useRouter } from "next/navigation";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import ScreamerOverlay from "@/components/ui/screamerOverlay/ScreamerOverlay";
-
-type CursorDir = "up" | "left" | "right" | "down";
+import { useTimedOpen } from "@/app/hooks/useTimedOpen";
+import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
+import { useState } from "react";
 
 export default function KitchenPage() {
     const router = useRouter();
-    const [open, setOpen] = useState<number | null>(null);
-    const timeoutRef = useRef<number | null>(null);
+
+    const { open, show } = useTimedOpen(2500);
+    const { cursor, show: showCursor, move, hide } = useCursorOverlay();
 
     const [screamerOpen, setScreamerOpen] = useState(false);
 
-    const [cursor, setCursor] = useState<{
-        visible: boolean;
-        x: number;
-        y: number;
-        dir: CursorDir;
-        label: string;
-    }>({
-        visible: false,
-        x: 0,
-        y: 0,
-        dir: "down",
-        label: "",
-    });
-
-    const showBubble = (id: number) => {
-        if (timeoutRef.current) {
-            window.clearTimeout(timeoutRef.current);
-            timeoutRef.current = null;
-        }
-
-        setOpen(id);
-
-        timeoutRef.current = window.setTimeout(() => {
-            setOpen(null);
-            timeoutRef.current = null;
-        }, 2500);
-    };
-
-    useEffect(() => {
-        return () => {
-            if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-        };
-    }, []);
-
-    const show = (dir: CursorDir, label: string) =>
-        setCursor((c) => ({ ...c, visible: true, dir, label }));
-
-    const move = (e: React.MouseEvent) =>
-        setCursor((c) => ({ ...c, x: e.clientX, y: e.clientY }));
-
-    const hide = () => setCursor((c) => ({ ...c, visible: false, label: "" }));
+    const zones = [
+        {
+            id: 2,
+            className: styles.zone2,
+            bubble: (
+                <InfoBubble
+                    title="Un étrange document"
+                    description="Il me sera sûrement utile."
+                    top="13%"
+                    left="-180%"
+                />
+            ),
+        },
+        {
+            id: 3,
+            className: styles.zone3,
+            bubble: (
+                <InfoBubble
+                    title="Plusieurs rangées de bocaux"
+                    description="Je n'ose pas imaginer ce qu'il y a à l'intérieur"
+                    top="150px"
+                    left="250px"
+                />
+            ),
+        },
+    ];
 
     return (
         <main className={styles.main}>
@@ -68,13 +54,7 @@ export default function KitchenPage() {
                 onClose={() => setScreamerOpen(false)}
             />
 
-            <CursorOverlay
-                visible={cursor.visible}
-                x={cursor.x}
-                y={cursor.y}
-                dir={cursor.dir}
-                label={cursor.label}
-            />
+            <CursorOverlay {...cursor} />
 
             <div
                 className={`${styles.zone} ${styles.zone1}`}
@@ -82,22 +62,16 @@ export default function KitchenPage() {
                 role="button"
             />
 
-            <div className={`${styles.zone} ${styles.zone2}`} onClick={() => showBubble(2)} role="button">
-                {open === 2 && (
-                    <InfoBubble title="Un étrange document" description="Il me sera sûrement utile." top="13%" left="-180%" />
-                )}
-            </div>
-
-            <div className={`${styles.zone} ${styles.zone3}`} onClick={() => showBubble(3)} role="button">
-                {open === 3 && (
-                    <InfoBubble
-                        title="Plusieurs rangées de bocaux"
-                        description="Je n'ose pas imaginer ce qu'il y a à l'intérieur"
-                        top="150px"
-                        left="250px"
-                    />
-                )}
-            </div>
+            {zones.map((z) => (
+                <div
+                    key={z.id}
+                    className={`${styles.zone} ${z.className}`}
+                    onClick={() => show(z.id)}
+                    role="button"
+                >
+                    {open === z.id && z.bubble}
+                </div>
+            ))}
 
             <InteractiveZone
                 top="75%"
@@ -106,7 +80,7 @@ export default function KitchenPage() {
                 height="25%"
                 label="Retour vers le hall"
                 dir="down"
-                onEnter={show}
+                onEnter={showCursor}
                 onMove={move}
                 onLeave={hide}
                 onClick={() => router.push("/hall")}

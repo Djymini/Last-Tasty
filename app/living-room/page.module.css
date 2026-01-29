@@ -2,10 +2,14 @@
     position: relative;
     height: 100vh;
     width: 100vw;
-    background-image: url("../../public/rooms/living-room.png");
+    background-image: url("../../public/rooms/livingRoom/living-room-with-blueprint.png");
     background-size: cover;
     background-position: center;
     overflow: hidden;
+}
+
+.blueprintTaken {
+    background-image: url("/rooms/livingRoom/living-room-without-blueprint.png");
 }
 
 .fireplace {
@@ -30,7 +34,7 @@
 
 .portrait {
     position: absolute;
-    top: 0%;
+    top: 0;
     left: 38%;
     width: 24%;
     height: 20%;
