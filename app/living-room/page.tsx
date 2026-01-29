@@ -1,94 +1,90 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import styles from "./page.module.css";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
-
-type CursorDir = "up" | "left" | "right" | "down";
+import { Button } from "@/components/ui/button";
+import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 
 export default function LivingRoomPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
 
-    const [cursor, setCursor] = useState<{
-        visible: boolean;
-        x: number;
-        y: number;
-        dir: CursorDir;
-        label: string;
-    }>({
-        visible: false,
-        x: 0,
-        y: 0,
-        dir: "down",
-        label: "",
-    });
+    const { cursor, show: showCursor, move, hide } = useCursorOverlay();
 
-    const show = (dir: CursorDir, label: string) =>
-        setCursor((c) => ({ ...c, visible: true, dir, label }));
+    const blueprintTaken = searchParams.get("blueprint") === "1";
+    const [open, setOpen] = useState<number | null>(null);
 
-    const move = (e: React.MouseEvent) =>
-        setCursor((c) => ({ ...c, x: e.clientX, y: e.clientY }));
-
-    const hide = () => setCursor((c) => ({ ...c, visible: false, label: "" }));
+    const onTakeBlueprint = () => {
+        router.push("/living-room?blueprint=1");
+    };
 
     return (
-        <main className={styles.main}>
-            <CursorOverlay
-                visible={cursor.visible}
-                x={cursor.x}
-                y={cursor.y}
-                dir="down"
-                label="Retour vers le hall"
-            />
+        <main className={`${styles.main} ${blueprintTaken ? styles.blueprintTaken : ""}`}>
+            <CursorOverlay {...cursor} />
 
-
-            <div className={`group ${styles.fireplace}`} onClick={() => router.push("/hall")}>
-                <InfoBubble
-                    title="Cheminée"
-                    description="Il doit bien y avoir quelqu'un dans les parages..."
-                    className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
-                    style={{
-                        position: "absolute",
-                        top: "12px",
-                        left: "12px",
-                        width: "220px",
-                        pointerEvents: "none",
-                    }}
-                />
+            <div className={styles.fireplace} onClick={() => setOpen(1)} role="button">
+                {open === 1 && (
+                    <InfoBubble
+                        title="Cheminée"
+                        description="Il doit bien y avoir quelqu'un dans les parages..."
+                        style={{
+                            position: "absolute",
+                            top: "12px",
+                            left: "12px",
+                            width: "220px",
+                            pointerEvents: "none",
+                        }}
+                    />
+                )}
             </div>
 
-            <div className={`group ${styles.blueprint}`}>
-                <InfoBubble
-                    title="Plan"
-                    description="On dirait les plans du manoir."
-                    className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
-                    style={{
-                        position: "absolute",
-                        top: "12px",
-                        left: "12px",
-                        width: "220px",
-                        pointerEvents: "none",
-                    }}
-                />
-            </div>
+            {!blueprintTaken && (
+                <>
+                    {open !== 2 && (
+                        <div className={styles.blueprint} onClick={() => setOpen(2)} role="button" />
+                    )}
 
-            <div className={`group ${styles.portrait}`}>
-                <InfoBubble
-                    title="Portrait"
-                    description="Voici donc les propriétaires."
-                    className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
-                    style={{
-                        position: "absolute",
-                        top: "100%",
-                        left: "50%",
-                        transform: "translateX(-50%) translateY(8px)",
-                        width: "240px",
-                        pointerEvents: "none",
-                    }}
-                />
+                    {open === 2 && (
+                        <InfoBubble
+                            title="Plan"
+                            description="On dirait les plans du manoir."
+                            top="40%"
+                            left="42%"
+                            width="300px"
+                        >
+                            <div style={{ marginTop: 12, textAlign: "right" }}>
+                                <Button
+                                    variant="outline"
+                                    className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
+                                    onClick={onTakeBlueprint}
+                                >
+                                    Ramasser
+                                </Button>
+                            </div>
+                        </InfoBubble>
+                    )}
+                </>
+            )}
+
+            <div className={styles.portrait} onClick={() => setOpen(3)} role="button">
+                {open === 3 && (
+                    <InfoBubble
+                        title="Portrait"
+                        description="Voici donc les propriétaires."
+                        style={{
+                            position: "absolute",
+                            top: "100%",
+                            left: "50%",
+                            transform: "translateX(-50%) translateY(8px)",
+                            width: "240px",
+                            pointerEvents: "none",
+                        }}
+                    />
+                )}
             </div>
 
             <InteractiveZone
@@ -98,7 +94,7 @@ export default function LivingRoomPage() {
                 height="25%"
                 label="Retour vers le hall"
                 dir="down"
-                onEnter={show}
+                onEnter={showCursor}
                 onMove={move}
                 onLeave={hide}
                 onClick={() => router.push("/hall")}
