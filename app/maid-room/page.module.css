@@ -11,18 +11,18 @@
 .bed {
     position: absolute;
     top: 22%;
-    left: 30%;
-    width: 40%;
-    height: 40%;
+    left: 20%;
+    width: 45%;
+    height: 45%;
     z-index: 10;
 }
 
 .book {
     position: absolute;
-    bottom: 10%;
+    bottom: 7%;
     right: 12%;
     width: 30%;
-    height: 18%;
+    height: 19%;
     z-index: 10;
     cursor: pointer;
 }

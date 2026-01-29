@@ -10,12 +10,11 @@
 
 .painting {
     position: absolute;
-    top: 2vh;
+    top: 0vh;
     left: 38vw;
     width: 24vw;
     height: 20vh;
     z-index: 10;
-
 }
 
 .bookmark {
