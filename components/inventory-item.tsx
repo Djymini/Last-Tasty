@@ -3,6 +3,7 @@
 import { useState } from "react"
 import { Package } from "lucide-react"
 import { cn } from "@/lib/utils"
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
 
 interface InventoryItemProps {
     name: string

@@ -6,10 +6,7 @@ import { useState } from "react"
 import { Package, X, Sword, Heart, Shield, Sparkles, Flame, Gem } from "lucide-react"
 import { cn } from "@/lib/utils"
 import {Item} from "@/domain/entities/Item";
-
-const defaultItems: Item[] = [
-    { idItem: 1, name: "IRON SWORD", description: "A sturdy blade forged in fire. +10 ATK", image: "/icons/fire_book.png" },
-]
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
 
 interface InventoryBoardProps {
     items?: Item[]
@@ -18,15 +15,16 @@ interface InventoryBoardProps {
 }
 
 export function InventoryBoard({
-                                   items = defaultItems,
                                    rows = 4,
                                    cols = 6
                                }: InventoryBoardProps) {
     const [isOpen, setIsOpen] = useState(false)
     const [selectedItem, setSelectedItem] = useState<Item | null>(null)
+    const context = usePlayerContext();
+
 
     const totalSlots = rows * cols
-    const slots = Array.from({ length: totalSlots }, (_, i) => items[i] || null)
+    const slots = Array.from({ length: totalSlots }, (_, i) => context.value.inventory[i] || null)
 
     return (
         <div className="relative">
@@ -161,7 +159,7 @@ export function InventoryBoard({
                         {/* Footer */}
                         <div className="border-t-4 border-stone-700 bg-stone-800 px-4 py-2 flex justify-between items-center">
               <span className="font-[family-name:var(--font-retro)] text-[8px] text-stone-500">
-                {items.length}/{totalSlots} SLOTS
+                {context.value.inventory.length}/{totalSlots} SLOTS
               </span>
                             <div className="flex gap-1">
                                 {[...Array(3)].map((_, i) => (
