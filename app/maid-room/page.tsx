@@ -74,10 +74,10 @@ export default function MaidRoomPage() {
             </div>
 
             <InteractiveZone
-                top="70vh"
+                top="72vh"
                 left="0vw"
-                width="55vw"
-                height="30vh"
+                width="53vw"
+                height="28vh"
                 label="Retourner dans le couloir"
                 dir="down"
                 onEnter={show}
