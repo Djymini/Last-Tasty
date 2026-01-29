@@ -5,20 +5,36 @@ import { useRouter, useSearchParams } from "next/navigation";
 import styles from "./page.module.css";
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import { Button } from "@/components/ui/button";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 export default function NestPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const hasLadder = searchParams.get("ladder") === "1";
+    const context = usePlayerContext();
 
     const [open, setOpen] = useState<number | null>(null);
 
     const onConfirmKey = () => {
+        context.setValue(prev => ({
+            ...prev,
+            inventory: [
+                ...prev.inventory,
+                {
+                    idItem: 2,
+                    name: "Clé de la bibliothèque",
+                    description: "Je vais pouvoir ouvrir la porte de la bibliothèque",
+                    image: "/icons/ladder.png"
+                }
+            ]
+        }));
         router.push(`/garden?ladder=${hasLadder ? "1" : "0"}&key=1`);
     };
 
     return (
         <main className={styles.main}>
+            <InventoryBoard rows={2} cols={6} />
             {open !== 1 && (
                 <div
                     className={`${styles.zone} ${styles.keyZone}`}

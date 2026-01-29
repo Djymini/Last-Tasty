@@ -9,6 +9,8 @@ import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZ
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import { Button } from "@/components/ui/button";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 export default function LibraryPage() {
     const router = useRouter();
@@ -18,14 +20,40 @@ export default function LibraryPage() {
 
     const booksTaken = searchParams.get("books") === "1";
     const [open, setOpen] = useState<number | null>(null);
+    const context = usePlayerContext();
 
     const onTakeBooks = () => {
+        context.setValue(prev => ({
+            ...prev,
+            inventory: [
+                ...prev.inventory,
+                {
+                    idItem: 3,
+                    name: "Un été ensoleillé",
+                    description: "Un livre avec un symbole de soleil",
+                    image: "/icons/solar_book.png"
+                },
+                {
+                    idItem: 4,
+                    name: "Je t'attends sous la pluie",
+                    description: "Un livre avec un symbole de pluie",
+                    image: "/icons/rain_book.png"
+                },
+                {
+                    idItem: 5,
+                    name: "Silence, ça pousse",
+                    description: "Un livre avec un symbole d'arbre",
+                    image: "/icons/tree_book.png"
+                }
+            ]
+        }));
         router.push("/library?books=1");
         setOpen(null);
     };
 
     return (
         <main className={`${styles.main} ${booksTaken ? styles.booksTaken : ""}`}>
+            <InventoryBoard rows={2} cols={6} />
             <CursorOverlay {...cursor} />
 
             {!booksTaken && (

@@ -6,6 +6,8 @@ import styles from "../../basement/page.module.css";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
 import ScreamerOverlay2 from "@/components/ui/screamerOverlay/ScreamerOverlay2";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 type CursorDir = "up" | "down" | "left" | "right";
 
@@ -27,6 +29,7 @@ export default function Cellar4() {
 
     return (
         <main className={styles.cellarBackground4}>
+            <InventoryBoard rows={2} cols={6} />
             <div className={styles.cursorLayer}>
                 <CursorOverlay
                     visible={cursor.visible}

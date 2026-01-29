@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import {PlayerProvider} from "@/app/contexts/PlayerContext";
 
 const pressStart = localFont({
     src: [
@@ -37,7 +38,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={pressStart.variable}>
       <body>
-        {children}
+      <PlayerProvider>
+          {children}
+      </PlayerProvider>
       </body>
     </html>
   );
