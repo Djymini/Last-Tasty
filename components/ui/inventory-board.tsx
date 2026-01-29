@@ -46,10 +46,7 @@ export function InventoryBoard({
             >
                 {/* 8-bit Backpack Icon */}
                 <div className="relative">
-                    <Package className="size-10 text-white" strokeWidth={2} />
-                    <span className="absolute -top-1 -right-2 bg-red-600 text-white font-[family-name:var(--font-retro)] text-[8px] px-1 border-2 border-red-800">
-                        {items.length}
-                    </span>
+                    <img src="/icons/backpack.png" alt="Image d'inventaire"/>
                 </div>
             </button>
 

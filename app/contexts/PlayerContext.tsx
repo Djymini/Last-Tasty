@@ -1,4 +1,5 @@
-// context/PlayerContext.tsx
+"use client";
+
 import { createContext, useContext, useState, ReactNode } from 'react';
 import {PlayerType} from "@/app/types/PlayerType";
 
