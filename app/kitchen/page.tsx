@@ -18,49 +18,7 @@ export default function KitchenPage() {
 
     const [screamerOpen, setScreamerOpen] = useState(false);
 
-<<<<<<< HEAD
-    const [cursor, setCursor] = useState<{
-        visible: boolean;
-        x: number;
-        y: number;
-        dir: CursorDir;
-        label: string;
-    }>({
-        visible: false,
-        x: 0,
-        y: 0,
-        dir: "down",
-        label: "",
-    });
 
-    const showBubble = (id: number) => {
-        if (timeoutRef.current) {
-            window.clearTimeout(timeoutRef.current);
-            timeoutRef.current = null;
-        }
-
-        setOpen(id);
-
-        timeoutRef.current = window.setTimeout(() => {
-            setOpen(null);
-            timeoutRef.current = null;
-        }, 2500);
-    };
-
-    useEffect(() => {
-        return () => {
-           if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
-        };
-    }, []);
-
-    const show = (dir: CursorDir, label: string) =>
-        setCursor((c) => ({ ...c, visible: true, dir, label }));
-
-    const move = (e: React.MouseEvent) =>
-        setCursor((c) => ({ ...c, x: e.clientX, y: e.clientY }));
-
-    const hide = () => setCursor((c) => ({ ...c, visible: false, label: "" }));
-=======
     const zones = [
         {
             id: 2,
@@ -87,7 +45,6 @@ export default function KitchenPage() {
             ),
         },
     ];
->>>>>>> ae5670adf01eab1e0f65b4cdfd64801a42afee31
 
     return (
         <main className={styles.main}>
