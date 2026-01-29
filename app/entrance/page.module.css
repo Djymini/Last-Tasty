@@ -1,0 +1,100 @@
+.roomBackgroundLocked {
+    background-image: url("/rooms/locked-entrance.png");
+    background-size: cover;
+    background-position: center 40%;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+.roomBackgroundUnlocked {
+    background-image: url("/rooms/unlocked-entrance.png");
+    background-size: cover;
+    background-position: center 40%;
+    background-repeat: no-repeat;
+    width: 100vw;
+    height: 100vh;
+}
+/* Référence plein écran */
+.stage {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* Boutons en haut à gauche comme sur ton screen */
+.container {
+    position: absolute;
+    top: 28px;
+    left: 28px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    /* optionnel */
+    width: 260px;
+}
+
+/**
+ * Overlay global du boîtier
+ * 👉 Ajuste UNIQUEMENT top (et éventuellement translateY) si besoin
+ */
+.panelOverlay {
+    position: absolute;
+    left: 50%;
+    top: 57%;
+    transform: translate(-50%, -50%);
+
+    /* Taille "référence" du boîtier (à ajuster si besoin) */
+    width: 475px;
+    height: 620px;
+
+
+}
+
+
+.validation {
+    position: absolute;
+    left: 48%;
+    top: 48px;
+    transform: translateX(-50%);
+
+    width: 330px;
+    height: 65px;
+
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 6px;
+
+}
+
+.keyboard {
+    position: absolute;
+    left: 49%;
+    top: 310px;
+    transform: translate(-50%, -50%);
+
+    width: 310px;
+    height: 300px;
+
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 16px;
+
+}
+
+.keyboardKey {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+/* Bouton valider sous le clavier */
+.validateWrapper {
+    position: absolute;
+    left: 50%;
+    top: 480px;
+    transform: translateX(-50%);
+}
+
+
