@@ -1,37 +1,82 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import styles from "./page.module.css";
+
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
 import { Button } from "@/components/ui/button";
+
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 import { useGameUI } from "@/app/contexts/GameUIContext";
+
+type OpenZone = 1 | 2 | 3 | null;
 
 export default function LivingRoomPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
     const { cursor, show: showCursor, move, hide } = useCursorOverlay();
+    const { unlockManorMap, openMap } = useGameUI();
 
-    const { unlockManorMap, openMap } = useGameUI(); // ✅ AJOUT
+    const blueprintTaken = useMemo(() => searchParams.get("blueprint") === "1", [searchParams]);
+    const [open, setOpen] = useState<OpenZone>(null);
 
-    const blueprintTaken = searchParams.get("blueprint") === "1";
-    const [open, setOpen] = useState<number | null>(null);
+    const openZone = useCallback((zone: Exclude<OpenZone, null>) => {
+        setOpen(zone);
+    }, []);
 
-    const onTakeBlueprint = () => {
+    const closeZone = useCallback(() => {
+        setOpen(null);
+    }, []);
+
+    const navigateTo = useCallback(
+        (path: string) => {
+            closeZone();
+            router.push(path);
+        },
+        [router, closeZone]
+    );
+
+    const onTakeBlueprint = useCallback(() => {
+        // 1) On débloque dans votre UI globale
         unlockManorMap();
+
+        // 2) UX: on ouvre direct la map
         openMap();
-        router.push("/living-room?blueprint=1");
-    };
+
+        // 3) On persiste l'état via l'URL (source de vérité)
+        if (!blueprintTaken) {
+            router.push("/living-room?blueprint=1");
+        } else {
+            // si déjà pris, on évite un push inutile
+            closeZone();
+        }
+    }, [unlockManorMap, openMap, router, blueprintTaken, closeZone]);
 
     return (
-        <main className={`${styles.main} ${blueprintTaken ? styles.blueprintTaken : ""}`}>
+        <main
+            className={`${styles.main} ${blueprintTaken ? styles.blueprintTaken : ""}`}
+            onClick={closeZone}
+            role="presentation"
+        >
             <CursorOverlay {...cursor} />
 
-            <div className={styles.fireplace} onClick={() => setOpen(1)} role="button">
+            {/* Fireplace */}
+            <div
+                className={styles.fireplace}
+                role="button"
+                tabIndex={0}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    openZone(1);
+                }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") openZone(1);
+                }}
+            >
                 {open === 1 && (
                     <InfoBubble
                         title="Cheminée"
@@ -47,10 +92,22 @@ export default function LivingRoomPage() {
                 )}
             </div>
 
+            {/* Blueprint */}
             {!blueprintTaken && (
                 <>
                     {open !== 2 && (
-                        <div className={styles.blueprint} onClick={() => setOpen(2)} role="button" />
+                        <div
+                            className={styles.blueprint}
+                            role="button"
+                            tabIndex={0}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                openZone(2);
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") openZone(2);
+                            }}
+                        />
                     )}
 
                     {open === 2 && (
@@ -61,13 +118,27 @@ export default function LivingRoomPage() {
                             left="42%"
                             width="300px"
                         >
-                            <div style={{ marginTop: 12, textAlign: "right" }}>
+                            <div style={{ marginTop: 12, display: "flex", justifyContent: "flex-end", gap: 8 }}>
                                 <Button
                                     variant="outline"
                                     className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
-                                    onClick={onTakeBlueprint}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onTakeBlueprint();
+                                    }}
                                 >
                                     Ramasser
+                                </Button>
+
+                                <Button
+                                    variant="outline"
+                                    className="bg-transparent text-gray-200 hover:bg-white/10 border border-gray-500"
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        closeZone();
+                                    }}
+                                >
+                                    Fermer
                                 </Button>
                             </div>
                         </InfoBubble>
@@ -75,7 +146,19 @@ export default function LivingRoomPage() {
                 </>
             )}
 
-            <div className={styles.portrait} onClick={() => setOpen(3)} role="button">
+            {/* Portrait */}
+            <div
+                className={styles.portrait}
+                role="button"
+                tabIndex={0}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    openZone(3);
+                }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") openZone(3);
+                }}
+            >
                 {open === 3 && (
                     <InfoBubble
                         title="Portrait"
@@ -102,8 +185,9 @@ export default function LivingRoomPage() {
                 onEnter={showCursor}
                 onMove={move}
                 onLeave={hide}
-                onClick={() => router.push("/hall")}
+                onClick={() => navigateTo("/hall")}
             />
+
         </main>
     );
 }
