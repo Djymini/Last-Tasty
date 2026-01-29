@@ -1,5 +1,5 @@
 .bg {
-    background-image: url("/rooms/library.png");
+    background-image: url("/last_tasty_home_screen.webp");
     background-size: cover ;
     background-position: bottom;
     width: 100vw;
@@ -20,3 +20,5 @@
     display: flex;
     gap: 16px;
 }
+
+
