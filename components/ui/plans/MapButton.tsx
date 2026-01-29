@@ -1,8 +1,8 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { MapIcon } from "./icons/map-icon";
 import "@/components/ui/8bit/styles/retro.css";
+import {MapIcon} from "lucide-react";
 
 interface MapButtonProps {
     onClick: () => void;
