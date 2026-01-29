@@ -1,15 +1,15 @@
 "use client";
 
-import styles from "./page.module.css"
-import {InfoBubble} from "@/components/ui/shared/InfoBubble";
-import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
-import {useRouter} from "next/navigation";
-import {useState} from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import styles from "./page.module.css";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
+import { InfoBubble } from "@/components/ui/shared/InfoBubble";
+import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
 
 type CursorDir = "up" | "left" | "right" | "down";
 
-export default function MaidRoomPage() {
+export default function LivingRoomPage() {
     const router = useRouter();
 
     const [cursor, setCursor] = useState<{
@@ -44,40 +44,41 @@ export default function MaidRoomPage() {
                 label="Retourner dans le couloir"
             />
 
-            <div className={`group ${styles.bed}`}>
+            <div className={`group ${styles.painting}`}>
                 <InfoBubble
-                    title="Lit"
-                    description="Il doit bien y avoir quelqu'un dans les parages..."
+                    title="Tableau"
+                    description="Il serait temps de faire les poussières dans le coin ..."
                     className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
                     style={{
                         position: "absolute",
-                        top: "12px",
-                        left: "12px",
-                        width: "220px",
+                        top: "2vh",
+                        left: "2vw",
+                        width: "25vw",
                         pointerEvents: "none",
                     }}
                 />
             </div>
-            <div className={`group ${styles.book}`}>
+
+            <div className={`group ${styles.bookmark}`}>
                 <InfoBubble
-                    title="Journal"
-                    description="Journal de Bob le majordome"
+                    title="Marque page de René"
+                    description="ça pourrait m'être utile !"
                     className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
                     style={{
                         position: "absolute",
-                        top: "12px",
-                        left: "12px",
-                        width: "220px",
+                        top: "-2vh",
+                        left: "-20vw",
+                        width: "20vw",
                         pointerEvents: "none",
                     }}
                 />
             </div>
 
             <InteractiveZone
-                top="72vh"
+                top="65vh"
                 left="0vw"
-                width="53vw"
-                height="28vh"
+                width="100vw"
+                height="35vh"
                 label="Retourner dans le couloir"
                 dir="down"
                 onEnter={show}

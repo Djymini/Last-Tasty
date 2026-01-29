@@ -61,12 +61,12 @@ export default function EastCorridorPage() {
 
 
             <InteractiveZone
-                top="24vh"
+                top="22vh"
                 left="28vw"
                 width="6vw"
-                height="51vh"
+                height="53vh"
                 label="Chambre du majordome"
-                dir="up"
+                dir="left"
                 onEnter={show}
                 onMove={move}
                 onLeave={hide}
@@ -74,19 +74,19 @@ export default function EastCorridorPage() {
             />
 
             <InteractiveZone
-                top="28vh"
+                top="26vh"
                 left="43vw"
                 width="14vw"
-                height="37vh"
+                height="42vh"
                 label="Chambre principal"
                 dir="up"
                 onEnter={show}
                 onMove={move}
                 onLeave={hide}
-                onClick={() => router.push("/maid-room")}
+                onClick={() => router.push("/master-room")}
             />
 
-            <div className={`group ${styles.door4}`}>
+            <div className={`group ${styles.door2}`}>
                 <InfoBubble
                     title="Porte"
                     description="Cette porte est condamnée"
@@ -102,7 +102,7 @@ export default function EastCorridorPage() {
                 />
             </div>
 
-            <div className={`group ${styles.door5}`}>
+            <div className={`group ${styles.door3}`}>
                 <InfoBubble
                     title="Porte"
                     description="Cette porte est condamnée"
@@ -120,11 +120,11 @@ export default function EastCorridorPage() {
 
             <InteractiveZone
                 top="80vh"
-                left="20vw"
-                width="60vw"
+                left="22vw"
+                width="56vw"
                 height="20vh"
                 label="Retourner à l'acceuil"
-                dir="up"
+                dir="down"
                 onEnter={show}
                 onMove={move}
                 onLeave={hide}

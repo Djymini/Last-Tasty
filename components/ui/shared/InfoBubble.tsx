@@ -8,6 +8,7 @@ type InfoBubbleProps = {
     width?: string;
     title: string;
     description: string;
+    children?: React.ReactNode;
     className?: string;
     style?: React.CSSProperties;
 };
@@ -18,6 +19,7 @@ export function InfoBubble({
                                width = "220px",
                                title,
                                description,
+                               children,
                                className,
                                style,
                            }: InfoBubbleProps) {
@@ -34,15 +36,15 @@ export function InfoBubble({
             }}
         >
             <Alert className="w-full">
-                <AlertTitle
-                    className="!block !whitespace-normal !overflow-visible !text-clip !break-words !leading-[1.3] !mb-2"
-                >
+                <AlertTitle className="!block !whitespace-normal !mb-2">
                     {title}
                 </AlertTitle>
 
-                <AlertDescription className="!block !whitespace-normal !break-words !leading-[1.35]">
+                <AlertDescription className="!block !whitespace-normal">
                     {description}
                 </AlertDescription>
+
+                {children}
             </Alert>
         </div>
     );

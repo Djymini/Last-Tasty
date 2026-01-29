@@ -1,6 +1,7 @@
 .bg {
     background-image: url("/last_tasty_home_screen.webp");
     background-size: cover ;
+    background-position: bottom;
     width: 100vw;
     height: 100vh;
     display: flex;
