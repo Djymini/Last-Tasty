@@ -2,7 +2,7 @@
     position: relative;
     height: 100vh;
     width: 100vw;
-    background-image: url("/rooms/kitchen.png");
+    background-image: url("../../public/rooms/kitchen.png");
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -32,7 +32,7 @@
 }
 
 .zone3 {
-    top: 0%;
+    top: 0;
     left: 4%;
     height: 40%;
     width: 15%;
