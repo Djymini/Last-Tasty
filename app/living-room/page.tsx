@@ -35,7 +35,7 @@ export default function LivingRoomPage() {
                             position: "absolute",
                             top: "12px",
                             left: "12px",
-                            width: "220px",
+                            width: "50%",
                             pointerEvents: "none",
                         }}
                     />
@@ -54,7 +54,7 @@ export default function LivingRoomPage() {
                             description="On dirait les plans du manoir."
                             top="40%"
                             left="42%"
-                            width="300px"
+                            width="15%"
                         >
                             <div style={{ marginTop: 12, textAlign: "right" }}>
                                 <Button
@@ -80,7 +80,7 @@ export default function LivingRoomPage() {
                             top: "100%",
                             left: "50%",
                             transform: "translateX(-50%) translateY(8px)",
-                            width: "240px",
+                            width: "50%",
                             pointerEvents: "none",
                         }}
                     />
