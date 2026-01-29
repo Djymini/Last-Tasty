@@ -9,7 +9,7 @@
 }
 
 .bookmarkTaken {
-    background-image: url("../../public/rooms/livingRoom/living-room-without-blueprint.png");
+    background-image: url("../../public/rooms/master-room/master-roomWithoutBookmark.png");
 }
 
 .painting {
@@ -19,6 +19,7 @@
     width: 24vw;
     height: 20vh;
     z-index: 10;
+    cursor: pointer;
 }
 
 .bookmark {

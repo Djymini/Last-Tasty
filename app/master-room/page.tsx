@@ -15,12 +15,13 @@ export default function LivingRoomPage() {
 
     const { cursor, show: showCursor, move, hide } = useCursorOverlay();
 
-    const bookmarkTaken = searchParams.get("blueprint") === "1";
+    const bookmarkTaken = searchParams.get("bookmark") === "1";
     const [open, setOpen] = useState<number | null>(null);
 
     const onTakeBookmark = () => {
-        router.push("/living-room?bookmark=1");
+        router.push("/master-room?bookmark=1");
     };
+
     return (
         <main className={`${styles.main} ${bookmarkTaken ? styles.bookmarkTaken : ""}`}>
             <CursorOverlay {...cursor} />
@@ -41,29 +42,33 @@ export default function LivingRoomPage() {
                 )}
             </div>
 
-            <div className={`group ${styles.bookmark}`}>
-                <InfoBubble
-                    title="Marque page de René"
-                    description="ça pourrait m'être utile !"
-                    style={{
-                        position: "absolute",
-                        top: "-2vh",
-                        left: "-20vw",
-                        width: "20vw",
+            {!bookmarkTaken && (
+                <>
+                    {open !== 2 && (
+                        <div className={styles.bookmark} onClick={() => setOpen(2)} role="button" />
+                    )}
 
-                    }}>
-                    <div style={{ marginTop: 12, textAlign: "right" }}>
-                        <Button
-                            variant="outline"
-                            className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
-                            onClick={onTakeBookmark}
+                    {open === 2 && (
+                        <InfoBubble
+                            title="Marque page de René"
+                            description="ça pourrait m'être utile !"
+                            top="20%"
+                            left="70%"
+                            width="20%"
                         >
-                            Ramasser
-                        </Button>
-                    </div>
-                </InfoBubble>
-
-            </div>
+                            <div style={{ marginTop: 12, textAlign: "right" }}>
+                                <Button
+                                    variant="outline"
+                                    className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
+                                    onClick={onTakeBookmark}
+                                >
+                                    Ramasser
+                                </Button>
+                            </div>
+                        </InfoBubble>
+                    )}
+                </>
+            )}
 
             <InteractiveZone
                 top="65vh"
