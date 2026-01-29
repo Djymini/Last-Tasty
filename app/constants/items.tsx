@@ -1,6 +1,6 @@
-export const MAP_ITEM = {
+export const MANOR_MAP_ITEM = {
     idItem: 999,
-    name: "MAP",
-    description: "A dusty mansion map. Reveals the floors layout.",
+    name: "MANOR MAP",
+    description: "Les plans du manoir.",
     image: "/icons/map.png",
 } as const;

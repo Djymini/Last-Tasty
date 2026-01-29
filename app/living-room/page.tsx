@@ -10,7 +10,9 @@ import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZ
 import { Button } from "@/components/ui/button";
 
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
-import { useGameUI } from "@/app/contexts/GameUIContext";
+import { usePlayerContext } from "@/app/contexts/PlayerContext";
+import {addItemOnce} from "@/app/utils/inventory";
+import {MANOR_MAP_ITEM} from "@/app/constants/items";
 
 type OpenZone = 1 | 2 | 3 | null;
 
@@ -19,9 +21,10 @@ export default function LivingRoomPage() {
     const searchParams = useSearchParams();
 
     const { cursor, show: showCursor, move, hide } = useCursorOverlay();
-    const { unlockManorMap, openMap } = useGameUI();
+    const { setValue } = usePlayerContext();
 
     const blueprintTaken = useMemo(() => searchParams.get("blueprint") === "1", [searchParams]);
+
     const [open, setOpen] = useState<OpenZone>(null);
 
     const openZone = useCallback((zone: Exclude<OpenZone, null>) => {
@@ -41,20 +44,18 @@ export default function LivingRoomPage() {
     );
 
     const onTakeBlueprint = useCallback(() => {
-        // 1) On débloque dans votre UI globale
-        unlockManorMap();
+        setValue((prev) => ({
+            ...prev,
+            inventory: addItemOnce(prev.inventory, MANOR_MAP_ITEM),
+        }));
 
-        // 2) UX: on ouvre direct la map
-        openMap();
-
-        // 3) On persiste l'état via l'URL (source de vérité)
         if (!blueprintTaken) {
             router.push("/living-room?blueprint=1");
         } else {
-            // si déjà pris, on évite un push inutile
             closeZone();
         }
-    }, [unlockManorMap, openMap, router, blueprintTaken, closeZone]);
+        closeZone();
+    }, [setValue, router, blueprintTaken, closeZone]);
 
     return (
         <main
@@ -64,7 +65,6 @@ export default function LivingRoomPage() {
         >
             <CursorOverlay {...cursor} />
 
-            {/* Fireplace */}
             <div
                 className={styles.fireplace}
                 role="button"
@@ -92,7 +92,6 @@ export default function LivingRoomPage() {
                 )}
             </div>
 
-            {/* Blueprint */}
             {!blueprintTaken && (
                 <>
                     {open !== 2 && (
@@ -118,7 +117,7 @@ export default function LivingRoomPage() {
                             left="42%"
                             width="300px"
                         >
-                            <div style={{ marginTop: 12, display: "flex", justifyContent: "flex-end", gap: 8 }}>
+                            <div style={{ marginTop: 12, textAlign: "right" }}>
                                 <Button
                                     variant="outline"
                                     className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
@@ -129,24 +128,13 @@ export default function LivingRoomPage() {
                                 >
                                     Ramasser
                                 </Button>
-
-                                <Button
-                                    variant="outline"
-                                    className="bg-transparent text-gray-200 hover:bg-white/10 border border-gray-500"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        closeZone();
-                                    }}
-                                >
-                                    Fermer
-                                </Button>
                             </div>
                         </InfoBubble>
                     )}
                 </>
             )}
 
-            {/* Portrait */}
+            {/*  */}
             <div
                 className={styles.portrait}
                 role="button"
@@ -187,7 +175,6 @@ export default function LivingRoomPage() {
                 onLeave={hide}
                 onClick={() => navigateTo("/hall")}
             />
-
         </main>
     );
 }

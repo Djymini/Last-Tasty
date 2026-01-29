@@ -11,15 +11,8 @@ export interface FloorPlanImage {
 interface MansionFloorPlanProps {
     floor: number;
     className?: string;
-    /**
-     * Images personnalisées pour chaque étage.
-     * Si fourni, utilise les images au lieu des plans SVG par défaut.
-     * L'index correspond au numéro d'étage (0 = RDC, 1 = 1er, etc.)
-     */
     customImages?: FloorPlanImage[];
-    /** Largeur du plan en pixels */
     width?: number;
-    /** Hauteur du plan en pixels */
     height?: number;
 }
 
@@ -30,41 +23,32 @@ export function MansionFloorPlan({
                                      width = 280,
                                      height = 200,
                                  }: MansionFloorPlanProps) {
-    // Si des images personnalisées sont fournies, les utiliser
     if (customImages && customImages[floor]) {
         return (
-            <div
-                className={cn("relative bg-white", className)}
-                style={{ width, height }}
-            >
+            <div className={cn("relative w-full h-full", className)}>
                 <Image
                     src={customImages[floor].src || "/placeholder.svg"}
                     alt={customImages[floor].alt || `Plan étage ${floor}`}
                     fill
                     className="object-contain"
-                    sizes={`${width}px`}
+                    sizes="(max-width: 1024px) 90vw, 1200px"
                     priority
                 />
             </div>
         );
     }
 
-    // Sinon, utiliser les plans SVG par défaut
     return (
-        <div className={cn("relative", className)}>
+        <div className={cn("relative w-full h-full", className)}>
             <svg
-                width={width}
-                height={height}
                 viewBox="0 0 280 200"
+                preserveAspectRatio="xMidYMid meet"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="pixelated"
+                className="pixelated block w-full h-full"
                 style={{ imageRendering: "pixelated" }}
             >
-                {/* Background */}
                 <rect width="280" height="200" fill="#1a1a2e" />
-
-                {/* Outer walls */}
                 <rect x="20" y="20" width="240" height="160" fill="none" stroke="#4a9c6d" strokeWidth="4" />
 
                 {floor === 0 && <GroundFloor />}
@@ -75,6 +59,8 @@ export function MansionFloorPlan({
         </div>
     );
 }
+
+
 
 function GroundFloor() {
     return (

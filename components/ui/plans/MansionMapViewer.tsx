@@ -2,11 +2,10 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { cn } from "@/lib/utils";
-
 import "@/components/ui/8bit/styles/retro.css";
-import {FloorTitle} from "@/components/ui/plans/FloorTitle";
-import {NavigationArrow} from "@/components/ui/plans/NavigationArrow";
-import {FloorPlanImage, MansionFloorPlan} from "@/components/ui/plans/MansionFloorPlan";
+import { FloorPlanImage, MansionFloorPlan } from "@/components/ui/plans/MansionFloorPlan";
+import { NavigationArrow } from "@/components/ui/plans/NavigationArrow";
+import { FloorTitle } from "@/components/ui/plans/FloorTitle";
 
 interface MansionMapViewerProps {
     isOpen: boolean;
@@ -24,22 +23,15 @@ export function MansionMapViewer({
                                      className,
                                      customFloorImages,
                                      totalFloors = 4,
-                                     planWidth = 280,
-                                     planHeight = 200,
+                                     planWidth = 900,
+                                     planHeight = 600,
                                  }: MansionMapViewerProps) {
-    const TOTAL_FLOORS = useMemo(
-        () => customFloorImages?.length ?? totalFloors,
-        [customFloorImages?.length, totalFloors]
-    );
+    const TOTAL_FLOORS = useMemo(() => {
+        return customFloorImages?.length || totalFloors;
+    }, [customFloorImages, totalFloors]);
 
     const [currentFloor, setCurrentFloor] = useState(0);
     const [isAnimating, setIsAnimating] = useState(false);
-
-    const handleClose = useCallback(() => {
-        setCurrentFloor(0);      // ✅ reset ici, plus dans un useEffect
-        setIsAnimating(false);
-        onClose();
-    }, [onClose]);
 
     const goToPreviousFloor = useCallback(() => {
         if (currentFloor > 0 && !isAnimating) {
@@ -59,7 +51,7 @@ export function MansionMapViewer({
                 setIsAnimating(false);
             }, 150);
         }
-    }, [currentFloor, isAnimating, TOTAL_FLOORS]); // ✅ TOTAL_FLOORS ajouté
+    }, [currentFloor, isAnimating, TOTAL_FLOORS]);
 
     // Keyboard navigation
     useEffect(() => {
@@ -67,7 +59,7 @@ export function MansionMapViewer({
 
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === "Escape") {
-                handleClose();
+                onClose();
             } else if (e.key === "ArrowLeft") {
                 goToPreviousFloor();
             } else if (e.key === "ArrowRight") {
@@ -77,7 +69,14 @@ export function MansionMapViewer({
 
         window.addEventListener("keydown", handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    }, [isOpen, handleClose, goToPreviousFloor, goToNextFloor]);
+    }, [isOpen, onClose, goToPreviousFloor, goToNextFloor]);
+
+    useEffect(() => {
+        if (isOpen) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            setCurrentFloor(0);
+        }
+    }, [isOpen]);
 
     if (!isOpen) return null;
 
@@ -88,7 +87,7 @@ export function MansionMapViewer({
                 "bg-black/80 backdrop-blur-sm",
                 className
             )}
-            onClick={handleClose} // ✅ ici aussi
+            onClick={onClose}
         >
             <div
                 className={cn(
@@ -97,12 +96,18 @@ export function MansionMapViewer({
                     "border-8 border-stone-700",
                     "shadow-[8px_8px_0px_0px_rgba(0,0,0,0.9)]",
                     "p-6",
-                    "animate-in fade-in zoom-in-95 duration-200"
+                    "animate-in fade-in zoom-in-95 duration-200",
+                    "w-[min(1100px,92vw)]"
                 )}
                 onClick={(e) => e.stopPropagation()}
             >
+                <div className="absolute -top-2 -left-2 w-4 h-4 bg-amber-600" />
+                <div className="absolute -top-2 -right-2 w-4 h-4 bg-amber-600" />
+                <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-amber-600" />
+                <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-amber-600" />
+
                 <button
-                    onClick={handleClose} // ✅ ici aussi
+                    onClick={onClose}
                     className={cn(
                         "absolute -top-4 -right-4 z-10",
                         "size-10 bg-red-800",
@@ -119,16 +124,12 @@ export function MansionMapViewer({
                     X
                 </button>
 
-                {/* Header */}
                 <div className="flex flex-col items-center gap-4 mb-6">
-                    <h1 className="retro text-amber-500 text-lg tracking-widest">
-                        PLANS DU MANOIR
-                    </h1>
+                    <h1 className="retro text-amber-500 text-lg tracking-widest">PLANS DU MANOIR</h1>
                     <FloorTitle floor={currentFloor} />
                 </div>
 
-                {/* Map content */}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center justify-center gap-4 w-full">
                     <NavigationArrow
                         direction="left"
                         onClick={goToPreviousFloor}
@@ -144,6 +145,10 @@ export function MansionMapViewer({
                             "overflow-hidden",
                             isAnimating && "opacity-50"
                         )}
+                        style={{
+                            width: `min(${planWidth}px, 80vw)`,
+                            height: `min(${planHeight}px, 55vh)`,
+                        }}
                     >
                         <div
                             className="absolute inset-0 pointer-events-none z-10"
@@ -156,9 +161,9 @@ export function MansionMapViewer({
                         <MansionFloorPlan
                             floor={currentFloor}
                             customImages={customFloorImages}
-                            width={planWidth}
-                            height={planHeight}
+                            className="w-full h-full"
                         />
+
                     </div>
 
                     <NavigationArrow
@@ -168,7 +173,6 @@ export function MansionMapViewer({
                     />
                 </div>
 
-                {/* Footer */}
                 <div className="flex flex-col items-center gap-3 mt-6">
                     <div className="flex gap-2">
                         {Array.from({ length: TOTAL_FLOORS }).map((_, index) => (
@@ -193,10 +197,6 @@ export function MansionMapViewer({
                             />
                         ))}
                     </div>
-
-                    <p className="retro text-stone-500 text-[8px] tracking-wide">
-                        FLECHES POUR NAVIGUER - ESC POUR FERMER
-                    </p>
                 </div>
             </div>
         </div>
