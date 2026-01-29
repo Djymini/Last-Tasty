@@ -8,6 +8,8 @@ import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
 import { Button } from "@/components/ui/button";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
+import {InventoryBoard} from "@/components/ui/inventory-board";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
 
 export default function LivingRoomPage() {
     const router = useRouter();
@@ -17,13 +19,27 @@ export default function LivingRoomPage() {
 
     const bookmarkTaken = searchParams.get("bookmark") === "1";
     const [open, setOpen] = useState<number | null>(null);
+    const context = usePlayerContext();
 
     const onTakeBookmark = () => {
+        context.setValue(prev => ({
+            ...prev,
+            inventory: [
+                ...prev.inventory,
+                {
+                    idItem: 7,
+                    name: "Marque page de René",
+                    description: "Ecrire l'enigme",
+                    image: "/icons/map.png"
+                }
+            ]
+        }));
         router.push("/master-room?bookmark=1");
     };
 
     return (
         <main className={`${styles.main} ${bookmarkTaken ? styles.bookmarkTaken : ""}`}>
+            <InventoryBoard rows={2} cols={6} />
             <CursorOverlay {...cursor} />
 
             <div className={styles.painting} onClick={() => setOpen(1)} role="button">

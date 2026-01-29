@@ -8,6 +8,8 @@ import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
 import { Button } from "@/components/ui/button";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 export default function LivingRoomPage() {
     const router = useRouter();
@@ -17,13 +19,28 @@ export default function LivingRoomPage() {
 
     const blueprintTaken = searchParams.get("blueprint") === "1";
     const [open, setOpen] = useState<number | null>(null);
+    const context = usePlayerContext();
+
 
     const onTakeBlueprint = () => {
+        context.setValue(prev => ({
+            ...prev,
+            inventory: [
+                ...prev.inventory,
+                {
+                    idItem: 6,
+                    name: "Plan de la maison",
+                    description: "Ca peut-etre utile pour se repérer",
+                    image: "/icons/map.png"
+                }
+            ]
+        }));
         router.push("/living-room?blueprint=1");
     };
 
     return (
         <main className={`${styles.main} ${blueprintTaken ? styles.blueprintTaken : ""}`}>
+            <InventoryBoard rows={2} cols={6} />
             <CursorOverlay {...cursor} />
 
             <div className={styles.fireplace} onClick={() => setOpen(1)} role="button">

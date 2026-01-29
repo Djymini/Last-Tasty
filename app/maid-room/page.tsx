@@ -6,11 +6,14 @@ import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZ
 import {useRouter} from "next/navigation";
 import {useState} from "react";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 type CursorDir = "up" | "left" | "right" | "down";
 
 export default function MaidRoomPage() {
     const router = useRouter();
+    const context = usePlayerContext();
 
     const [cursor, setCursor] = useState<{
         visible: boolean;
@@ -36,6 +39,7 @@ export default function MaidRoomPage() {
 
     return (
         <main className={styles.main}>
+            <InventoryBoard rows={2} cols={6} />
             <CursorOverlay
                 visible={cursor.visible}
                 x={cursor.x}

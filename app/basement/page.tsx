@@ -6,6 +6,8 @@ import styles from "../basement/page.module.css";
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 
 type CursorDir = "up" | "down" | "left" | "right";
@@ -46,8 +48,7 @@ export default function Basement() {
 
     return (
         <main className={styles.cellarBackground}>
-
-
+            <InventoryBoard rows={2} cols={6} />
             <div className={styles.interactiveLayer}>
                 <InteractiveZone
                     top="10%"

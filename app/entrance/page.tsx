@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { Button } from "@/components/ui/8bit/button";
 import { Input } from "@/components/ui/input";
+import {InventoryBoard} from "@/components/ui/inventory-board";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
 
 const KEYS = [
     "A", "B", "C", "D",
@@ -18,6 +20,7 @@ export default function Entrance() {
     const [code, setCode] = useState("");
     const [isUnlocked, setIsUnlocked] = useState(false);
     const router = useRouter();
+    const context = usePlayerContext();
 
     const handleKeyPress = (letter: string) => {
         setCode((prev) => prev + letter);
@@ -41,6 +44,7 @@ export default function Entrance() {
     return (
         <main className={styles.roomBackgroundLocked}>
             {/* Overlay stage (référence plein écran) */}
+            <InventoryBoard rows={2} cols={6} />
             <div className={styles.stage}>
                 {/* Actions */}
                 <div className={styles.container}>

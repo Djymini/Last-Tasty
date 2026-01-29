@@ -8,6 +8,8 @@ import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
 import { Button } from "@/components/ui/button";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 
 
@@ -20,8 +22,8 @@ export default function EastCorridorPage() {
 
     return (
         <main className={styles.page}>
+            <InventoryBoard rows={2} cols={6} />
                 <CursorOverlay {...cursor} />
-
                 <div className={styles.door1} onClick={() => setOpen(1)} role="button">
                     {open === 1 && (
                         <InfoBubble

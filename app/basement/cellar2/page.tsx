@@ -8,6 +8,8 @@ import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZ
 
 import ScreamerOverlay2 from "@/components/ui/screamerOverlay/ScreamerOverlay2";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 type CursorDir = "up" | "down" | "left" | "right";
 
@@ -16,6 +18,7 @@ export default function Cellar2() {
     const [open, setOpen] = useState<number | null>(null);
     const timeoutRef = useRef<number | null>(null);
     const goTimeoutRef = useRef<number | null>(null);
+    const context = usePlayerContext();
 
     const [cursor, setCursor] = useState<{
         visible: boolean;
@@ -47,9 +50,25 @@ export default function Cellar2() {
         setCursor((c) => ({ ...c, x: e.clientX, y: e.clientY }));
     const hide = () => setCursor((c) => ({ ...c, visible: false, label: "" }));
 
+    const pickupTheLadder = () => {
+        context.setValue(prev => ({
+            ...prev,
+            inventory: [
+                ...prev.inventory,
+                {
+                    idItem: 1,
+                    name: "Vieille echelle",
+                    description: "Une echelle, pratique pour prendre de la hauteur",
+                    image: "/icons/ladder.png"
+                }
+            ]
+        }));
+        router.push("/basement/cellar3")
+    }
 
     return (
         <main className={styles.cellarBackground2}>
+            <InventoryBoard rows={2} cols={6} />
             <ScreamerOverlay2 imageUrl="/screamer2.png" durationMs={800} />
 
             <div
@@ -110,7 +129,7 @@ export default function Cellar2() {
                     <button
                         type="button"
                         className={styles.bubbleAction}
-                        onClick={() => router.push("/basement/cellar3")}
+                        onClick={pickupTheLadder}
                     >
                         Récupérer cette échelle
                     </button>

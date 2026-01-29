@@ -7,6 +7,7 @@ import styles from "./page.module.css";
 import { useRouter } from "next/navigation";
 import {useCursorOverlay} from "@/app/hooks/useCursorOverlay";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 
 
@@ -19,6 +20,7 @@ export default function EastCorridorPage() {
 
     return (
         <main className={styles.page}>
+            <InventoryBoard rows={2} cols={6} />
             <CursorOverlay {...cursor} />
 
             <div className={styles.door1} onClick={() => setOpen(1)} role="button">
