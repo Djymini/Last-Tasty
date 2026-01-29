@@ -124,7 +124,7 @@ export default function EastCorridorPage() {
                 width="56vw"
                 height="20vh"
                 label="Retourner à l'acceuil"
-                dir="up"
+                dir="down"
                 onEnter={show}
                 onMove={move}
                 onLeave={hide}
