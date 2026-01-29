@@ -6,6 +6,7 @@ import styles from "./page.module.css";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
 import {InfoBubble} from "@/components/ui/shared/InfoBubble";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 type CursorDir = "up" | "left" | "right" | "down";
 
@@ -57,6 +58,8 @@ export default function HallPage() {
 
     return (
         <main className={styles.main}>
+            {/* Inventory Button */}
+            <InventoryBoard rows={2} cols={6} />
             <CursorOverlay
                 visible={cursor.visible}
                 x={cursor.x}
