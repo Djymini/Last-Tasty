@@ -19,6 +19,7 @@ type Props = {
     onMove?: (e: React.MouseEvent) => void;
     onLeave?: () => void;
     onClick?: () => void;
+    className?: string;
 };
 
 export default function InteractiveZone({
