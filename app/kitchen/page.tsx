@@ -47,7 +47,7 @@ export default function KitchenPage() {
 
     useEffect(() => {
         return () => {
-           git pull if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
+           if (timeoutRef.current) window.clearTimeout(timeoutRef.current);
         };
     }, []);
 
