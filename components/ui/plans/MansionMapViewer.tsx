@@ -2,9 +2,10 @@
 
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import "@/components/ui/8bit/styles/retro.css";
+
 import { FloorTitle } from "./FloorTitle";
 import { NavigationArrow } from "./NavigationArrow";
-import {FloorPlanImage, MansionFloorPlan} from "@/components/ui/plans/MansionFloorViewer";
+import { MansionFloorPlan, type FloorPlanImage } from "@/components/ui/plans/MansionFloorPlan";
 
 const DEFAULT_FLOOR_IMAGES: FloorPlanImage[] = [
     { src: "/manor-blueprints/Basement.png", alt: "Basement" },
@@ -80,6 +81,9 @@ function MansionFloorViewerInner({
         return () => window.removeEventListener("keydown", handleKeyDown);
     }, [isOpen, onClose, goToPreviousFloor, goToNextFloor]);
 
+    // largeur interne “stable” du contenu (évite l’illusion de décentrage)
+    const contentWidth = 80 + planWidth + 80 + 48; // 48 ~ 2 gaps à 24px
+
     return (
         <div
             className={
@@ -94,22 +98,25 @@ function MansionFloorViewerInner({
             <div
                 className={
                     "relative bg-stone-900 border-8 border-stone-700 " +
-                    "shadow-[8px_8px_0px_0px_rgba(0,0,0,0.9)] p-6 " +
-                    "animate-in fade-in zoom-in-95 duration-200"
+                    "shadow-[8px_8px_0px_0px_rgba(0,0,0,0.9)] " +
+                    "px-8 py-8 " +
+                    "w-[760px] max-w-[92vw]"
                 }
                 onClick={(e) => e.stopPropagation()}
             >
+                {/* Coins pixel */}
                 <div className="absolute -top-2 -left-2 w-4 h-4 bg-amber-600" />
                 <div className="absolute -top-2 -right-2 w-4 h-4 bg-amber-600" />
                 <div className="absolute -bottom-2 -left-2 w-4 h-4 bg-amber-600" />
                 <div className="absolute -bottom-2 -right-2 w-4 h-4 bg-amber-600" />
 
+                {/* Close */}
                 <button
                     onClick={onClose}
                     type="button"
                     aria-label="Fermer"
                     className={
-                        "absolute -top-4 -right-4 z-10 size-10 bg-red-800 border-4 border-red-600 " +
+                        "absolute top-4 right-4 z-10 size-10 bg-red-800 border-4 border-red-600 " +
                         "shadow-[2px_2px_0px_0px_rgba(0,0,0,0.8)] " +
                         "hover:bg-red-700 hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0px_0px_rgba(0,0,0,0.8)] " +
                         "active:translate-x-[2px] active:translate-y-[2px] active:shadow-none " +
@@ -120,49 +127,56 @@ function MansionFloorViewerInner({
                     X
                 </button>
 
-                <div className="flex flex-col items-center gap-4 mb-6">
-                    <h1 className="retro text-amber-500 text-lg tracking-widest">PLANS DU MANOIR</h1>
+                {/* Header centré sur la même largeur que le contenu */}
+                <div className="mx-auto flex flex-col items-center gap-4 mb-8" style={{ width: Math.min(contentWidth, 720) }}>
+                    <h1 className="retro text-amber-500 text-lg tracking-widest text-center">PLANS DU MANOIR</h1>
                     <FloorTitle floor={currentFloor} />
                 </div>
 
-                <div className="flex items-center gap-4">
-                    <NavigationArrow
-                        direction="left"
-                        onClick={goToPreviousFloor}
-                        disabled={currentFloor === 0 || isAnimating}
-                    />
-
+                {/* ✅ ROW MAP parfaitement centrée : grid 3 colonnes symétriques */}
+                <div className="mx-auto" style={{ width: Math.min(contentWidth, 720) }}>
                     <div
-                        className={
-                            "relative border-4 border-stone-600 bg-stone-950 " +
-                            "shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] overflow-hidden " +
-                            (isAnimating ? "opacity-50" : "")
-                        }
+                        className="grid items-center gap-6 justify-center"
+                        style={{ gridTemplateColumns: `80px ${planWidth}px 80px` }}
                     >
+                        <div className="flex justify-center">
+                            <NavigationArrow
+                                direction="left"
+                                onClick={goToPreviousFloor}
+                                disabled={currentFloor === 0 || isAnimating}
+                            />
+                        </div>
+
                         <div
-                            className="absolute inset-0 pointer-events-none z-10"
-                            style={{
-                                background:
-                                    "repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px)",
-                            }}
-                        />
+                            className={
+                                "relative border-4 border-stone-600 bg-stone-950 " +
+                                "shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] overflow-hidden " +
+                                (isAnimating ? "opacity-50" : "")
+                            }
+                            style={{ width: planWidth }}
+                        >
+                            <div
+                                className="absolute inset-0 pointer-events-none z-10"
+                                style={{
+                                    background:
+                                        "repeating-linear-gradient(0deg, rgba(0,0,0,0.1) 0px, rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px)",
+                                }}
+                            />
+                            <MansionFloorPlan floor={currentFloor} customImages={images} width={planWidth} height={planHeight} />
+                        </div>
 
-                        <MansionFloorPlan
-                            floor={currentFloor}
-                            customImages={images}
-                            width={planWidth}
-                            height={planHeight}
-                        />
+                        <div className="flex justify-center">
+                            <NavigationArrow
+                                direction="right"
+                                onClick={goToNextFloor}
+                                disabled={currentFloor === TOTAL_FLOORS - 1 || isAnimating}
+                            />
+                        </div>
                     </div>
-
-                    <NavigationArrow
-                        direction="right"
-                        onClick={goToNextFloor}
-                        disabled={currentFloor === TOTAL_FLOORS - 1 || isAnimating}
-                    />
                 </div>
 
-                <div className="flex flex-col items-center gap-3 mt-6">
+                {/* Footer centré sur la même largeur */}
+                <div className="mx-auto flex flex-col items-center gap-3 mt-8" style={{ width: Math.min(contentWidth, 720) }}>
                     <div className="flex gap-2">
                         {Array.from({ length: TOTAL_FLOORS }).map((_, index) => (
                             <button
@@ -187,9 +201,7 @@ function MansionFloorViewerInner({
                         ))}
                     </div>
 
-                    <p className="retro text-stone-500 text-[8px] tracking-wide">
-                        FLECHES POUR NAVIGUER - ESC POUR FERMER
-                    </p>
+
                 </div>
             </div>
         </div>

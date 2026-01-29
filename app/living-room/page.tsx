@@ -8,6 +8,7 @@ import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
 import { Button } from "@/components/ui/button";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
+import { useGameUI } from "@/app/contexts/GameUIContext";
 
 export default function LivingRoomPage() {
     const router = useRouter();
@@ -15,10 +16,14 @@ export default function LivingRoomPage() {
 
     const { cursor, show: showCursor, move, hide } = useCursorOverlay();
 
+    const { unlockManorMap, openMap } = useGameUI(); // ✅ AJOUT
+
     const blueprintTaken = searchParams.get("blueprint") === "1";
     const [open, setOpen] = useState<number | null>(null);
 
     const onTakeBlueprint = () => {
+        unlockManorMap();
+        openMap();
         router.push("/living-room?blueprint=1");
     };
 

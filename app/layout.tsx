@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import {GameUIProvider} from "@/app/contexts/GameUIContext";
+import {ManorMapHUD} from "@/components/ui/plans/ManorMapHUD";
 
 const pressStart = localFont({
     src: [
@@ -37,7 +39,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={pressStart.variable}>
       <body>
-        {children}
+      <GameUIProvider>
+          {children}
+          <ManorMapHUD />
+      </GameUIProvider>
       </body>
     </html>
   );
