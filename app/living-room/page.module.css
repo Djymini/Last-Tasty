@@ -9,7 +9,7 @@
 }
 
 .blueprintTaken {
-    background-image: url("/rooms/livingRoom/living-room-without-blueprint.png");
+    background-image: url("../../public/rooms/livingRoom/living-room-without-blueprint.png");
 }
 
 .fireplace {
