@@ -25,7 +25,7 @@ export default function NestPage() {
                     idItem: 2,
                     name: "Clé de la bibliothèque",
                     description: "Je vais pouvoir ouvrir la porte de la bibliothèque",
-                    image: "/icons/ladder.png"
+                    image: "/icons/key.png"
                 }
             ]
         }));

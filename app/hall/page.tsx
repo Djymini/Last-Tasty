@@ -42,7 +42,7 @@ export default function HallPage() {
         setCursor((c) => ({ ...c, visible: false, label: "" }));
 
     const openLockedDoor = (hasKey: boolean, path: string) => {
-        if (!hasKey) {
+        if (!context.value.inventory.some(item => item.idItem === 2)) {
             setShowLockedInfo(true);
 
             window.setTimeout(() => {
