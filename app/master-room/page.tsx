@@ -1,77 +1,68 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import styles from "./page.module.css";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
-
-type CursorDir = "up" | "left" | "right" | "down";
+import { Button } from "@/components/ui/button";
+import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 
 export default function LivingRoomPage() {
     const router = useRouter();
+    const searchParams = useSearchParams();
 
-    const [cursor, setCursor] = useState<{
-        visible: boolean;
-        x: number;
-        y: number;
-        dir: CursorDir;
-        label: string;
-    }>({
-        visible: false,
-        x: 0,
-        y: 0,
-        dir: "down",
-        label: "",
-    });
+    const { cursor, show: showCursor, move, hide } = useCursorOverlay();
 
-    const show = (dir: CursorDir, label: string) =>
-        setCursor((c) => ({ ...c, visible: true, dir, label }));
+    const bookmarkTaken = searchParams.get("blueprint") === "1";
+    const [open, setOpen] = useState<number | null>(null);
 
-    const move = (e: React.MouseEvent) =>
-        setCursor((c) => ({ ...c, x: e.clientX, y: e.clientY }));
-
-    const hide = () => setCursor((c) => ({ ...c, visible: false, label: "" }));
-
+    const onTakeBookmark = () => {
+        router.push("/living-room?bookmark=1");
+    };
     return (
-        <main className={styles.main}>
-            <CursorOverlay
-                visible={cursor.visible}
-                x={cursor.x}
-                y={cursor.y}
-                dir="down"
-                label="Retourner dans le couloir"
-            />
+        <main className={`${styles.main} ${bookmarkTaken ? styles.bookmarkTaken : ""}`}>
+            <CursorOverlay {...cursor} />
 
-            <div className={`group ${styles.painting}`}>
-                <InfoBubble
-                    title="Tableau"
-                    description="Il serait temps de faire les poussières dans le coin ..."
-                    className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
-                    style={{
-                        position: "absolute",
-                        top: "2vh",
-                        left: "2vw",
-                        width: "25vw",
-                        pointerEvents: "none",
-                    }}
-                />
+            <div className={styles.painting} onClick={() => setOpen(1)} role="button">
+                {open === 1 && (
+                    <InfoBubble
+                        title="Tableau"
+                        description="Il serait temps de faire les poussières dans le coin ..."
+                        style={{
+                            position: "absolute",
+                            top: "2vh",
+                            left: "2vw",
+                            width: "25vw",
+                            pointerEvents: "none",
+                        }}
+                    />
+                )}
             </div>
 
             <div className={`group ${styles.bookmark}`}>
                 <InfoBubble
                     title="Marque page de René"
                     description="ça pourrait m'être utile !"
-                    className="opacity-0 translate-y-1 transition-all duration-150 group-hover:opacity-100 group-hover:translate-y-0"
                     style={{
                         position: "absolute",
                         top: "-2vh",
                         left: "-20vw",
                         width: "20vw",
-                        pointerEvents: "none",
-                    }}
-                />
+
+                    }}>
+                    <div style={{ marginTop: 12, textAlign: "right" }}>
+                        <Button
+                            variant="outline"
+                            className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
+                            onClick={onTakeBookmark}
+                        >
+                            Ramasser
+                        </Button>
+                    </div>
+                </InfoBubble>
+
             </div>
 
             <InteractiveZone
@@ -81,7 +72,7 @@ export default function LivingRoomPage() {
                 height="35vh"
                 label="Retourner dans le couloir"
                 dir="down"
-                onEnter={show}
+                onEnter={showCursor}
                 onMove={move}
                 onLeave={hide}
                 onClick={() => router.push("/east-corridor")}

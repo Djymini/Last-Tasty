@@ -2,15 +2,19 @@
     position: relative;
     height: 100vh;
     width: 100vw;
-    background-image: url("../../public/rooms/master-room.png");
+    background-image: url("../../public/rooms/master-room/master-room.png");
     background-size: cover;
     background-position: center;
     overflow: hidden;
 }
 
+.bookmarkTaken {
+    background-image: url("../../public/rooms/livingRoom/living-room-without-blueprint.png");
+}
+
 .painting {
     position: absolute;
-    top: 0vh;
+    top: 0;
     left: 38vw;
     width: 24vw;
     height: 20vh;
