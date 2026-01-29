@@ -97,7 +97,7 @@ export default function LivingRoomPage() {
                             top: "100%",
                             left: "50%",
                             transform: "translateX(-50%) translateY(8px)",
-                            width: "50%",
+                            width: "80%",
                             pointerEvents: "none",
                         }}
                     />
@@ -105,10 +105,10 @@ export default function LivingRoomPage() {
             </div>
 
             <InteractiveZone
-                top="75%"
+                top="80%"
                 left="0%"
                 width="100%"
-                height="25%"
+                height="20%"
                 label="Retour vers le hall"
                 dir="down"
                 onEnter={showCursor}
