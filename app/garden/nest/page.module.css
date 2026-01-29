@@ -1,0 +1,20 @@
+.main {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("/rooms/garden/nest.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.zone {
+    position: absolute;
+    cursor: pointer;
+}
+
+.keyZone {
+    top: 40%;
+    left: 52%;
+    width: 15%;
+    height: 29%;
+}
