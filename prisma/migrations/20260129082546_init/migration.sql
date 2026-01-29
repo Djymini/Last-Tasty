@@ -1,6 +1,6 @@
 -- CreateTable
 CREATE TABLE `party` (
-    `session_number` INTEGER NOT NULL,
+    `session_number` VARCHAR(191) NOT NULL,
     `location` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`session_number`)
@@ -8,7 +8,7 @@ CREATE TABLE `party` (
 
 -- CreateTable
 CREATE TABLE `item` (
-    `id_item` INTEGER NOT NULL,
+    `id_item` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
     `image_url` VARCHAR(191) NOT NULL,
 
@@ -19,13 +19,13 @@ CREATE TABLE `item` (
 
 -- CreateTable
 CREATE TABLE `progression` (
-    `id_progression` INTEGER NOT NULL,
+    `id_progression` INTEGER NOT NULL AUTO_INCREMENT,
     `introduction_is_viewed` BOOLEAN NOT NULL,
     `postit_is_viewed` BOOLEAN NOT NULL,
     `diary_is_viewed` BOOLEAN NOT NULL,
     `library_is_open` BOOLEAN NOT NULL,
     `gordon_is_viewed` BOOLEAN NOT NULL,
-    `session_number` INTEGER NOT NULL,
+    `session_number` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `progression_session_number_key`(`session_number`),
     PRIMARY KEY (`id_progression`)
@@ -33,7 +33,7 @@ CREATE TABLE `progression` (
 
 -- CreateTable
 CREATE TABLE `inventory` (
-    `session_number` INTEGER NOT NULL,
+    `session_number` VARCHAR(191) NOT NULL,
     `id_item` INTEGER NOT NULL,
 
     PRIMARY KEY (`session_number`, `id_item`)

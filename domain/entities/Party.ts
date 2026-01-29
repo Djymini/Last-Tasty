@@ -1,6 +1,6 @@
 export class Party {
     constructor(
-        public sessionNumber: number,
+        public sessionNumber: string,
         public location: string
     ) {}
 }
