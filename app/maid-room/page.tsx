@@ -21,6 +21,23 @@ export default function MaidRoomPage() {
     const { cursor, show: showCursor, move, hide } = useCursorOverlay();
     const [open, setOpen] = useState<number | null>(null);
 
+    const onTakeBook = () => {
+        if (!context.value.inventory.some(item => item.name === "Note du post-it trouvé dans la cuisine")){
+            context.setValue(prev => ({
+                ...prev,
+                inventory: [
+                    ...prev.inventory,
+                    {
+                        idItem: 11,
+                        name: "Note du journal du majordome",
+                        description: "La pie a encore volé la clé de la bibliothèque. Je vais devoir aller chercher l'echelle à la cave pour la récupérer",
+                        image: "/icons/notepad.png"
+                    }
+                ]
+            }));
+        }
+    }
+
 
     return (
         <main className={styles.main}>
@@ -56,7 +73,7 @@ export default function MaidRoomPage() {
                             <Button
                                 variant="outline"
                                 className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
-                                // onClick={onTakeBlueprint}
+                                onClick={onTakeBook}
                             >
                                 Ramasser
                             </Button>
