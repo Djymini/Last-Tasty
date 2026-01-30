@@ -32,7 +32,7 @@ export default function Entrance() {
 
     const handleValidate = () => {
         console.log("Code entré :", code);
-        if (code === "BELAGE") {
+        if (code === "PAIN") {
             setIsUnlocked(true);
         }
     };
