@@ -2,7 +2,7 @@
 
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo, useState } from "react";
-import styles from "./page.module.css";
+import styles from "../page.module.css";
 
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
@@ -17,7 +17,7 @@ import {InventoryBoard} from "@/components/ui/inventory-board";
 
 type OpenZone = 1 | 2 | 3 | null;
 
-export default function LivingRoomPage() {
+export default function LivingRoomPage2() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const context = usePlayerContext();
@@ -25,7 +25,7 @@ export default function LivingRoomPage() {
     const { cursor, show: showCursor, move, hide } = useCursorOverlay();
     const { setValue } = usePlayerContext();
 
-    const blueprintTaken = useMemo(() => searchParams.get("blueprint") === "1", [searchParams]);
+
 
     const [open, setOpen] = useState<OpenZone>(null);
 
@@ -45,37 +45,10 @@ export default function LivingRoomPage() {
         [router, closeZone]
     );
 
-    const hasBlueprint = context.value.inventory.some(
-        item => item.name === "Plan de la maison"
-    );
-
-    const blueprintDescription = hasBlueprint
-        ? "Je pensais l'avoir déjà récupéré"
-        : "On dirait les plans du manoir.";
-
-
-    const onTakeBlueprint = () => {
-        if (!context.value.inventory.some(item => item.name === "Plan de la maison")){
-            context.setValue(prev => ({
-                ...prev,
-                inventory: [
-                    ...prev.inventory,
-                    {
-                        idItem: 6,
-                        name: "Plan de la maison",
-                        description: "Ca peut-etre utile pour se repérer",
-                        image: "/icons/map.png"
-                    }
-                ]
-            }));
-        }
-        router.push("/living-room?blueprint=1");
-    };
-
 
     return (
         <main
-            className={`${styles.main} ${blueprintTaken ? styles.blueprintTaken : ""}`}
+            className={styles.main2}
             onClick={closeZone}
             role="presentation"
         >
@@ -109,50 +82,6 @@ export default function LivingRoomPage() {
                 )}
             </div>
 
-            {!blueprintTaken && (
-                <>
-                    {open !== 2 && (
-                        <div
-                            className={styles.blueprint}
-                            role="button"
-                            tabIndex={0}
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                openZone(2);
-                            }}
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter" || e.key === " ") openZone(2);
-                            }}
-                        />
-                    )}
-
-                    {open === 2 && (
-                        <InfoBubble
-                            title="Plan"
-                            description={blueprintDescription}
-                            top="40%"
-                            left="42%"
-                            width="15%"
-                        >
-                            {!hasBlueprint && (
-                                <div style={{ marginTop: 12, textAlign: "right" }}>
-                                    <Button
-                                        variant="outline"
-                                        className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
-                                        onClick={() => {
-                                            onTakeBlueprint();
-                                            router.push("/living-room/page-2");
-                                        }}
-                                    >
-                                        Ramasser
-                                    </Button>
-                                </div>
-                            )}
-
-                        </InfoBubble>
-                    )}
-                </>
-            )}
 
             {/*  */}
             <div
