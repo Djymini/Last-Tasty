@@ -13,6 +13,7 @@ const KEYS = [
     "E", "F", "G", "H",
     "I","K", "J", "L",
     "M", "N", "O", "P",
+
 ];
 
 export default function Entrance() {
@@ -32,13 +33,22 @@ export default function Entrance() {
 
     const handleValidate = () => {
         console.log("Code entré :", code);
-        if (code === "BELAGE") {
+        if (code === "PAIN") {
             setIsUnlocked(true);
         }
     };
 
     if (isUnlocked) {
-        return <main className={styles.roomBackgroundUnlocked}></main>;
+        return (
+            <main className={styles.roomBackgroundUnlocked}>
+                <div className={styles.endMessage}>
+                    <p>
+                        Bravo vous avez réussi à sortir ! Le calvaire ce termine enfin.
+                        Néanmoins, une pensée vous obsède : où est donc passé ce satané tasty krousty . . .
+                    </p>
+                </div>
+            </main>
+        );
     }
 
     return (

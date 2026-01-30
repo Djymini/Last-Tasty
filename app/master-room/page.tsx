@@ -21,6 +21,14 @@ export default function LivingRoomPage() {
     const [open, setOpen] = useState<number | null>(null);
     const context = usePlayerContext();
 
+    const hasBook = context.value.inventory.some(
+        item => item.name === "Le satanisme pour les nuls"
+    );
+
+    const bookDescription = hasBook
+        ? "Bizarre l'ambiance, j'ai déjà le marque-page"
+        : "Ça pourrait m'être utile !";
+
     const onTakeBookmark = () => {
         context.setValue(prev => ({
             ...prev,
@@ -28,9 +36,15 @@ export default function LivingRoomPage() {
                 ...prev.inventory,
                 {
                     idItem: 7,
-                    name: "Marque page de René",
-                    description: "Ecrire l'enigme",
-                    image: "/icons/notepad.png"
+                    name: "Marque-page de René",
+                    description: "Note du code : Arbre 10, Feu 4, Pluie 20, Soleil 2, Coeur 13. Ce marque-page fait la taille d'un livre !",
+                    image: "/icons/bookmark.png"
+                },
+                {
+                    idItem: 8,
+                    name: "Le satanisme pour les nuls",
+                    description: "Un livre avec un symbole de feu. Il est apparu quand j'ai récupéré le marque-page... Hum",
+                    image: "/icons/fire_book.png"
                 }
             ]
         }));
@@ -66,21 +80,23 @@ export default function LivingRoomPage() {
 
                     {open === 2 && (
                         <InfoBubble
-                            title="Marque page de René"
-                            description="ça pourrait m'être utile !"
+                            title="8"
+                            description={bookDescription}
                             top="20%"
                             left="70%"
                             width="20%"
                         >
-                            <div style={{ marginTop: 12, textAlign: "right" }}>
-                                <Button
-                                    variant="outline"
-                                    className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
-                                    onClick={onTakeBookmark}
-                                >
-                                    Ramasser
-                                </Button>
-                            </div>
+                            {!hasBook && (
+                                <div style={{ marginTop: 12, textAlign: "right" }}>
+                                    <Button
+                                        variant="outline"
+                                        className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
+                                        onClick={onTakeBookmark}
+                                    >
+                                        Ramasser
+                                    </Button>
+                                </div>
+                            )}
                         </InfoBubble>
                     )}
                 </>
