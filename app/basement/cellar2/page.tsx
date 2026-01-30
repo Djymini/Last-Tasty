@@ -20,6 +20,14 @@ export default function Cellar2() {
     const goTimeoutRef = useRef<number | null>(null);
     const context = usePlayerContext();
 
+    const hasLadder = context.value.inventory.some(
+        item => item.name === "Vieille echelle"
+    );
+
+    const ladderDescription = hasLadder
+        ? "Ce manoir est bizarre"
+        : "Cette echelle peut m'aider";
+
     const [cursor, setCursor] = useState<{
         visible: boolean;
         x: number;
@@ -122,17 +130,19 @@ export default function Cellar2() {
                 <>
                     <InfoBubble
                         title="Echelle"
-                        description="Cette échelle peut m'aider"
+                        description={ladderDescription}
                         top="40%"
                         left="35%"
                     />
-                    <button
-                        type="button"
-                        className={styles.bubbleAction}
-                        onClick={pickupTheLadder}
-                    >
-                        Récupérer cette échelle
-                    </button>
+                    {!hasLadder && (
+                        <button
+                            type="button"
+                            className={styles.bubbleAction}
+                            onClick={pickupTheLadder}
+                        >
+                            Récupérer cette échelle
+                        </button>
+                    )}
                 </>
             )}
 

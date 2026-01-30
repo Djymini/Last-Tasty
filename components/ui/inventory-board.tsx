@@ -103,7 +103,7 @@ export function InventoryBoard({
                                         {item ? (
                                             <div
                                                 className={cn("text-stone-300")}>
-                                                <img src={item.image} alt="Image d'inventaire"/>
+                                                <img src={item.image} width="96px" height="96px" alt="Image d'inventaire"/>
                                             </div>
                                         ) : (
                                             <div className="size-4 border-2 border-dashed border-stone-700" />
@@ -126,7 +126,7 @@ export function InventoryBoard({
                                             "size-16 shrink-0 border-4 bg-stone-900 flex items-center justify-center"
                                         )}>
                                             <div>
-                                                <img src={selectedItem.image} alt="Image d'inventaire"/>
+                                                <img src={selectedItem.image} width="96px" height="96px" alt="Image d'inventaire"/>
                                             </div>
                                         </div>
 

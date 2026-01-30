@@ -49,7 +49,7 @@ export default function Home() {
                     {texte}
                 </p>
 
-                <Button variant={"outline"} onClick={() => router.push("/entrance")}>Commencer</Button>
+                <Button variant={"outline"} onClick={() => router.push("/hall")}>Commencer</Button>
             </div>
         </div>
     );

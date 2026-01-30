@@ -21,4 +21,19 @@
     gap: 16px;
 }
 
+.fadeLoop {
+    font-size: 72px;
+    font-weight: bold;
+    cursor: grab;
+    color: white;
+    animation: fadeLoop 2s ease-in-out infinite;
+}
+
+@keyframes fadeLoop {
+    0%   { opacity: 0; }
+    25%  { opacity: 1; }
+    75%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
 
