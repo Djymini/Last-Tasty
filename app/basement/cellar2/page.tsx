@@ -8,6 +8,9 @@ import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZ
 
 import ScreamerOverlay2 from "@/components/ui/screamerOverlay/ScreamerOverlay2";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {InventoryBoard} from "@/components/ui/inventory-board";
+import {Button} from "@/components/ui/button";
 
 type CursorDir = "up" | "down" | "left" | "right";
 
@@ -16,6 +19,7 @@ export default function Cellar2() {
     const [open, setOpen] = useState<number | null>(null);
     const timeoutRef = useRef<number | null>(null);
     const goTimeoutRef = useRef<number | null>(null);
+    const context = usePlayerContext();
 
     const [cursor, setCursor] = useState<{
         visible: boolean;
@@ -47,22 +51,38 @@ export default function Cellar2() {
         setCursor((c) => ({ ...c, x: e.clientX, y: e.clientY }));
     const hide = () => setCursor((c) => ({ ...c, visible: false, label: "" }));
 
+    const pickupTheLadder = () => {
+        context.setValue(prev => ({
+            ...prev,
+            inventory: [
+                ...prev.inventory,
+                {
+                    idItem: 1,
+                    name: "Vieille echelle",
+                    description: "Une echelle, pratique pour prendre de la hauteur",
+                    image: "/icons/ladder.png"
+                }
+            ]
+        }));
+        router.push("/basement/cellar3")
+    }
 
     return (
         <main className={styles.cellarBackground2}>
+            <InventoryBoard rows={2} cols={6} />
             <ScreamerOverlay2 imageUrl="/screamer2.png" durationMs={800} />
 
             <div
                 className={`${styles.zone} ${styles.zone2}`}
                 role="button"
                 tabIndex={0}
-                onClick={(e) => { e.stopPropagation(); showBubble(2); }}
+                onClick={(e) => { e.stopPropagation(); showBubble(3); }}
             />
             <div
                 className={`${styles.zone} ${styles.zone3}`}
                 role="button"
                 tabIndex={0}
-                onClick={(e) => { e.stopPropagation(); showBubble(3); }}
+                onClick={(e) => { e.stopPropagation(); showBubble(2); }}
             />
             <div
                 className={`${styles.zone} ${styles.zone4}`}
@@ -73,8 +93,8 @@ export default function Cellar2() {
 
             {open === 2 && (
                 <InfoBubble
-                    title="Pleins d'objets"
-                    description="Il n' y a rien d'utile sur cette table."
+                    title="Amas d'objets"
+                    description="Rien d'utile de ce coté-ci"
                     top="50%"
                     left="60%"
                 />
@@ -92,10 +112,10 @@ export default function Cellar2() {
 
             {open === 3 && (
                 <InfoBubble
-                    title="Caisse en bois"
-                    description="Il n'y a rien d'interessant dans cette caisse"
-                    top="65%"
-                    left="65%"
+                    title="Mur délabré"
+                    description="Cette pièce est un vrai dépotoir"
+                    top="20%"
+                    left="20%"
                 />
             )}
 
@@ -106,14 +126,18 @@ export default function Cellar2() {
                         description="Cette échelle peut m'aider"
                         top="40%"
                         left="35%"
-                    />
-                    <button
-                        type="button"
-                        className={styles.bubbleAction}
-                        onClick={() => router.push("/basement/cellar3")}
+                        width="15%"
                     >
-                        Récupérer cette échelle
-                    </button>
+                        <div style={{ marginTop: 12, textAlign: "right" }}>
+                            <Button
+                                variant="outline"
+                                className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
+                                onClick={pickupTheLadder}
+                            >
+                                Ramasser
+                            </Button>
+                        </div>
+                    </InfoBubble>
                 </>
             )}
 

@@ -9,6 +9,8 @@ import ScreamerOverlay from "@/components/ui/screamerOverlay/ScreamerOverlay";
 import { useTimedOpen } from "@/app/hooks/useTimedOpen";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 import { useState } from "react";
+import {InventoryBoard} from "@/components/ui/inventory-board";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
 
 export default function KitchenPage() {
     const router = useRouter();
@@ -17,6 +19,7 @@ export default function KitchenPage() {
     const { cursor, show: showCursor, move, hide } = useCursorOverlay();
 
     const [screamerOpen, setScreamerOpen] = useState(false);
+    const context = usePlayerContext();
 
 
     const zones = [
@@ -27,10 +30,25 @@ export default function KitchenPage() {
                 <InfoBubble
                     title="Un étrange document"
                     description="Il me sera sûrement utile."
-                    top="13%"
+                    top="12%"
                     left="-180%"
                 />
             ),
+            action: () => {const addTheNote = () => {
+                context.setValue(prev => ({
+                    ...prev,
+                    inventory: [
+                        ...prev.inventory,
+                        {
+                            idItem: 3,
+                            name: "Note du post-it trouvé dans la cuisine",
+                            description: "Voir le majordome pour la pie",
+                            image: "/icons/notepad.png"
+                        }
+                    ]
+                }));
+                show(2);
+            }}
         },
         {
             id: 3,
@@ -43,11 +61,13 @@ export default function KitchenPage() {
                     left="250px"
                 />
             ),
+            action: () => {show(3);}
         },
     ];
 
     return (
         <main className={styles.main}>
+            <InventoryBoard rows={2} cols={6} />
             <ScreamerOverlay
                 open={screamerOpen}
                 src="screamer.png"
@@ -67,7 +87,7 @@ export default function KitchenPage() {
                 <div
                     key={z.id}
                     className={`${styles.zone} ${z.className}`}
-                    onClick={() => show(z.id)}
+                    onClick={() => z.action()}
                     role="button"
                 >
                     {open === z.id && z.bubble}

@@ -8,6 +8,9 @@ import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZ
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import {useTimedOpen} from "@/app/hooks/useTimedOpen";
 import {useCursorOverlay} from "@/app/hooks/useCursorOverlay";
+import {InventoryBoard} from "@/components/ui/inventory-board";
+import {useContext} from "react";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
 
 
 
@@ -16,6 +19,7 @@ type InventoryItem = "ladder" | "key";
 export default function GardenPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const context = usePlayerContext();
 
     const getInventory = (): InventoryItem[] => {
         const inv: InventoryItem[] = [];
@@ -83,6 +87,7 @@ export default function GardenPage() {
 
     return (
         <main className={styles.main}>
+            <InventoryBoard rows={2} cols={6} />
             <CursorOverlay {...cursor} />
 
             {!hasKey && (

@@ -6,6 +6,8 @@ import styles from "../basement/page.module.css";
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 
 type CursorDir = "up" | "down" | "left" | "right";
@@ -46,14 +48,13 @@ export default function Basement() {
 
     return (
         <main className={styles.cellarBackground}>
-
-
+            <InventoryBoard rows={2} cols={6} />
             <div className={styles.interactiveLayer}>
                 <InteractiveZone
-                    top="10%"
-                    left="0%"
-                    width="100%"
-                    height="25%"
+                    top="15%"
+                    left="35%"
+                    width="30%"
+                    height="45%"
                     label="Descendre"
                     dir="up"
                     onEnter={show}
@@ -77,13 +78,13 @@ export default function Basement() {
                 className={`${styles.zone} ${styles.zone2}`}
                 role="button"
                 tabIndex={0}
-                onClick={(e) => { e.stopPropagation(); showBubble(2); }}
+                onClick={(e) => { e.stopPropagation(); showBubble(3); }}
             />
             <div
                 className={`${styles.zone} ${styles.zone3}`}
                 role="button"
                 tabIndex={0}
-                onClick={(e) => { e.stopPropagation(); showBubble(3); }}
+                onClick={(e) => { e.stopPropagation(); showBubble(2); }}
             />
 
             {open === 2 && (

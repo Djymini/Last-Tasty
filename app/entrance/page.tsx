@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import styles from "./page.module.css";
 import { Button } from "@/components/ui/8bit/button";
 import { Input } from "@/components/ui/input";
+import {InventoryBoard} from "@/components/ui/inventory-board";
+import {usePlayerContext} from "@/app/contexts/PlayerContext";
 
 const KEYS = [
     "A", "B", "C", "D",
@@ -18,6 +20,7 @@ export default function Entrance() {
     const [code, setCode] = useState("");
     const [isUnlocked, setIsUnlocked] = useState(false);
     const router = useRouter();
+    const context = usePlayerContext();
 
     const handleKeyPress = (letter: string) => {
         setCode((prev) => prev + letter);
@@ -41,11 +44,12 @@ export default function Entrance() {
     return (
         <main className={styles.roomBackgroundLocked}>
             {/* Overlay stage (référence plein écran) */}
+            <InventoryBoard rows={2} cols={6} />
             <div className={styles.stage}>
                 {/* Actions */}
                 <div className={styles.container}>
                     <Button
-                        className="bg-opacity-0"
+                        className="cursor-pointer bg-opacity-0 border border-white"
                         onClick={() => setShowCodeInput((prev) => !prev)}
                     >
                         {showCodeInput ? "Retour" : "Entrer le code"}
@@ -53,7 +57,7 @@ export default function Entrance() {
 
                     {showCodeInput && (
                         <Button
-                            className="bg-opacity-0 border border-white"
+                            className="cursor-pointer bg-opacity-0 border border-white"
                             onClick={handleBackspace}
                             disabled={code.length === 0}
                         >
@@ -63,7 +67,7 @@ export default function Entrance() {
 
                     {!showCodeInput && (
                         <Button
-                            className="bg-opacity-0"
+                            className="w-full cursor-pointer bg-opacity-0 border border-white"
                             onClick={() => router.push("/hall")}
                         >
                             Explorer le manoir
@@ -96,8 +100,8 @@ export default function Entrance() {
                             ))}
                         </div>
 
-                        <div className={styles.validateWrapper}>
-                            <Button className="bg-opacity-0 w-80 h-12 border border-white" onClick={handleValidate}></Button>
+                        <div >
+                            <button className={styles.validateWrapper} onClick={handleValidate}></button>
                         </div>
                     </div>
                 )}
