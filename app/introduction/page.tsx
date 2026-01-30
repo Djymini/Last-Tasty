@@ -9,7 +9,7 @@ export default function Home() {
 
     const texte = `Une commande arrive sur ton téléphone.
 
-                        Un Tasty Crousty encore chaud à livrer.
+                        Un Tasty Crousty encore chaud à livrer au nom de René.
 
                         Adresse indiquée :
                             - Manoir de Valombre.
