@@ -79,6 +79,8 @@ export default function KitchenPage() {
         }
     ];
 
+
+
     return (
         <main className={styles.main}>
             <ScreamerOverlay2 imageUrl={"/screamer.png"} durationMs={800}/>

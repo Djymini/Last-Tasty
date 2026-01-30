@@ -16,6 +16,26 @@
     height: 100vh;
     overflow: hidden;
 }
+
+.endMessage {
+    display: flex;
+    justify-content: center;
+    z-index: 10;
+    position: absolute;
+    top: 40%;
+    left: 10%;
+    height: 20vh;
+    width: 80vw;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.endMessage p {
+    position: relative;
+    text-align: center;
+    color: #FFE096;
+    width: 60vw;
+    padding-top: 7vh;
+}
 /* Référence plein écran */
 .stage {
     position: relative;
