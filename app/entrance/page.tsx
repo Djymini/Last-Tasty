@@ -44,7 +44,7 @@ export default function Entrance() {
                 <div className={styles.endMessage}>
                     <p>
                         Bravo vous avez réussi à sortir ! Le calvaire ce termine enfin.
-                        Néanmoins, une pensée vous obsède : où est donc passé ce satané tasty krousty . . .
+                        Néanmoins, une pensée vous obsède : est ce que l'on peut considéré que le Tasty est livré ?
                     </p>
                 </div>
             </main>

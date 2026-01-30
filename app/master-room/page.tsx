@@ -38,13 +38,13 @@ export default function LivingRoomPage() {
                 {
                     idItem: 7,
                     name: "Marque page de René",
-                    description: "Note pour moi le code est donné en ne comptant que les lettres des livres : Arbre 10 / Feu 4, Pluie 20 / Soleil 2 / Coeur 13",
+                    description: "Note à moi-même, moi René .Le code est donné en ne comptant que les lettres des titres des livres : Arbre 10 / Feu 4, Pluie 20 / Soleil 2 / Coeur 13",
                     image: "/icons/bookmark.png"
                 },
                 {
                     idItem: 8,
                     name: "Le satanisme pour les nuls",
-                    description: "Un livre avec un symbole de feu. Il est apparu quand j'ai récupéré le marque-page... Hum",
+                    description: "Un livre avec un symbole de feu. Il est apparu quand j'ai récupéré le marque-page... Hum bizarre",
                     image: "/icons/fire_book.png"
                 }
             ]

@@ -9,6 +9,7 @@ import {InfoBubble} from "@/components/ui/shared/InfoBubble";
 import {InventoryBoard} from "@/components/ui/inventory-board";
 import {usePlayerContext} from "@/app/contexts/PlayerContext";
 import Dialogue from "@/components/ui/8bit/blocks/dialogue";
+import {toast} from "@/components/ui/8bit/toast";
 
 type CursorDir = "up" | "left" | "right" | "down";
 
@@ -29,6 +30,22 @@ export default function HallPage() {
             ...prev,
             introductionIsViewed: true,
         }));
+
+        if (!context.value.inventory.some(item => item.name === "Tasty Krousty")){
+            context.setValue(prev => ({
+                ...prev,
+                inventory: [
+                    ...prev.inventory,
+                    {
+                        idItem: 14,
+                        name: "Tasty Krousty",
+                        description: "Ma commande du jour : si j'avais su. Mais n'hésité à me mettre 5 étoiles",
+                        image: "/icons/tasty.png"
+                    }
+                ]
+            }));
+
+        }
     };
 
     useEffect(() => {
