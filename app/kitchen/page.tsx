@@ -64,6 +64,8 @@ export default function KitchenPage() {
         },
     ];
 
+
+
     return (
         <main className={styles.main}>
             <InventoryBoard rows={2} cols={6} />
