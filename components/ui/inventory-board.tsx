@@ -44,7 +44,7 @@ export function InventoryBoard({
             >
                 {/* 8-bit Backpack Icon */}
                 <div className="relative">
-                    <img src="/icons/backpack.png" alt="Image d'inventaire"/>
+                    <img className="h-[64px]" src="/icons/backpack.png" alt="Image d'inventaire"/>
                 </div>
             </button>
 
@@ -103,7 +103,7 @@ export function InventoryBoard({
                                         {item ? (
                                             <div
                                                 className={cn("text-stone-300")}>
-                                                <img src={item.image} width="96px" height="96px" alt="Image d'inventaire"/>
+                                                <img src={item.image} className="h-[64px]" alt="Image d'inventaire"/>
                                             </div>
                                         ) : (
                                             <div className="size-4 border-2 border-dashed border-stone-700" />
@@ -126,20 +126,20 @@ export function InventoryBoard({
                                             "size-16 shrink-0 border-4 bg-stone-900 flex items-center justify-center"
                                         )}>
                                             <div>
-                                                <img src={selectedItem.image} width="96px" height="96px" alt="Image d'inventaire"/>
+                                                <img className="h-[64px]" src={selectedItem.image} height="96px" alt="Image d'inventaire"/>
                                             </div>
                                         </div>
 
                                         {/* Item Info */}
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 mb-2">
-                                                <span className="text-amber-400 font-[family-name:var(--font-retro)] text-xs">{selectedItem.name}</span>
+                                                <span className="text-amber-400 text-[16px] font-[family-name:var(--font-retro)] text-xs">{selectedItem.name}</span>
                                                 <h3 className={cn(
                                                     "font-[family-name:var(--font-retro)] text-xs truncate"
                                                 )}>
                                                 </h3>
                                             </div>
-                                            <p className="font-[family-name:var(--font-retro)] text-[8px] leading-relaxed text-stone-400">
+                                            <p className="font-[family-name:var(--font-retro)] text-[14px] leading-relaxed text-stone-400">
                                                 {selectedItem.description}
                                             </p>
                                             <div className="mt-2">

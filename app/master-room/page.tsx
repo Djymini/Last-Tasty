@@ -37,7 +37,7 @@ export default function LivingRoomPage() {
                 {
                     idItem: 7,
                     name: "Marque page de René",
-                    description: "Note du code : Arbre 10, Feu 4, Pluie 20, Soleil 2, Coeur 13. Ce marque page fais la taille d'un livre !",
+                    description: "Note pour moi le code est donné en ne comptant que les lettres des livres : Arbre 10 / Feu 4, Pluie 20 / Soleil 2 / Coeur 13",
                     image: "/icons/bookmark.png"
                 },
                 {
