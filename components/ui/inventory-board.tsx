@@ -133,22 +133,16 @@ export function InventoryBoard({
                                         {/* Item Info */}
                                         <div className="flex-1 min-w-0">
                                             <div className="flex items-center gap-2 mb-2">
-                                                <span className="text-amber-400 font-[family-name:var(--font-retro)] text-xs">!</span>
+                                                <span className="text-amber-400 font-[family-name:var(--font-retro)] text-xs">{selectedItem.name}</span>
                                                 <h3 className={cn(
                                                     "font-[family-name:var(--font-retro)] text-xs truncate"
                                                 )}>
-                                                    {selectedItem.name}
                                                 </h3>
                                             </div>
                                             <p className="font-[family-name:var(--font-retro)] text-[8px] leading-relaxed text-stone-400">
                                                 {selectedItem.description}
                                             </p>
                                             <div className="mt-2">
-                        <span className={cn(
-                            "font-[family-name:var(--font-retro)] text-[8px] uppercase px-2 py-1 border-2",
-                            "bg-stone-900"
-                        )}>
-                        </span>
                                             </div>
                                         </div>
                                     </div>

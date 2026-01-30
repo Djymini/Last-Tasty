@@ -75,8 +75,23 @@ export default function KitchenPage() {
                     left="250px"
                 />
              ),
-            action : ()=> {show(4)}
-        }
+            action: () => {
+                if (!context.value.inventory.some(item => item.name === "Enterre moi mon amour")){
+                    context.setValue(prev => ({
+                        ...prev,
+                        inventory: [
+                            ...prev.inventory,
+                            {
+                                idItem: 9,
+                                name: "Enterre moi mon amour",
+                                description: "Un livre avec un symbole de coeur",
+                                image: "/icons/heart_book.png"
+                            }
+                        ]
+                    }));
+                }
+                show(4);
+            }}
     ];
 
 
