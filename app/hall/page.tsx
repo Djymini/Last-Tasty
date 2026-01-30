@@ -1,19 +1,56 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import styles from "./page.module.css";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
 import {InfoBubble} from "@/components/ui/shared/InfoBubble";
 import {InventoryBoard} from "@/components/ui/inventory-board";
 import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import Dialogue from "@/components/ui/8bit/blocks/dialogue";
 
 type CursorDir = "up" | "left" | "right" | "down";
 
 export default function HallPage() {
     const router = useRouter();
     const context = usePlayerContext();
+    const [currentDialogue, setCurrentDialogue] = useState(0);
+    const [displayedText, setDisplayedText] = useState("");
+    const [isTyping, setIsTyping] = useState(true);
+    const [showDialogue, setShowDialogue] = useState(true);
+
+    const handleToggleDialogue = () => {
+        setShowDialogue(!showDialogue);
+        if (!showDialogue) {
+            setCurrentDialogue(0);
+        }
+        context.setValue(prev => ({
+            ...prev,
+            introductionIsViewed: true,
+        }));
+    };
+
+    useEffect(() => {
+        if (!showDialogue) return;
+
+        setDisplayedText("");
+        setIsTyping(true);
+        let index = 0;
+        const text = currentMessage.text;
+
+        const typingInterval = setInterval(() => {
+            if (index < text.length) {
+                setDisplayedText(text.slice(0, index + 1));
+                index++;
+            } else {
+                setIsTyping(false);
+                clearInterval(typingInterval);
+            }
+        }, 40);
+
+        return () => clearInterval(typingInterval);
+    }, [currentDialogue, showDialogue]);
 
 
     const [cursor, setCursor] = useState<{
@@ -58,6 +95,18 @@ export default function HallPage() {
 
     // TODO: à lier avec l'inventaire
     const hasLibraryKey = false;
+
+    const dialogues = [
+        {
+            speaker: "?",
+            text: "Que faites vous ici ? Vous devez vous enfuir vi... René connai... cod... mar...-page... liv... so... clé. Bonne chance !",
+            avatarSrc: "https://api.dicebear.com/7.x/pixel-art/svg?seed=hero",
+            avatarFallback: "HR",
+            isPlayer: true,
+        }
+    ];
+
+    const currentMessage = dialogues[0];
 
     return (
         <main className={styles.main}>
@@ -187,6 +236,31 @@ export default function HallPage() {
                 onClick={() => router.push("/entrance")}
             />
 
+            {showDialogue && !context.value.introductionIsViewed && (
+                <div
+                    className="bg-slate-900 p-4 border-t-4 border-foreground cursor-pointer"
+                    onClick={handleToggleDialogue}
+                >
+                    <div className="max-w-2xl mx-auto">
+                        <Dialogue
+                            avatarSrc={currentMessage.avatarSrc}
+                            avatarFallback={currentMessage.avatarFallback}
+                            title={currentMessage.speaker}
+                            description={displayedText}
+                            player={currentMessage.isPlayer}
+                        />
+
+                        {/* Continue indicator */}
+                        <div className="flex justify-end mt-2">
+              <span
+                  className={`retro text-xs text-muted-foreground ${isTyping ? "opacity-0" : "animate-pulse"}`}
+              >
+                [ Fermer ]
+              </span>
+                        </div>
+                    </div>
+                </div>
+            )}
         </main>
     );
 }
