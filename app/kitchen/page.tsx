@@ -11,6 +11,7 @@ import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 import { useState } from "react";
 import {InventoryBoard} from "@/components/ui/inventory-board";
 import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import ScreamerOverlay2 from "@/components/ui/screamerOverlay/ScreamerOverlay2";
 
 export default function KitchenPage() {
     const router = useRouter();
@@ -67,6 +68,8 @@ export default function KitchenPage() {
 
     return (
         <main className={styles.main}>
+            <ScreamerOverlay2 imageUrl={"/screamer.png"} durationMs={800}/>
+
             <InventoryBoard rows={2} cols={6} />
             <ScreamerOverlay
                 open={screamerOpen}
