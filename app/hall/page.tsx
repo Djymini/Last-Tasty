@@ -228,7 +228,7 @@ export default function HallPage() {
                 left="38%"
                 width="24%"
                 height="22%"
-                label="Vers l'entrée"
+                label="Vers la porte de sortie"
                 dir="down"
                 onEnter={show}
                 onMove={move}
