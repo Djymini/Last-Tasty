@@ -55,20 +55,11 @@ export default function LivingRoomPage() {
 
 
     const onTakeBlueprint = () => {
-        if (!context.value.inventory.some(item => item.name === "Plan de la maison")){
-            context.setValue(prev => ({
-                ...prev,
-                inventory: [
-                    ...prev.inventory,
-                    {
-                        idItem: 6,
-                        name: "Plan de la maison",
-                        description: "Ca peut-etre utile pour se repérer",
-                        image: "/icons/map.png"
-                    }
-                ]
-            }));
-        }
+        context.setValue((prev) => ({
+            ...prev,
+            inventory: addItemOnce(prev.inventory, MANOR_MAP_ITEM),
+        }));
+
         router.push("/living-room?blueprint=1");
     };
 
@@ -145,7 +136,6 @@ export default function LivingRoomPage() {
                                     </Button>
                                 </div>
                             )}
-
                         </InfoBubble>
                     )}
                 </>

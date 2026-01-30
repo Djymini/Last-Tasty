@@ -19,7 +19,7 @@ export function ManorMapHud() {
 
     return (
         <>
-            <div className="fixed top-4 right-4 z-[9999]">
+            <div className="fixed right-1 z-[9999]">
                 <MapButton onClick={() => setIsOpen(true)} />
             </div>
 

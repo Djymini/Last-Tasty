@@ -78,9 +78,16 @@ export default function KitchenPage() {
 
             <div
                 className={`${styles.zone} ${styles.zone1}`}
-                onClick={() => setScreamerOpen(true)}
+                onClick={() => {
+                    setScreamerOpen(true);
+
+                    setTimeout(() => {
+                        setScreamerOpen(false);
+                    }, 500);
+                }}
                 role="button"
             />
+
 
             {zones.map((z) => (
                 <div
