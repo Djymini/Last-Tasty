@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 import {usePlayerContext} from "@/app/contexts/PlayerContext";
 import {InventoryBoard} from "@/components/ui/inventory-board";
+import {toast} from "@/components/ui/8bit/toast";
 
 export default function LibraryPage() {
     const router = useRouter();
@@ -47,6 +48,7 @@ export default function LibraryPage() {
                 }
             ]
         }));
+        toast("3 livres aont été ramassés")
         router.push("/library?books=1");
         setOpen(null);
     };

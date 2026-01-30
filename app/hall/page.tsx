@@ -99,7 +99,7 @@ export default function HallPage() {
     const dialogues = [
         {
             speaker: "?",
-            text: "Que faites vous ici ? Vous devez vous enfuir vi... René connai... cod... mar...-page... liv... so... clé. Bonne chance !",
+            text: "Que faites vous ici ? Vous devez vous enfuir c'est un piège de René les livres et le marque page sont la clé. Bonne chance !",
             avatarSrc: "https://api.dicebear.com/7.x/pixel-art/svg?seed=hero",
             avatarFallback: "HR",
             isPlayer: true,

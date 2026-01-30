@@ -14,6 +14,7 @@ import { usePlayerContext } from "@/app/contexts/PlayerContext";
 import {addItemOnce} from "@/app/utils/inventory";
 import {MANOR_MAP_ITEM} from "@/app/constants/items";
 import {InventoryBoard} from "@/components/ui/inventory-board";
+import {toast} from "@/components/ui/8bit/toast";
 
 type OpenZone = 1 | 2 | 3 | null;
 
@@ -46,7 +47,7 @@ export default function LivingRoomPage() {
     );
 
     const hasBlueprint = context.value.inventory.some(
-        item => item.name === "Plan de la maison"
+        item => item.name === "MANOR MAP"
     );
 
     const blueprintDescription = hasBlueprint
@@ -55,12 +56,14 @@ export default function LivingRoomPage() {
 
 
     const onTakeBlueprint = () => {
-        context.setValue((prev) => ({
-            ...prev,
-            inventory: addItemOnce(prev.inventory, MANOR_MAP_ITEM),
-        }));
-
-        router.push("/living-room?blueprint=1");
+        if (!context.value.inventory.some(item => item.name === "MANOR MAP")) {
+            context.setValue((prev) => ({
+                ...prev,
+                inventory: addItemOnce(prev.inventory, MANOR_MAP_ITEM),
+            }));
+            toast("Plan du manoir ramassé")
+            router.push("/living-room?blueprint=1");
+        }
     };
 
 
@@ -130,10 +133,7 @@ export default function LivingRoomPage() {
                                     <Button
                                         variant="outline"
                                         className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
-                                        onClick={() => {
-                                            onTakeBlueprint();
-                                            router.push("/living-room/page-2");
-                                        }}
+                                        onClick={onTakeBlueprint}
                                     >
                                         Ramasser
                                     </Button>

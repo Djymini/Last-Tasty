@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 import {InventoryBoard} from "@/components/ui/inventory-board";
 import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {toast} from "@/components/ui/8bit/toast";
 
 export default function LivingRoomPage() {
     const router = useRouter();
@@ -36,8 +37,8 @@ export default function LivingRoomPage() {
                 ...prev.inventory,
                 {
                     idItem: 7,
-                    name: "Marque-page de René",
-                    description: "Note du code : Arbre 10, Feu 4, Pluie 20, Soleil 2, Coeur 13. Ce marque-page fait la taille d'un livre !",
+                    name: "Marque page de René",
+                    description: "Note pour moi le code est donné en ne comptant que les lettres des livres : Arbre 10 / Feu 4, Pluie 20 / Soleil 2 / Coeur 13",
                     image: "/icons/bookmark.png"
                 },
                 {
@@ -48,6 +49,7 @@ export default function LivingRoomPage() {
                 }
             ]
         }));
+        toast("Marque-page et livre ramassés")
         router.push("/master-room?bookmark=1");
     };
 
@@ -80,7 +82,7 @@ export default function LivingRoomPage() {
 
                     {open === 2 && (
                         <InfoBubble
-                            title="8"
+                            title="Marque page de René"
                             description={bookDescription}
                             top="20%"
                             left="70%"

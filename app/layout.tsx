@@ -4,6 +4,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import {PlayerProvider} from "@/app/contexts/PlayerContext";
 import {ManorMapHud} from "@/components/ui/plans/ManorMapHud";
+import { Toaster } from "@/components/ui/sonner"
+
 
 const pressStart = localFont({
     src: [
@@ -42,6 +44,7 @@ export default function RootLayout({
       <PlayerProvider>
           <ManorMapHud />
           {children}
+          <Toaster />
       </PlayerProvider>
       </body>
     </html>
