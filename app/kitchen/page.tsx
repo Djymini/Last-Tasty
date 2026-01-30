@@ -64,6 +64,19 @@ export default function KitchenPage() {
             ),
             action: () => {show(3);}
         },
+        {
+            id: 4,
+            className: styles.zone4,
+            bubble:(
+                <InfoBubble
+                    title="Livre"
+                    description={"Ce livre semble etre un indice"}
+                    top="150px"
+                    left="250px"
+                />
+             ),
+            action : ()=> {show(4)}
+        }
     ];
 
     return (
