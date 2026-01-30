@@ -1,49 +1,82 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import styles from "./page.module.css";
+
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
 import { Button } from "@/components/ui/button";
+
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
-import {usePlayerContext} from "@/app/contexts/PlayerContext";
-import {InventoryBoard} from "@/components/ui/inventory-board";
+import { usePlayerContext } from "@/app/contexts/PlayerContext";
+import {addItemOnce} from "@/app/utils/inventory";
+import {MANOR_MAP_ITEM} from "@/app/constants/items";
+
+type OpenZone = 1 | 2 | 3 | null;
 
 export default function LivingRoomPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
 
     const { cursor, show: showCursor, move, hide } = useCursorOverlay();
+    const { setValue } = usePlayerContext();
 
-    const blueprintTaken = searchParams.get("blueprint") === "1";
-    const [open, setOpen] = useState<number | null>(null);
-    const context = usePlayerContext();
+    const blueprintTaken = useMemo(() => searchParams.get("blueprint") === "1", [searchParams]);
 
+    const [open, setOpen] = useState<OpenZone>(null);
 
-    const onTakeBlueprint = () => {
-        context.setValue(prev => ({
+    const openZone = useCallback((zone: Exclude<OpenZone, null>) => {
+        setOpen(zone);
+    }, []);
+
+    const closeZone = useCallback(() => {
+        setOpen(null);
+    }, []);
+
+    const navigateTo = useCallback(
+        (path: string) => {
+            closeZone();
+            router.push(path);
+        },
+        [router, closeZone]
+    );
+
+    const onTakeBlueprint = useCallback(() => {
+        setValue((prev) => ({
             ...prev,
-            inventory: [
-                ...prev.inventory,
-                {
-                    idItem: 6,
-                    name: "Plan de la maison",
-                    description: "Ca peut-etre utile pour se repérer",
-                    image: "/icons/map.png"
-                }
-            ]
+            inventory: addItemOnce(prev.inventory, MANOR_MAP_ITEM),
         }));
-        router.push("/living-room?blueprint=1");
-    };
+
+        if (!blueprintTaken) {
+            router.push("/living-room?blueprint=1");
+        } else {
+            closeZone();
+        }
+        closeZone();
+    }, [setValue, router, blueprintTaken, closeZone]);
 
     return (
-        <main className={`${styles.main} ${blueprintTaken ? styles.blueprintTaken : ""}`}>
-            <InventoryBoard rows={2} cols={6} />
+        <main
+            className={`${styles.main} ${blueprintTaken ? styles.blueprintTaken : ""}`}
+            onClick={closeZone}
+            role="presentation"
+        >
             <CursorOverlay {...cursor} />
 
-            <div className={styles.fireplace} onClick={() => setOpen(1)} role="button">
+            <div
+                className={styles.fireplace}
+                role="button"
+                tabIndex={0}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    openZone(1);
+                }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") openZone(1);
+                }}
+            >
                 {open === 1 && (
                     <InfoBubble
                         title="Cheminée"
@@ -62,7 +95,18 @@ export default function LivingRoomPage() {
             {!blueprintTaken && (
                 <>
                     {open !== 2 && (
-                        <div className={styles.blueprint} onClick={() => setOpen(2)} role="button" />
+                        <div
+                            className={styles.blueprint}
+                            role="button"
+                            tabIndex={0}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                openZone(2);
+                            }}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" || e.key === " ") openZone(2);
+                            }}
+                        />
                     )}
 
                     {open === 2 && (
@@ -77,7 +121,10 @@ export default function LivingRoomPage() {
                                 <Button
                                     variant="outline"
                                     className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
-                                    onClick={onTakeBlueprint}
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        onTakeBlueprint();
+                                    }}
                                 >
                                     Ramasser
                                 </Button>
@@ -87,7 +134,19 @@ export default function LivingRoomPage() {
                 </>
             )}
 
-            <div className={styles.portrait} onClick={() => setOpen(3)} role="button">
+            {/*  */}
+            <div
+                className={styles.portrait}
+                role="button"
+                tabIndex={0}
+                onClick={(e) => {
+                    e.stopPropagation();
+                    openZone(3);
+                }}
+                onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") openZone(3);
+                }}
+            >
                 {open === 3 && (
                     <InfoBubble
                         title="Portrait"
@@ -114,7 +173,7 @@ export default function LivingRoomPage() {
                 onEnter={showCursor}
                 onMove={move}
                 onLeave={hide}
-                onClick={() => router.push("/hall")}
+                onClick={() => navigateTo("/hall")}
             />
         </main>
     );
