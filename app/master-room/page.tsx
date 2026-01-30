@@ -37,8 +37,8 @@ export default function LivingRoomPage() {
                 {
                     idItem: 7,
                     name: "Marque page de René",
-                    description: "Note du code : Arbre 10, Feu 4, Pluie 20, Soleil 2, Coeur 13",
-                    image: "/icons/notepad.png"
+                    description: "Note du code : Arbre 10, Feu 4, Pluie 20, Soleil 2, Coeur 13. Ce marque page fais la taille d'un livre !",
+                    image: "/icons/bookmark.png"
                 },
                 {
                     idItem: 8,
