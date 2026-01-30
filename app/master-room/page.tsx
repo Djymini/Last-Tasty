@@ -38,7 +38,7 @@ export default function LivingRoomPage() {
                 {
                     idItem: 7,
                     name: "Marque page de René",
-                    description: "Note à moi-même, moi René .Le code est donné en ne comptant que les lettres des titres des livres : Arbre 10 / Feu 4, Pluie 20 / Soleil 2 / Coeur 13",
+                    description: "Note à moi-même, moi René .Le code est donné en ne comptant que les lettres des titres des livres : Arbre 10 / Feu 4/ Pluie 20 / Soleil 2",
                     image: "/icons/bookmark.png"
                 },
                 {
