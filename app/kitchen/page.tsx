@@ -36,18 +36,20 @@ export default function KitchenPage() {
                 />
             ),
             action: () => {
-                context.setValue(prev => ({
-                    ...prev,
-                    inventory: [
-                        ...prev.inventory,
-                        {
-                            idItem: 3,
-                            name: "Note du post-it trouvé dans la cuisine",
-                            description: "Voir le majordome pour la pie",
-                            image: "/icons/notepad.png"
-                        }
-                    ]
-                }));
+                if (!context.value.inventory.some(item => item.name === "Note du post-it trouvé dans la cuisine")){
+                    context.setValue(prev => ({
+                        ...prev,
+                        inventory: [
+                            ...prev.inventory,
+                            {
+                                idItem: 3,
+                                name: "Note du post-it trouvé dans la cuisine",
+                                description: "Voir le majordome pour la pie",
+                                image: "/icons/notepad.png"
+                            }
+                        ]
+                    }));
+                }
                 show(2);
             }
         },
