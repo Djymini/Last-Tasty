@@ -11,10 +11,10 @@
     background-repeat: no-repeat;
 }
 
-.cellarBackground  { background-image: url("/rooms/cellar.png"); }
-.cellarBackground2 { background-image: url("/rooms/cellar2.png"); }
-.cellarBackground3 { background-image: url("/rooms/cellar3.png"); }
-.cellarBackground4 { background-image: url("/rooms/cellar4.png"); }
+.cellarBackground  { background-image: url("../../public/rooms/cellar.png"); }
+.cellarBackground2 { background-image: url("../../public/rooms/cellar2.png"); }
+.cellarBackground3 { background-image: url("../../public/rooms/cellar3.png"); }
+.cellarBackground4 { background-image: url("../../public/rooms/cellar4.png"); }
 
 .interactiveLayer {
     position: absolute;
@@ -41,9 +41,9 @@
 
 /* garde tes positions */
 .zone1 { top: 45%; left: 43%; width: 7%;  height: 25%; }
-.zone2 { top: 40%; left: 65%; width: 9%;  height: 20%; }
-.zone3 { top: 50%; left: 50%; width: 15%; height: 40%; }
-.zone4 { top: 50%; left: 40%; width: 15%; height: 40%; }
+.zone2 { top: 5%; left: 5%; width: 20%;  height: 20%; }
+.zone3 { top: 65%; left: 65%; width: 12%; height: 8%; }
+.zone4 { top: 0; left: 40%; width: 20%; height: 70%; }
 
 .bubbleAction {
     position: absolute;

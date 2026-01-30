@@ -1,18 +1,20 @@
 .roomBackgroundLocked {
-    background-image: url("/rooms/locked-entrance.png");
+    background-image: url("../../public/rooms/locked-entrance.png");
     background-size: cover;
     background-position: center 40%;
     background-repeat: no-repeat;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 .roomBackgroundUnlocked {
-    background-image: url("/rooms/unlocked-entrance.png");
+    background-image: url("../../public/rooms/unlocked-entrance.png");
     background-size: cover;
     background-position: center 40%;
     background-repeat: no-repeat;
     width: 100vw;
     height: 100vh;
+    overflow: hidden;
 }
 /* Référence plein écran */
 .stage {
@@ -42,7 +44,7 @@
 .panelOverlay {
     position: absolute;
     left: 50%;
-    top: 57%;
+    top: 46%;
     transform: translate(-50%, -50%);
 
     /* Taille "référence" du boîtier (à ajuster si besoin) */
@@ -56,24 +58,26 @@
 .validation {
     position: absolute;
     left: 48%;
-    top: 48px;
+    top: 49px;
     transform: translateX(-50%);
 
     width: 330px;
     height: 65px;
 
-    background: rgba(255, 255, 255, 0.95);
+    background: rgba(50, 50, 50, 0.95);
     border-radius: 6px;
+    border: 1px solid rgba(0, 0, 0);
+
 
 }
 
 .keyboard {
     position: absolute;
-    left: 49%;
-    top: 310px;
+    left: 48%;
+    top: 315px;
     transform: translate(-50%, -50%);
 
-    width: 310px;
+    width: 315px;
     height: 300px;
 
     display: grid;
@@ -89,12 +93,27 @@
     cursor: pointer;
 }
 
+.keyboardKey:hover {
+    transform: scale(1.12);
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
 /* Bouton valider sous le clavier */
 .validateWrapper {
     position: absolute;
-    left: 50%;
-    top: 480px;
+    left: 15%;
+    top: 484px;
+    width: 315px;
+    height: 60px;
     transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.validateWrapper:hover {
+    transform: scale(1.05);
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 

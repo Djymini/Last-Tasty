@@ -52,7 +52,7 @@ export default function LivingRoomPage() {
                             position: "absolute",
                             top: "12px",
                             left: "12px",
-                            width: "220px",
+                            width: "50%",
                             pointerEvents: "none",
                         }}
                     />
@@ -71,7 +71,7 @@ export default function LivingRoomPage() {
                             description="On dirait les plans du manoir."
                             top="40%"
                             left="42%"
-                            width="300px"
+                            width="15%"
                         >
                             <div style={{ marginTop: 12, textAlign: "right" }}>
                                 <Button
@@ -97,7 +97,7 @@ export default function LivingRoomPage() {
                             top: "100%",
                             left: "50%",
                             transform: "translateX(-50%) translateY(8px)",
-                            width: "240px",
+                            width: "80%",
                             pointerEvents: "none",
                         }}
                     />
@@ -105,10 +105,10 @@ export default function LivingRoomPage() {
             </div>
 
             <InteractiveZone
-                top="75%"
+                top="80%"
                 left="0%"
                 width="100%"
-                height="25%"
+                height="20%"
                 label="Retour vers le hall"
                 dir="down"
                 onEnter={showCursor}
