@@ -14,6 +14,7 @@ import { usePlayerContext } from "@/app/contexts/PlayerContext";
 import {addItemOnce} from "@/app/utils/inventory";
 import {MANOR_MAP_ITEM} from "@/app/constants/items";
 import {InventoryBoard} from "@/components/ui/inventory-board";
+import {toast} from "@/components/ui/8bit/toast";
 
 type OpenZone = 1 | 2 | 3 | null;
 
@@ -55,10 +56,21 @@ export default function LivingRoomPage() {
 
 
     const onTakeBlueprint = () => {
-        context.setValue((prev) => ({
-            ...prev,
-            inventory: addItemOnce(prev.inventory, MANOR_MAP_ITEM),
-        }));
+        if (!context.value.inventory.some(item => item.name === "Plan de la maison")){
+            context.setValue(prev => ({
+                ...prev,
+                inventory: [
+                    ...prev.inventory,
+                    {
+                        idItem: 5,
+                        name: "Plan de la maison",
+                        description: "Le plan du manoir",
+                        image: "/icons/map.png"
+                    }
+                ]
+            }));
+            toast("Carte ajoutée au formulaire")
+        }
 
         router.push("/living-room?blueprint=1");
     };

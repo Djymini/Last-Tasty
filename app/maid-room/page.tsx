@@ -10,6 +10,7 @@ import {usePlayerContext} from "@/app/contexts/PlayerContext";
 import {InventoryBoard} from "@/components/ui/inventory-board";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 import {Button} from "@/components/ui/button";
+import { toast } from "@/components/ui/8bit/toast"
 
 
 
@@ -22,7 +23,7 @@ export default function MaidRoomPage() {
     const [open, setOpen] = useState<number | null>(null);
 
     const onTakeBook = () => {
-        if (!context.value.inventory.some(item => item.name === "Note du post-it trouvé dans la cuisine")){
+        if (!context.value.inventory.some(item => item.name === "Note du journal du majordome")){
             context.setValue(prev => ({
                 ...prev,
                 inventory: [
@@ -35,6 +36,7 @@ export default function MaidRoomPage() {
                     }
                 ]
             }));
+            toast("Note du journal du majordome ramassé")
         }
     }
 
