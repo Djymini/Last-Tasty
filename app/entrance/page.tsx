@@ -49,7 +49,7 @@ export default function Entrance() {
                 {/* Actions */}
                 <div className={styles.container}>
                     <Button
-                        className="bg-opacity-0"
+                        className="cursor-pointer bg-opacity-0 border border-white"
                         onClick={() => setShowCodeInput((prev) => !prev)}
                     >
                         {showCodeInput ? "Retour" : "Entrer le code"}
@@ -57,7 +57,7 @@ export default function Entrance() {
 
                     {showCodeInput && (
                         <Button
-                            className="bg-opacity-0 border border-white"
+                            className="cursor-pointer bg-opacity-0 border border-white"
                             onClick={handleBackspace}
                             disabled={code.length === 0}
                         >
@@ -67,7 +67,7 @@ export default function Entrance() {
 
                     {!showCodeInput && (
                         <Button
-                            className="bg-opacity-0"
+                            className="w-full cursor-pointer bg-opacity-0 border border-white"
                             onClick={() => router.push("/hall")}
                         >
                             Explorer le manoir
@@ -100,8 +100,8 @@ export default function Entrance() {
                             ))}
                         </div>
 
-                        <div className={styles.validateWrapper}>
-                            <Button className="bg-opacity-0 w-80 h-12 border border-white" onClick={handleValidate}></Button>
+                        <div >
+                            <button className={styles.validateWrapper} onClick={handleValidate}></button>
                         </div>
                     </div>
                 )}
