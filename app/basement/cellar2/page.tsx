@@ -80,7 +80,7 @@ export default function Cellar2() {
     return (
         <main className={styles.cellarBackground2}>
             <InventoryBoard rows={2} cols={6} />
-            <ScreamerOverlay2 imageUrl="/screamer2.png" durationMs={800} />
+            <ScreamerOverlay2 imageUrl="/screamer2.png" durationMs={800} delayMs={120}/>
 
             <div
                 className={`${styles.zone} ${styles.zone2}`}

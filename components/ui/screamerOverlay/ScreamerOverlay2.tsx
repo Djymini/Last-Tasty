@@ -10,6 +10,8 @@ export type ScreamerOverlayProps = {
   enabled?: boolean;
 };
 
+import { usePathname } from "next/navigation";
+
 export default function ScreamerOverlay2({
                                            delayMs = 2000,
                                            durationMs = 800,
@@ -17,18 +19,17 @@ export default function ScreamerOverlay2({
                                            enabled = true,
                                          }: ScreamerOverlayProps) {
   const [visible, setVisible] = useState(false);
+  const pathname = usePathname();
 
-  const hasTriggeredRef = useRef(false);
   const hideTimeoutRef = useRef<number | null>(null);
   const showTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     if (!enabled) return;
 
-    // 🔒 empêche toute redéclenchement
-    if (hasTriggeredRef.current) return;
-    hasTriggeredRef.current = true;
-
+    // reset à chaque changement de page
+    if (showTimeoutRef.current) window.clearTimeout(showTimeoutRef.current);
+    if (hideTimeoutRef.current) window.clearTimeout(hideTimeoutRef.current);
 
     showTimeoutRef.current = window.setTimeout(() => {
       setVisible(true);
@@ -42,7 +43,7 @@ export default function ScreamerOverlay2({
       if (showTimeoutRef.current) window.clearTimeout(showTimeoutRef.current);
       if (hideTimeoutRef.current) window.clearTimeout(hideTimeoutRef.current);
     };
-  }, [enabled, delayMs, durationMs]);
+  }, [pathname, enabled, delayMs, durationMs]); // 👈 IMPORTANT
 
   if (!visible) return null;
 
