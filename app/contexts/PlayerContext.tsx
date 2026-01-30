@@ -21,9 +21,7 @@ export const PlayerProvider = ({ children }: PlayerProviderProps) => {
     const [value, setValue] = useState<PlayerType>({
         sessionNumber: "",
         location: "",
-        inventory: [
-            { idItem: 1, name: "IRON SWORD", description: "A sturdy blade forged in fire. +10 ATK", image: "/icons/fire_book.png" }
-        ],
+        inventory: [],
         idProgression: 0,
         introductionIsViewed: false,
         postitIsViewed: false,

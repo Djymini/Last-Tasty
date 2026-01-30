@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/8bit/card";
 import styles from "./app.module.css"
 import {Input} from "@/components/ui/8bit/input";
+import {Rain} from "@/components/ui/rain/rain";
 
 
 
@@ -80,6 +81,7 @@ export default function Home() {
 
     return (
         <main className={styles.bg}>
+            <Rain></Rain>
             {isReady
                 ? <Card>
                     {!isBeginning && !isContinue && (
@@ -110,15 +112,22 @@ export default function Home() {
                         <>
                             <CardHeader>
                                 <CardTitle>Entrez votre code</CardTitle>
+                                <button
+                                    onClick={() => setContinue(false)}
+                                    className="absolute right-3 top-3 rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+                                    aria-label="Fermer"
+                                >
+                                    ✕
+                                </button>
                             </CardHeader>
-                            <CardContent>
+                            <CardContent className="flex flex-col justify-center gap-4">
                                 <Input placeholder="Code de session" value={code} onChange={(e) => setCode(e.target.value)}/>
                                 <Button onClick={continueParty}>Jouer</Button>
                             </CardContent>
                         </>
                     )}
                 </Card>
-                : <Button className="flex items-center gap-2" onClick={() => setReady(true)}>Commencer</Button>}
+                : <h2 className={styles.fadeLoop} onClick={() => setReady(true)}>Commencer</h2>}
         </main>
     )
 }

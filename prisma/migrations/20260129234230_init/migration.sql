@@ -10,6 +10,7 @@ CREATE TABLE `party` (
 CREATE TABLE `item` (
     `id_item` INTEGER NOT NULL AUTO_INCREMENT,
     `name` VARCHAR(191) NOT NULL,
+    `description` VARCHAR(191) NOT NULL,
     `image_url` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `item_name_key`(`name`),
