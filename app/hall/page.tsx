@@ -9,6 +9,7 @@ import {InfoBubble} from "@/components/ui/shared/InfoBubble";
 import {InventoryBoard} from "@/components/ui/inventory-board";
 import {usePlayerContext} from "@/app/contexts/PlayerContext";
 import Dialogue from "@/components/ui/8bit/blocks/dialogue";
+import {toast} from "@/components/ui/8bit/toast";
 
 type CursorDir = "up" | "left" | "right" | "down";
 
@@ -29,6 +30,22 @@ export default function HallPage() {
             ...prev,
             introductionIsViewed: true,
         }));
+
+        if (!context.value.inventory.some(item => item.name === "Tasty Krousty")){
+            context.setValue(prev => ({
+                ...prev,
+                inventory: [
+                    ...prev.inventory,
+                    {
+                        idItem: 14,
+                        name: "Tasty Krousty",
+                        description: "Ma commande du jour : si j'avais su. Mais n'hésité à me mettre 5 étoiles",
+                        image: "/icons/tasty.png"
+                    }
+                ]
+            }));
+
+        }
     };
 
     useEffect(() => {
@@ -99,7 +116,7 @@ export default function HallPage() {
     const dialogues = [
         {
             speaker: "?",
-            text: "Que faites vous ici ? Vous devez vous enfuir c'est un piège de René les livres et le marque page sont la clé. Bonne chance !",
+            text: "Que faites vous ici ? Vous devez vous enfuir. Cette maison est bizarre. Pour sortir les livres et le marque page sont la clé. Une carte se trouve dans le salon Bonne chance !",
             avatarSrc: "https://api.dicebear.com/7.x/pixel-art/svg?seed=hero",
             avatarFallback: "HR",
             isPlayer: true,

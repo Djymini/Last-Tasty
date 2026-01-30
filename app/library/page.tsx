@@ -49,6 +49,16 @@ export default function LibraryPage() {
             ]
         }));
         toast("3 livres aont été ramassés")
+
+        context.setValue(prev => ({
+            ...prev,
+            inventory: prev.inventory.map(item =>
+                item.name === "Tasty Krousty"
+                    ? { ...item,description: "il est vide ?", image: "/icons/tasty_hollow.png" }
+                    : item
+            )
+        }));
+
         router.push("/library?books=1");
         setOpen(null);
     };

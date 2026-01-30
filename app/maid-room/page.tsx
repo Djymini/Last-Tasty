@@ -31,12 +31,12 @@ export default function MaidRoomPage() {
                     {
                         idItem: 11,
                         name: "Note du journal du majordome",
-                        description: "La pie a encore volé la clé de la bibliothèque. Je vais devoir aller chercher l'echelle à la cave pour la récupérer",
+                        description: "Mme Josette est venu me voir pour la clé. Je vais devoir aller chercher l'echelle pour atteindre le nid ",
                         image: "/icons/notepad.png"
                     }
                 ]
             }));
-            toast("Note du journal du majordome ramassé")
+            toast("Note du journal du majordome ramassée")
         }
     }
 
@@ -50,7 +50,7 @@ export default function MaidRoomPage() {
                 {open === 1 && (
                     <InfoBubble
                         title="Lit"
-                        description="Ce majordome est bien lotit !"
+                        description="Ce majordome est bien loti !"
                         style={{
                             position: "absolute",
                             top: "12px",
@@ -66,7 +66,7 @@ export default function MaidRoomPage() {
                 {open === 2 && (
                     <InfoBubble
                         title="Journal"
-                        description="Journal de Bob le majordome, il semblerait contenir une note intéressante ..."
+                        description="Journal de Bob le majordome, il semble contenir une note intéressante ..."
                         top="-15%"
                         left="-15%"
                         width="70%"
