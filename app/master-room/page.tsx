@@ -26,8 +26,8 @@ export default function LivingRoomPage() {
     );
 
     const bookDescription = hasBook
-        ? "Bizarre l'ambiance j'ai déjà le marque page"
-        : "ça pourrait m'être utile !";
+        ? "Bizarre l'ambiance, j'ai déjà le marque-page"
+        : "Ça pourrait m'être utile !";
 
     const onTakeBookmark = () => {
         context.setValue(prev => ({
@@ -36,14 +36,14 @@ export default function LivingRoomPage() {
                 ...prev.inventory,
                 {
                     idItem: 7,
-                    name: "Marque page de René",
-                    description: "Note du code : Arbre 10, Feu 4, Pluie 20, Soleil 2, Coeur 13. Ce marque page fais la taille d'un livre !",
+                    name: "Marque-page de René",
+                    description: "Note du code : Arbre 10, Feu 4, Pluie 20, Soleil 2, Coeur 13. Ce marque-page fait la taille d'un livre !",
                     image: "/icons/bookmark.png"
                 },
                 {
                     idItem: 8,
                     name: "Le satanisme pour les nuls",
-                    description: "Un livre avec un symbole de feu. Il est apparu quand j'ai récupére le marque-page... Hum",
+                    description: "Un livre avec un symbole de feu. Il est apparu quand j'ai récupéré le marque-page... Hum",
                     image: "/icons/fire_book.png"
                 }
             ]
@@ -80,7 +80,7 @@ export default function LivingRoomPage() {
 
                     {open === 2 && (
                         <InfoBubble
-                            title="Marque page de René"
+                            title="8"
                             description={bookDescription}
                             top="20%"
                             left="70%"
