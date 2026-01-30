@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 import {InventoryBoard} from "@/components/ui/inventory-board";
 import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import {toast} from "@/components/ui/8bit/toast";
 
 export default function LivingRoomPage() {
     const router = useRouter();
@@ -48,6 +49,7 @@ export default function LivingRoomPage() {
                 }
             ]
         }));
+        toast("Marque-page et livre ramassés")
         router.push("/master-room?bookmark=1");
     };
 

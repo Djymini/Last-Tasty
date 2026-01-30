@@ -7,6 +7,7 @@ import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import { Button } from "@/components/ui/button";
 import {usePlayerContext} from "@/app/contexts/PlayerContext";
 import {InventoryBoard} from "@/components/ui/inventory-board";
+import {toast} from "@/components/ui/8bit/toast";
 
 export default function NestPage() {
     const router = useRouter();
@@ -29,6 +30,7 @@ export default function NestPage() {
                 }
             ]
         }));
+        toast("Clé ramassée")
         router.push(`/garden?ladder=${hasLadder ? "1" : "0"}&key=1`);
     };
 

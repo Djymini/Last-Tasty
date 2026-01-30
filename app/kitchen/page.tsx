@@ -15,6 +15,7 @@ import { useTimedOpen } from "@/app/hooks/useTimedOpen";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 import { usePlayerContext } from "@/app/contexts/PlayerContext";
 import { addItemOnce } from "@/app/utils/inventory";
+import {toast} from "@/components/ui/8bit/toast";
 
 export default function KitchenPage() {
     const router = useRouter();
@@ -63,6 +64,8 @@ export default function KitchenPage() {
             ...prev,
             inventory: addItemOnce(prev.inventory, NOTE_ITEM),
         }));
+        toast("Post-it ramassé")
+
     };
 
     const onTakeBook = () => {
@@ -70,6 +73,7 @@ export default function KitchenPage() {
             ...prev,
             inventory: addItemOnce(prev.inventory, BOOK_ITEM),
         }));
+        toast("Livre ramassé")
     };
 
     const zones = [
@@ -79,7 +83,7 @@ export default function KitchenPage() {
             bubble: (
                 <InfoBubble
                     title="Un étrange document"
-                    description={hasNote ? "Je l'ai déjà récupéré." : "Il me sera sûrement utile."}
+                    description={hasNote ? "Je viens de le récuperer non ?" : "Il me sera sûrement utile."}
                     top="12%"
                     left="-180%"
                 >
@@ -120,7 +124,7 @@ export default function KitchenPage() {
             bubble: (
                 <InfoBubble
                     title="Livre"
-                    description={hasBook ? "Je l'ai déjà récupéré." : "Ce livre semble être un indice."}
+                    description={hasBook ? "C'est trop bizarre !" : "Ce livre semble être un indice."}
                     top="150px"
                     left="250px"
                 >

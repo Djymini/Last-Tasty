@@ -11,6 +11,7 @@ import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import {usePlayerContext} from "@/app/contexts/PlayerContext";
 import {InventoryBoard} from "@/components/ui/inventory-board";
 import {Button} from "@/components/ui/button";
+import {toast} from "@/components/ui/8bit/toast";
 
 type CursorDir = "up" | "down" | "left" | "right";
 
@@ -72,6 +73,7 @@ export default function Cellar2() {
                 }
             ]
         }));
+        toast("Echelle ramassée")
         router.push("/basement/cellar3")
     }
 

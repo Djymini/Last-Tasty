@@ -47,7 +47,7 @@ export default function LivingRoomPage() {
     );
 
     const hasBlueprint = context.value.inventory.some(
-        item => item.name === "Plan de la maison"
+        item => item.name === "MANOR MAP"
     );
 
     const blueprintDescription = hasBlueprint
@@ -56,23 +56,14 @@ export default function LivingRoomPage() {
 
 
     const onTakeBlueprint = () => {
-        if (!context.value.inventory.some(item => item.name === "Plan de la maison")){
-            context.setValue(prev => ({
+        if (!context.value.inventory.some(item => item.name === "MANOR MAP")) {
+            context.setValue((prev) => ({
                 ...prev,
-                inventory: [
-                    ...prev.inventory,
-                    {
-                        idItem: 5,
-                        name: "Plan de la maison",
-                        description: "Le plan du manoir",
-                        image: "/icons/map.png"
-                    }
-                ]
+                inventory: addItemOnce(prev.inventory, MANOR_MAP_ITEM),
             }));
-            toast("Carte ajoutée au formulaire")
+            toast("Plan du manoir ramassé")
+            router.push("/living-room?blueprint=1");
         }
-
-        router.push("/living-room?blueprint=1");
     };
 
 
@@ -142,10 +133,7 @@ export default function LivingRoomPage() {
                                     <Button
                                         variant="outline"
                                         className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
-                                        onClick={() => {
-                                            onTakeBlueprint();
-                                            router.push("/living-room/page-2");
-                                        }}
+                                        onClick={onTakeBlueprint}
                                     >
                                         Ramasser
                                     </Button>
