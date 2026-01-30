@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
 import {PlayerProvider} from "@/app/contexts/PlayerContext";
+import {ManorMapHud} from "@/components/ui/plans/ManorMapHud";
 
 const pressStart = localFont({
     src: [
@@ -39,6 +40,7 @@ export default function RootLayout({
     <html lang="en" className={pressStart.variable}>
       <body>
       <PlayerProvider>
+          <ManorMapHud />
           {children}
       </PlayerProvider>
       </body>

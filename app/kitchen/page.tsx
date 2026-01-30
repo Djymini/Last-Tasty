@@ -29,7 +29,7 @@ export default function KitchenPage() {
                 <InfoBubble
                     title="Un étrange document"
                     description="Il me sera sûrement utile."
-                    top="13%"
+                    top="12%"
                     left="-180%"
                 />
             ),
