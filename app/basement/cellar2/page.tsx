@@ -134,17 +134,20 @@ export default function Cellar2() {
                         description={ladderDescription}
                         top="40%"
                         left="35%"
-                    />
+                        width="25%"
+                    >
                     {!hasLadder && (
-                        <button
-                            type="button"
-                            className={styles.bubbleAction}
-                            onClick={pickupTheLadder}
-                        >
-                            Récupérer cette échelle
-                        </button>
+                        <div style={{ marginTop: 12, textAlign: "right" }}>
+                            <Button
+                                variant="outline"
+                                className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
+                                onClick={pickupTheLadder}
+                            >
+                                Récupérer cette échelle
+                            </Button>
+                        </div>
                     )}
-
+                    </InfoBubble>
                 </>
             )}
 

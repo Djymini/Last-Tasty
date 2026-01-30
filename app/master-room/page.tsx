@@ -26,8 +26,8 @@ export default function LivingRoomPage() {
     );
 
     const bookDescription = hasBook
-        ? "Bizarre l'ambiance j'ai déjà le marque page"
-        : "ça pourrait m'être utile !";
+        ? "Bizarre l'ambiance, j'ai déjà le marque-page"
+        : "Ça pourrait m'être utile !";
 
     const onTakeBookmark = () => {
         context.setValue(prev => ({
@@ -43,7 +43,7 @@ export default function LivingRoomPage() {
                 {
                     idItem: 8,
                     name: "Le satanisme pour les nuls",
-                    description: "Un livre avec un symbole de feu. Il est apparu quand j'ai récupére le marque-page... Hum",
+                    description: "Un livre avec un symbole de feu. Il est apparu quand j'ai récupéré le marque-page... Hum",
                     image: "/icons/fire_book.png"
                 }
             ]
