@@ -1,0 +1,39 @@
+.bg {
+    background-image: url("/last_tasty_home_screen.webp");
+    background-size: cover ;
+    background-position: bottom;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+}
+
+.title{
+    font-size: 128px;
+    color: white;
+}
+
+.container{
+    display: flex;
+    gap: 16px;
+}
+
+.fadeLoop {
+    font-size: 72px;
+    font-weight: bold;
+    cursor: grab;
+    color: white;
+    animation: fadeLoop 2s ease-in-out infinite;
+}
+
+@keyframes fadeLoop {
+    0%   { opacity: 0; }
+    25%  { opacity: 1; }
+    75%  { opacity: 1; }
+    100% { opacity: 0; }
+}
+
+

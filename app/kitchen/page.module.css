@@ -1,0 +1,47 @@
+.main {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../../public/rooms/kitchen.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+
+.zone {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+
+.zone1 {
+    top: 16%;
+    left: 43%;
+    width: 8%;
+    height: 25%;
+}
+
+.zone2 {
+    top: 14%;
+    left: 87%;
+    width: 9%;
+    height: 15%;
+}
+
+.zone3 {
+    top: 0;
+    left: 4%;
+    height: 44%;
+    width: 15%;
+}
+
+.zone4 {
+    top: 55%;
+    left: 60%;
+    width: 9%;
+    height: 15%;
+}
+

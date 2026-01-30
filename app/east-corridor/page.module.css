@@ -1,0 +1,42 @@
+.page {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../../public/rooms/couloir.png");
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.door1 {
+    position: absolute;
+
+    top: 5vh;
+    left: 12vw;
+    width: 9vw;
+    height: 88vh;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.door2 {
+    position: absolute;
+
+    top: 22vh;
+    right: 28vw;
+    width: 6vw;
+    height: 53vh;
+    z-index: 10;
+    cursor: pointer;
+}
+
+.door3 {
+    position: absolute;
+
+    top: 5vh;
+    right: 12vw;
+    width: 9vw;
+    height: 88vh;
+    z-index: 10;
+    cursor: pointer;
+}
