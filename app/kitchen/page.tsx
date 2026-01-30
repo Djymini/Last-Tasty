@@ -1,27 +1,76 @@
 "use client";
 
 import { useRouter } from "next/navigation";
+import { useMemo, useState, useEffect } from "react";
 import styles from "@/app/kitchen/page.module.css";
+
 import { InfoBubble } from "@/components/ui/shared/InfoBubble";
 import InteractiveZone from "@/components/ui/shared/InteractiveZone/InteractiveZone";
 import CursorOverlay from "@/components/ui/shared/cursorOverlay/CursorOverlay";
 import ScreamerOverlay from "@/components/ui/screamerOverlay/ScreamerOverlay";
+import { InventoryBoard } from "@/components/ui/inventory-board";
+import { Button } from "@/components/ui/button";
+
 import { useTimedOpen } from "@/app/hooks/useTimedOpen";
 import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
-import { useState } from "react";
-import {InventoryBoard} from "@/components/ui/inventory-board";
-import {usePlayerContext} from "@/app/contexts/PlayerContext";
-import ScreamerOverlay2 from "@/components/ui/screamerOverlay/ScreamerOverlay2";
+import { usePlayerContext } from "@/app/contexts/PlayerContext";
+import { addItemOnce } from "@/app/utils/inventory";
 
 export default function KitchenPage() {
     const router = useRouter();
+    const context = usePlayerContext();
 
     const { open, show } = useTimedOpen(2500);
     const { cursor, show: showCursor, move, hide } = useCursorOverlay();
 
     const [screamerOpen, setScreamerOpen] = useState(false);
-    const context = usePlayerContext();
 
+    useEffect(() => {
+        if (!screamerOpen) return;
+
+        const timer = setTimeout(() => {
+            setScreamerOpen(false);
+        }, 500);
+
+        return () => clearTimeout(timer);
+    }, [screamerOpen]);
+
+    const NOTE_ITEM = useMemo(
+        () => ({
+            idItem: 3,
+            name: "Note du post-it trouvé dans la cuisine",
+            description: "Voir le majordome pour la pie",
+            image: "/icons/notepad.png",
+        }),
+        []
+    );
+
+    const BOOK_ITEM = useMemo(
+        () => ({
+            idItem: 9,
+            name: "Enterre moi mon amour",
+            description: "Un livre avec un symbole de coeur",
+            image: "/icons/heart_book.png",
+        }),
+        []
+    );
+
+    const hasNote = context.value.inventory.some((i) => i.name === NOTE_ITEM.name);
+    const hasBook = context.value.inventory.some((i) => i.name === BOOK_ITEM.name);
+
+    const onTakeNote = () => {
+        context.setValue((prev) => ({
+            ...prev,
+            inventory: addItemOnce(prev.inventory, NOTE_ITEM),
+        }));
+    };
+
+    const onTakeBook = () => {
+        context.setValue((prev) => ({
+            ...prev,
+            inventory: addItemOnce(prev.inventory, BOOK_ITEM),
+        }));
+    };
 
     const zones = [
         {
@@ -30,28 +79,27 @@ export default function KitchenPage() {
             bubble: (
                 <InfoBubble
                     title="Un étrange document"
-                    description="Il me sera sûrement utile."
+                    description={hasNote ? "Je l'ai déjà récupéré." : "Il me sera sûrement utile."}
                     top="12%"
                     left="-180%"
-                />
+                >
+                    {!hasNote && (
+                        <div style={{ marginTop: 12, textAlign: "right" }}>
+                            <Button
+                                variant="outline"
+                                className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onTakeNote();
+                                }}
+                            >
+                                Ramasser
+                            </Button>
+                        </div>
+                    )}
+                </InfoBubble>
             ),
-            action: () => {
-                if (!context.value.inventory.some(item => item.name === "Note du post-it trouvé dans la cuisine")){
-                    context.setValue(prev => ({
-                        ...prev,
-                        inventory: [
-                            ...prev.inventory,
-                            {
-                                idItem: 3,
-                                name: "Note du post-it trouvé dans la cuisine",
-                                description: "Voir le majordome pour la pie",
-                                image: "/icons/notepad.png"
-                            }
-                        ]
-                    }));
-                }
-                show(2);
-            }
+            action: () => show(2),
         },
         {
             id: 3,
@@ -64,45 +112,42 @@ export default function KitchenPage() {
                     left="250px"
                 />
             ),
-            action: () => {show(3);}
+            action: () => show(3),
         },
         {
             id: 4,
             className: styles.zone4,
-            bubble:(
+            bubble: (
                 <InfoBubble
                     title="Livre"
-                    description={"Ce livre semble etre un indice"}
+                    description={hasBook ? "Je l'ai déjà récupéré." : "Ce livre semble être un indice."}
                     top="150px"
                     left="250px"
-                />
-             ),
-            action: () => {
-                if (!context.value.inventory.some(item => item.name === "Enterre moi mon amour")){
-                    context.setValue(prev => ({
-                        ...prev,
-                        inventory: [
-                            ...prev.inventory,
-                            {
-                                idItem: 9,
-                                name: "Enterre moi mon amour",
-                                description: "Un livre avec un symbole de coeur",
-                                image: "/icons/heart_book.png"
-                            }
-                        ]
-                    }));
-                }
-                show(4);
-            }}
+                >
+                    {!hasBook && (
+                        <div style={{ marginTop: 12, textAlign: "right" }}>
+                            <Button
+                                variant="outline"
+                                className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onTakeBook();
+                                }}
+                            >
+                                Ramasser
+                            </Button>
+                        </div>
+                    )}
+                </InfoBubble>
+            ),
+            action: () => show(4),
+        },
     ];
-
-
 
     return (
         <main className={styles.main}>
-            <ScreamerOverlay2 imageUrl={"/screamer.png"} durationMs={800}/>
-
             <InventoryBoard rows={2} cols={6} />
+
             <ScreamerOverlay
                 open={screamerOpen}
                 src="screamer.png"
@@ -132,7 +177,7 @@ export default function KitchenPage() {
             <InteractiveZone
                 top="75%"
                 left="0%"
-                width="100%"
+                width="60%"
                 height="25%"
                 label="Retour vers le hall"
                 dir="down"
