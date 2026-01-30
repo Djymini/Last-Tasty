@@ -11,6 +11,7 @@ import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 import { useState } from "react";
 import {InventoryBoard} from "@/components/ui/inventory-board";
 import {usePlayerContext} from "@/app/contexts/PlayerContext";
+import ScreamerOverlay2 from "@/components/ui/screamerOverlay/ScreamerOverlay2";
 
 export default function KitchenPage() {
     const router = useRouter();
@@ -20,6 +21,7 @@ export default function KitchenPage() {
 
     const [screamerOpen, setScreamerOpen] = useState(false);
     const context = usePlayerContext();
+
 
     const zones = [
         {
@@ -62,10 +64,25 @@ export default function KitchenPage() {
             ),
             action: () => {show(3);}
         },
+        {
+            id: 4,
+            className: styles.zone4,
+            bubble:(
+                <InfoBubble
+                    title="Livre"
+                    description={"Ce livre semble etre un indice"}
+                    top="150px"
+                    left="250px"
+                />
+             ),
+            action : ()=> {show(4)}
+        }
     ];
 
     return (
         <main className={styles.main}>
+            <ScreamerOverlay2 imageUrl={"/screamer.png"} durationMs={800}/>
+
             <InventoryBoard rows={2} cols={6} />
             <ScreamerOverlay
                 open={screamerOpen}
