@@ -40,7 +40,7 @@ export default function KitchenPage() {
         () => ({
             idItem: 3,
             name: "Note du post-it trouvé dans la cuisine",
-            description: "Voir le majordome pour la pie",
+            description: "Cette satané pie a encore volé la clé de la bibliothèque : voir avec majordome",
             image: "/icons/notepad.png",
         }),
         []

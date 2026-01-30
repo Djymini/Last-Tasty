@@ -31,7 +31,7 @@ export default function MaidRoomPage() {
                     {
                         idItem: 11,
                         name: "Note du journal du majordome",
-                        description: "La pie a encore volé la clé de la bibliothèque. Je vais devoir aller chercher l'echelle à la cave pour la récupérer",
+                        description: "Mme Josette est venu me voir pour la clé. Je vais devoir aller chercher l'echelle pour recupéré atteindre le nid ",
                         image: "/icons/notepad.png"
                     }
                 ]
