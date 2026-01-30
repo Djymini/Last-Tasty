@@ -13,6 +13,7 @@ const KEYS = [
     "E", "F", "G", "H",
     "I","K", "J", "L",
     "M", "N", "O", "P",
+
 ];
 
 export default function Entrance() {
