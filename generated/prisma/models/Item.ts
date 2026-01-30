@@ -37,18 +37,21 @@ export type ItemSumAggregateOutputType = {
 export type ItemMinAggregateOutputType = {
   id_item: number | null
   name: string | null
+  description: string | null
   image_url: string | null
 }
 
 export type ItemMaxAggregateOutputType = {
   id_item: number | null
   name: string | null
+  description: string | null
   image_url: string | null
 }
 
 export type ItemCountAggregateOutputType = {
   id_item: number
   name: number
+  description: number
   image_url: number
   _all: number
 }
@@ -65,18 +68,21 @@ export type ItemSumAggregateInputType = {
 export type ItemMinAggregateInputType = {
   id_item?: true
   name?: true
+  description?: true
   image_url?: true
 }
 
 export type ItemMaxAggregateInputType = {
   id_item?: true
   name?: true
+  description?: true
   image_url?: true
 }
 
 export type ItemCountAggregateInputType = {
   id_item?: true
   name?: true
+  description?: true
   image_url?: true
   _all?: true
 }
@@ -170,6 +176,7 @@ export type ItemGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 export type ItemGroupByOutputType = {
   id_item: number
   name: string
+  description: string
   image_url: string
   _count: ItemCountAggregateOutputType | null
   _avg: ItemAvgAggregateOutputType | null
@@ -199,6 +206,7 @@ export type ItemWhereInput = {
   NOT?: Prisma.ItemWhereInput | Prisma.ItemWhereInput[]
   id_item?: Prisma.IntFilter<"Item"> | number
   name?: Prisma.StringFilter<"Item"> | string
+  description?: Prisma.StringFilter<"Item"> | string
   image_url?: Prisma.StringFilter<"Item"> | string
   inventory?: Prisma.InventoryListRelationFilter
 }
@@ -206,6 +214,7 @@ export type ItemWhereInput = {
 export type ItemOrderByWithRelationInput = {
   id_item?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   image_url?: Prisma.SortOrder
   inventory?: Prisma.InventoryOrderByRelationAggregateInput
   _relevance?: Prisma.ItemOrderByRelevanceInput
@@ -218,12 +227,14 @@ export type ItemWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.ItemWhereInput | Prisma.ItemWhereInput[]
   OR?: Prisma.ItemWhereInput[]
   NOT?: Prisma.ItemWhereInput | Prisma.ItemWhereInput[]
+  description?: Prisma.StringFilter<"Item"> | string
   inventory?: Prisma.InventoryListRelationFilter
 }, "id_item" | "name" | "image_url">
 
 export type ItemOrderByWithAggregationInput = {
   id_item?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   image_url?: Prisma.SortOrder
   _count?: Prisma.ItemCountOrderByAggregateInput
   _avg?: Prisma.ItemAvgOrderByAggregateInput
@@ -238,11 +249,13 @@ export type ItemScalarWhereWithAggregatesInput = {
   NOT?: Prisma.ItemScalarWhereWithAggregatesInput | Prisma.ItemScalarWhereWithAggregatesInput[]
   id_item?: Prisma.IntWithAggregatesFilter<"Item"> | number
   name?: Prisma.StringWithAggregatesFilter<"Item"> | string
+  description?: Prisma.StringWithAggregatesFilter<"Item"> | string
   image_url?: Prisma.StringWithAggregatesFilter<"Item"> | string
 }
 
 export type ItemCreateInput = {
   name: string
+  description: string
   image_url: string
   inventory?: Prisma.InventoryCreateNestedManyWithoutItemInput
 }
@@ -250,12 +263,14 @@ export type ItemCreateInput = {
 export type ItemUncheckedCreateInput = {
   id_item?: number
   name: string
+  description: string
   image_url: string
   inventory?: Prisma.InventoryUncheckedCreateNestedManyWithoutItemInput
 }
 
 export type ItemUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   image_url?: Prisma.StringFieldUpdateOperationsInput | string
   inventory?: Prisma.InventoryUpdateManyWithoutItemNestedInput
 }
@@ -263,6 +278,7 @@ export type ItemUpdateInput = {
 export type ItemUncheckedUpdateInput = {
   id_item?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   image_url?: Prisma.StringFieldUpdateOperationsInput | string
   inventory?: Prisma.InventoryUncheckedUpdateManyWithoutItemNestedInput
 }
@@ -270,17 +286,20 @@ export type ItemUncheckedUpdateInput = {
 export type ItemCreateManyInput = {
   id_item?: number
   name: string
+  description: string
   image_url: string
 }
 
 export type ItemUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   image_url?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ItemUncheckedUpdateManyInput = {
   id_item?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   image_url?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -293,6 +312,7 @@ export type ItemOrderByRelevanceInput = {
 export type ItemCountOrderByAggregateInput = {
   id_item?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   image_url?: Prisma.SortOrder
 }
 
@@ -303,12 +323,14 @@ export type ItemAvgOrderByAggregateInput = {
 export type ItemMaxOrderByAggregateInput = {
   id_item?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   image_url?: Prisma.SortOrder
 }
 
 export type ItemMinOrderByAggregateInput = {
   id_item?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  description?: Prisma.SortOrder
   image_url?: Prisma.SortOrder
 }
 
@@ -345,12 +367,14 @@ export type ItemUpdateOneRequiredWithoutInventoryNestedInput = {
 
 export type ItemCreateWithoutInventoryInput = {
   name: string
+  description: string
   image_url: string
 }
 
 export type ItemUncheckedCreateWithoutInventoryInput = {
   id_item?: number
   name: string
+  description: string
   image_url: string
 }
 
@@ -372,12 +396,14 @@ export type ItemUpdateToOneWithWhereWithoutInventoryInput = {
 
 export type ItemUpdateWithoutInventoryInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   image_url?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type ItemUncheckedUpdateWithoutInventoryInput = {
   id_item?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.StringFieldUpdateOperationsInput | string
   image_url?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -415,6 +441,7 @@ export type ItemCountOutputTypeCountInventoryArgs<ExtArgs extends runtime.Types.
 export type ItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id_item?: boolean
   name?: boolean
+  description?: boolean
   image_url?: boolean
   inventory?: boolean | Prisma.Item$inventoryArgs<ExtArgs>
   _count?: boolean | Prisma.ItemCountOutputTypeDefaultArgs<ExtArgs>
@@ -425,10 +452,11 @@ export type ItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 export type ItemSelectScalar = {
   id_item?: boolean
   name?: boolean
+  description?: boolean
   image_url?: boolean
 }
 
-export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_item" | "name" | "image_url", ExtArgs["result"]["item"]>
+export type ItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id_item" | "name" | "description" | "image_url", ExtArgs["result"]["item"]>
 export type ItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   inventory?: boolean | Prisma.Item$inventoryArgs<ExtArgs>
   _count?: boolean | Prisma.ItemCountOutputTypeDefaultArgs<ExtArgs>
@@ -442,6 +470,7 @@ export type $ItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id_item: number
     name: string
+    description: string
     image_url: string
   }, ExtArgs["result"]["item"]>
   composites: {}
@@ -815,6 +844,7 @@ export interface Prisma__ItemClient<T, Null = never, ExtArgs extends runtime.Typ
 export interface ItemFieldRefs {
   readonly id_item: Prisma.FieldRef<"Item", 'Int'>
   readonly name: Prisma.FieldRef<"Item", 'String'>
+  readonly description: Prisma.FieldRef<"Item", 'String'>
   readonly image_url: Prisma.FieldRef<"Item", 'String'>
 }
     

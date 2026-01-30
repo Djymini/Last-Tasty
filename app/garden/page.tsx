@@ -36,7 +36,7 @@ export default function GardenPage() {
     const { cursor, show: showCursor, move, hide } = useCursorOverlay();
 
     const onNestClick = () => {
-        if (!hasLadder) return show(1);
+        if (!context.value.inventory.some(item => item.name === "Vieille echelle")) return show(1);
         setOpen(2);
     };
 

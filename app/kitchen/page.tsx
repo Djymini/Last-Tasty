@@ -33,7 +33,7 @@ export default function KitchenPage() {
                     left="-180%"
                 />
             ),
-            action: () => {const addTheNote = () => {
+            action: () => {
                 context.setValue(prev => ({
                     ...prev,
                     inventory: [
@@ -47,7 +47,7 @@ export default function KitchenPage() {
                     ]
                 }));
                 show(2);
-            }}
+            }
         },
         {
             id: 3,
@@ -86,7 +86,7 @@ export default function KitchenPage() {
                 <div
                     key={z.id}
                     className={`${styles.zone} ${z.className}`}
-                    onClick={() => z.action()}
+                    onClick={z.action}
                     role="button"
                 >
                     {open === z.id && z.bubble}

@@ -25,6 +25,7 @@ model Party {
 model Item {
   id_item    Int       @id @default(autoincrement())
   name       String    @unique
+  description String
   image_url  String    @unique
   inventory  Inventory[]
 

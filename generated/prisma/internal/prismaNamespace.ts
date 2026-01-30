@@ -721,6 +721,7 @@ export type PartyScalarFieldEnum = (typeof PartyScalarFieldEnum)[keyof typeof Pa
 export const ItemScalarFieldEnum = {
   id_item: 'id_item',
   name: 'name',
+  description: 'description',
   image_url: 'image_url'
 } as const
 
@@ -766,6 +767,7 @@ export type PartyOrderByRelevanceFieldEnum = (typeof PartyOrderByRelevanceFieldE
 
 export const ItemOrderByRelevanceFieldEnum = {
   name: 'name',
+  description: 'description',
   image_url: 'image_url'
 } as const
 

@@ -27,35 +27,33 @@ export default function LivingRoomPage() {
 
     const [open, setOpen] = useState<OpenZone>(null);
 
-    const openZone = useCallback((zone: Exclude<OpenZone, null>) => {
-        setOpen(zone);
-    }, []);
-
-    const closeZone = useCallback(() => {
-        setOpen(null);
-    }, []);
-
-    const navigateTo = useCallback(
-        (path: string) => {
-            closeZone();
-            router.push(path);
-        },
-        [router, closeZone]
+    const hasBlueprint = context.value.inventory.some(
+        item => item.name === "Plan de la maison"
     );
 
-    const onTakeBlueprint = useCallback(() => {
-        setValue((prev) => ({
-            ...prev,
-            inventory: addItemOnce(prev.inventory, MANOR_MAP_ITEM),
-        }));
+    const blueprintDescription = hasBlueprint
+        ? "Je pensais l'avoir déjà récupéré"
+        : "On dirait les plans du manoir.";
 
-        if (!blueprintTaken) {
-            router.push("/living-room?blueprint=1");
-        } else {
-            closeZone();
+
+    const onTakeBlueprint = () => {
+        if (!context.value.inventory.some(item => item.name === "Plan de la maison")){
+            context.setValue(prev => ({
+                ...prev,
+                inventory: [
+                    ...prev.inventory,
+                    {
+                        idItem: 6,
+                        name: "Plan de la maison",
+                        description: "Ca peut-etre utile pour se repérer",
+                        image: "/icons/map.png"
+                    }
+                ]
+            }));
         }
-        closeZone();
-    }, [setValue, router, blueprintTaken, closeZone]);
+        router.push("/living-room?blueprint=1");
+    };
+
 
     return (
         <main
@@ -112,23 +110,23 @@ export default function LivingRoomPage() {
                     {open === 2 && (
                         <InfoBubble
                             title="Plan"
-                            description="On dirait les plans du manoir."
+                            description={blueprintDescription}
                             top="40%"
                             left="42%"
                             width="15%"
                         >
-                            <div style={{ marginTop: 12, textAlign: "right" }}>
-                                <Button
-                                    variant="outline"
-                                    className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
-                                    onClick={(e) => {
-                                        e.stopPropagation();
-                                        onTakeBlueprint();
-                                    }}
-                                >
-                                    Ramasser
-                                </Button>
-                            </div>
+                            {!hasBlueprint && (
+                                <div style={{ marginTop: 12, textAlign: "right" }}>
+                                    <Button
+                                        variant="outline"
+                                        className="bg-gray-200 text-gray-900 hover:bg-gray-300 border border-gray-400"
+                                        onClick={onTakeBlueprint}
+                                    >
+                                        Ramasser
+                                    </Button>
+                                </div>
+                            )}
+
                         </InfoBubble>
                     )}
                 </>

@@ -30,7 +30,7 @@ export default function LivingRoomPage() {
                     idItem: 7,
                     name: "Marque page de René",
                     description: "Ecrire l'enigme",
-                    image: "/icons/map.png"
+                    image: "/icons/notepad.png"
                 }
             ]
         }));
