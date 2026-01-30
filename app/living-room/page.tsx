@@ -13,12 +13,14 @@ import { useCursorOverlay } from "@/app/hooks/useCursorOverlay";
 import { usePlayerContext } from "@/app/contexts/PlayerContext";
 import {addItemOnce} from "@/app/utils/inventory";
 import {MANOR_MAP_ITEM} from "@/app/constants/items";
+import {InventoryBoard} from "@/components/ui/inventory-board";
 
 type OpenZone = 1 | 2 | 3 | null;
 
 export default function LivingRoomPage() {
     const router = useRouter();
     const searchParams = useSearchParams();
+    const context = usePlayerContext();
 
     const { cursor, show: showCursor, move, hide } = useCursorOverlay();
     const { setValue } = usePlayerContext();
@@ -26,6 +28,22 @@ export default function LivingRoomPage() {
     const blueprintTaken = useMemo(() => searchParams.get("blueprint") === "1", [searchParams]);
 
     const [open, setOpen] = useState<OpenZone>(null);
+
+    const openZone = useCallback((zone: Exclude<OpenZone, null>) => {
+        setOpen(zone);
+    }, []);
+
+    const closeZone = useCallback(() => {
+        setOpen(null);
+    }, []);
+
+    const navigateTo = useCallback(
+        (path: string) => {
+            closeZone();
+            router.push(path);
+        },
+        [router, closeZone]
+    );
 
     const hasBlueprint = context.value.inventory.some(
         item => item.name === "Plan de la maison"
@@ -61,6 +79,7 @@ export default function LivingRoomPage() {
             onClick={closeZone}
             role="presentation"
         >
+            <InventoryBoard rows={2} cols={6} />
             <CursorOverlay {...cursor} />
 
             <div
